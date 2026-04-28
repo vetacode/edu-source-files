@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Auto Feed Artikel HTML JavaScript</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #222;
+        line-height: 1.7;
+      }
+      header {
+        background: linear-gradient(135deg, #0f172a, #2563eb);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 36px;
+      }
+      header p {
+        max-width: 850px;
+        margin: 15px auto 0;
+        font-size: 18px;
+      }
+      .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 30px 20px;
+      }
+      .card {
+        background: white;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+      .card h2 {
+        color: #1d4ed8;
+        margin-top: 0;
+      }
+      .badge {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 7px 14px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+      pre {
+        background: #0f172a;
+        color: #e5e7eb;
+        padding: 20px;
+        border-radius: 14px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        font-size: 15px;
+      }
+      .highlight {
+        background: #ecfdf5;
+        border-left: 6px solid #10b981;
+      }
+      .warning {
+        background: #fff7ed;
+        border-left: 6px solid #f97316;
+      }
+      .formula {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .formula div {
+        background: #eff6ff;
+        padding: 20px;
+        border-radius: 14px;
+        text-align: center;
+        font-weight: bold;
+        color: #1e3a8a;
+      }
+      footer {
+        background: #0f172a;
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+      }
+      @media (max-width: 600px) {
+        header h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Prompt Auto Feed Artikel</h1>
+      <p>
+        Kumpulan prompt siap pakai untuk membuat sistem penarik artikel otomatis
+        menggunakan HTML dan JavaScript.
+      </p>
+    </header>
+
+    <div class="container">
+      <div class="card highlight">
+        <span class="badge">Konsep</span>
+        <h2>Apa Fungsi Prompt Ini?</h2>
+        <p>
+          Prompt ini digunakan untuk meminta AI membuat script HTML dan
+          JavaScript yang mampu menarik artikel dari halaman lain dalam domain
+          yang sama.
+        </p>
+        <p>
+          Teknik yang digunakan adalah <b>fetch</b>, <b>DOMParser</b>, dan
+          <b>querySelector</b>.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="badge">Prompt 1</span>
+        <h2>Prompt Dasar</h2>
+        <pre>
+Buatkan script HTML + JavaScript untuk menampilkan artikel dari halaman lain dalam domain yang sama menggunakan fetch dan DOMParser.
+
+Sumber artikel:
+https://suksespintar.biz.id/2/articles
+
+Struktur HTML sumber:
+- section article
+- img
+- h4 a sebagai judul dan link
+- p sebagai deskripsi
+- small sebagai tanggal
+
+Output:
+- tampilkan maksimal 6 artikel
+- gunakan card layout sederhana
+- responsive
+- tampilkan gambar, judul, deskripsi, dan tanggal
+- jika gagal tampilkan "Gagal memuat data"
+
+Buatkan full HTML siap pakai.</pre
+        >
+      </div>
+
+      <div class="card">
+        <span class="badge">Prompt 2</span>
+        <h2>Prompt Profesional</h2>
+        <pre>
+Saya ingin membuat fitur auto feed artikel menggunakan HTML dan JavaScript tanpa backend.
+
+Buatkan fullpage HTML dengan ketentuan:
+
+1. Mengambil data dari halaman:
+https://suksespintar.biz.id/2/articles
+
+2. Gunakan:
+- fetch()
+- DOMParser
+- querySelector
+
+3. Ambil data:
+- gambar
+- judul
+- link
+- deskripsi maksimal 120 karakter
+- tanggal
+
+4. Tampilkan dalam bentuk:
+- card grid responsive
+- maksimal 6 artikel
+
+5. Tambahkan:
+- loading state
+- error handling
+- desain sederhana modern
+
+6. Kode harus rapi dan mudah diedit.
+
+Output: full HTML siap pakai.</pre
+        >
+      </div>
+
+      <div class="card">
+        <span class="badge">Prompt 3</span>
+        <h2>Prompt Versi Jualan / Kelas</h2>
+        <pre>
+Buatkan sistem Auto Feed Artikel berbasis HTML dan JavaScript yang bisa digunakan untuk portal SEO.
+
+Konsep:
+- Menarik artikel dari halaman lain dalam domain yang sama
+- Tanpa backend
+- Menggunakan fetch dan DOMParser
+
+Spesifikasi:
+- sumber: https://suksespintar.biz.id/2/articles
+- ambil maksimal 6 artikel
+- ambil gambar, judul, link, deskripsi, dan tanggal
+- tampilkan dalam bentuk card modern
+- responsive mobile friendly
+- ada loading dan error state
+
+Tambahkan:
+- struktur kode yang bisa dikembangkan menjadi portal 1000 halaman
+- komentar pada setiap bagian script agar mudah dipahami pemula
+
+Output:
+- full HTML siap pakai
+- clean
+- siap dikembangkan.</pre
+        >
+      </div>
+
+      <div class="card">
+        <span class="badge">Prompt 4</span>
+        <h2>Prompt Level Advance</h2>
+        <pre>
+Buatkan sistem reusable Auto Feed Artikel berbasis HTML dan JavaScript.
+
+Fitur:
+- bisa ganti URL sumber dengan mudah
+- bisa atur jumlah artikel
+- bisa atur selector HTML sumber
+- menggunakan fetch dan DOMParser
+- modular dengan function terpisah
+
+Tambahkan:
+- config di bagian atas script
+- clean code
+- scalable untuk banyak halaman
+- komentar penjelasan agar mudah diedit pemula
+
+Gunakan sumber:
+https://suksespintar.biz.id/2/articles
+
+Output:
+- full HTML
+- script reusable
+- mudah di-copy untuk 100 halaman lebih.</pre
+        >
+      </div>
+
+      <div class="card warning">
+        <span class="badge">Formula Prompt</span>
+        <h2>Rumus Membuat Prompt Sendiri</h2>
+        <p>Kalau ingin membuat prompt sendiri, gunakan rumus sederhana ini:</p>
+
+        <div class="formula">
+          <div>Ambil dari mana?</div>
+          <div>Struktur HTML-nya apa?</div>
+          <div>Data apa yang diambil?</div>
+          <div>Tampilannya seperti apa?</div>
+          <div>Fitur tambahannya apa?</div>
+        </div>
+      </div>
+
+      <div class="card highlight">
+        <span class="badge">Prompt Final</span>
+        <h2>Prompt Paling Direkomendasikan</h2>
+        <pre>
+Buatkan full HTML Auto Feed Artikel menggunakan HTML, CSS, dan JavaScript.
+
+Tujuan:
+Menampilkan artikel otomatis dari halaman lain dalam domain yang sama.
+
+Sumber artikel:
+https://suksespintar.biz.id/2/articles
+
+Gunakan teknologi:
+- fetch()
+- DOMParser
+- querySelectorAll()
+
+Struktur HTML sumber:
+- section article
+- img untuk gambar
+- h4 a untuk judul dan link
+- p untuk deskripsi
+- small untuk tanggal
+
+Tampilan:
+- card grid responsive
+- maksimal 6 artikel
+- desain modern
+- mobile friendly
+- ada loading state
+- ada error handling
+
+Tambahan:
+- buat kode rapi
+- tambahkan komentar penjelasan
+- mudah diedit pemula
+- full HTML siap copy paste.</pre
+        >
+      </div>
+
+      <div class="card">
+        <span class="badge">Kesimpulan</span>
+        <h2>Inti Penggunaan Prompt</h2>
+        <p>
+          Kunci prompt yang bagus adalah menjelaskan sumber, struktur, data yang
+          ingin diambil, dan tampilan akhirnya. Semakin jelas prompt, semakin
+          siap pakai hasil HTML yang dibuat AI.
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      <p>Materi Prompt Auto Feed Artikel - HTML + JavaScript</p>
+    </footer>
+  </body>
+</html>
