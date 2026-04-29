@@ -49,9 +49,78 @@
         background: #fff;
         color: #0b1f3a;
       }
+
+      /* Container utama */
       .mobile {
-        max-width: 430px;
+        width: 100%;
+        max-width: 900px; /* lebih lebar di desktop */
         margin: auto;
+        padding: 10px;
+      }
+
+      /* Desktop scaling */
+      @media (min-width: 768px) {
+        body {
+          font-size: 18px; /* perbesar global */
+        }
+
+        .header {
+          font-size: 22px;
+          padding: 20px;
+        }
+
+        .content {
+          padding: 30px;
+        }
+
+        .card {
+          padding: 30px;
+          border-radius: 20px;
+        }
+
+        .soal {
+          font-size: 26px;
+        }
+
+        .option {
+          font-size: 18px;
+          padding: 15px;
+        }
+
+        .big {
+          font-size: 30px;
+        }
+
+        .note {
+          font-size: 16px;
+          padding: 15px;
+        }
+
+        .share-btn,
+        .restart,
+        .next {
+          font-size: 16px;
+          padding: 14px;
+        }
+      }
+
+      /* Extra besar (laptop / monitor) */
+      @media (min-width: 1200px) {
+        .mobile {
+          max-width: 1100px;
+        }
+
+        body {
+          font-size: 20px;
+        }
+
+        .soal {
+          font-size: 30px;
+        }
+
+        .big {
+          font-size: 34px;
+        }
       }
       .header {
         background: #062b5f;
