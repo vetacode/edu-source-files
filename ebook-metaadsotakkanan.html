@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eBook Meta Ads Otak Kanan</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0b1220;
+        color: #fff;
+        line-height: 1.7;
+      }
+      #login {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #020617, #111827, #312e81);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        padding: 20px;
+      }
+      .login-box {
+        background: #111827;
+        padding: 30px;
+        border-radius: 22px;
+        width: 320px;
+        text-align: center;
+        border: 1px solid #334155;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      }
+      .login-box h2 {
+        color: #facc15;
+      }
+      input {
+        width: 100%;
+        padding: 13px;
+        margin: 8px 0;
+        border-radius: 10px;
+        border: none;
+      }
+      button {
+        width: 100%;
+        padding: 13px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        background: #facc15;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .section {
+        min-height: 100vh;
+        padding: 60px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .content {
+        max-width: 850px;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(45px);
+        transition: all 0.8s ease;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      h1 {
+        font-size: 42px;
+        line-height: 1.2;
+        margin: 0 0 16px;
+      }
+      h2 {
+        color: #facc15;
+      }
+      p {
+        font-size: 18px;
+      }
+      ul {
+        max-width: 650px;
+        margin: 20px auto;
+        text-align: left;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      .quote {
+        margin: 24px 0;
+        padding: 20px;
+        border-left: 6px solid #facc15;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        font-size: 20px;
+      }
+      .cover {
+        background: linear-gradient(135deg, #1e3a8a, #6d28d9, #111827);
+      }
+      .video-section {
+        background: #020617;
+      }
+      .bab1 {
+        background: #0f172a;
+      }
+      .bab2 {
+        background: #111827;
+      }
+      .bab3 {
+        background: #1e293b;
+      }
+      .bab4 {
+        background: #020617;
+      }
+      .bab5 {
+        background: #172554;
+      }
+      .bab6 {
+        background: #1e1b4b;
+      }
+      .cta {
+        background: linear-gradient(135deg, #facc15, #f97316);
+        color: #111;
+      }
+      .cta h2 {
+        color: #111;
+      }
+      .btn {
+        display: inline-block;
+        padding: 15px 26px;
+        background: #111827;
+        color: #fff;
+        border-radius: 50px;
+        text-decoration: none;
+        margin-top: 18px;
+        font-weight: bold;
+      }
+      .video-portrait {
+        width: 100%;
+        max-width: 360px;
+        aspect-ratio: 9/16;
+        margin: 28px auto;
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+        border: 2px solid rgba(250, 204, 21, 0.55);
+        background: #000;
+      }
+      .video-portrait iframe {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 5px;
+        width: 0%;
+        background: #facc15;
+        z-index: 9998;
+      }
+      @media (max-width: 700px) {
+        h1 {
+          font-size: 32px;
+        }
+        .section {
+          padding: 45px 18px;
+        }
+        p {
+          font-size: 17px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="progress" id="progress"></div>
+
+    <div id="login">
+      <div class="login-box">
+        <h2>Login Akses</h2>
+        <p>Masukkan akses eBook</p>
+        <input type="text" id="user" placeholder="Username" />
+        <input type="password" id="pass" placeholder="Password" />
+        <button onclick="login()">Masuk</button>
+        <p id="error" style="color: #fb7185"></p>
+      </div>
+    </div>
+
+    <div id="content" style="display: none">
+      <section class="section cover">
+        <div class="content reveal">
+          <h2>eBook Interaktif</h2>
+          <h1>Meta Ads Otak Kanan</h1>
+          <p>
+            Cara iklan yang tidak hanya membahas landing page dan setting,
+            tetapi juga membahas persepsi, positioning, value, dan market
+            behaviour.
+          </p>
+          <div class="quote">Marketing 2.0 - 6.0</div>
+        </div>
+      </section>
+
+      <section class="section video-section">
+        <div class="content">
+          <h2 class="reveal">Video Pembelajaran</h2>
+          <h1 class="reveal">Pengantar Meta Ads Otak Kanan</h1>
+          <p class="reveal">
+            Tonton video ini terlebih dahulu agar alur berpikirnya lebih mudah
+            dipahami.
+          </p>
+
+          <div class="video-portrait reveal">
+            <iframe
+              src="https://www.youtube.com/embed/h2D5mQgXkTM"
+              title="Video Pembelajaran Meta Ads Otak Kanan"
+              frameborder="0"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bab1">
+        <div class="content">
+          <h2 class="reveal">Bab 1</h2>
+          <h1 class="reveal">Kenapa Banyak Iklan Tidak Menghasilkan?</h1>
+          <p class="reveal">
+            Banyak orang sudah menjalankan iklan, tetapi hasilnya belum sesuai
+            harapan. Landing page sudah dibuat, campaign sudah aktif, budget
+            sudah keluar, namun closing tetap berat.
+          </p>
+          <p class="reveal">
+            Masalahnya sering bukan hanya pada setting iklan. Masalah paling
+            dalam biasanya ada pada cara market memandang produk, penawaran, dan
+            brand.
+          </p>
+          <div class="quote reveal">
+            Iklan gagal bukan selalu karena teknis. Sering kali gagal karena
+            persepsi market belum terbentuk.
+          </div>
+          <p class="reveal">
+            Ketika market belum merasa butuh, belum percaya, belum melihat
+            perbedaan, dan belum merasa bahwa produk itu relevan, maka iklan
+            hanya menjadi biaya.
+          </p>
+        </div>
+      </section>
+
+      <section class="section bab2">
+        <div class="content">
+          <h2 class="reveal">Bab 2</h2>
+          <h1 class="reveal">Kisruh Pakar Branding dan Pakar Ads</h1>
+          <p class="reveal">
+            Pakar Ads biasanya fokus pada angka: CTR, CPC, CPA, ROAS, budget,
+            targeting, campaign, dan adset.
+          </p>
+          <p class="reveal">
+            Pakar Branding biasanya fokus pada persepsi, positioning, trust,
+            value, emosi, makna brand, dan alasan kenapa market harus memilih.
+          </p>
+          <div class="quote reveal">
+            Ads tanpa branding membuat bisnis capek di budget. Branding tanpa
+            ads membuat bisnis lambat bertumbuh.
+          </div>
+          <p class="reveal">
+            Solusinya bukan memilih salah satu, tetapi menyatukan keduanya.
+            Iklan harus tetap teknis, tetapi juga harus punya jiwa branding dan
+            pemahaman market.
+          </p>
+        </div>
+      </section>
+
+      <section class="section bab3">
+        <div class="content">
+          <h2 class="reveal">Bab 3</h2>
+          <h1 class="reveal">Apa Itu Meta Ads Otak Kanan?</h1>
+          <p class="reveal">
+            Meta Ads Otak Kanan adalah pendekatan beriklan yang tidak hanya
+            mengatur iklan agar tampil, tetapi juga mengatur pesan agar
+            dipercaya.
+          </p>
+          <ul class="reveal">
+            <li>
+              Bukan hanya membuat iklan jalan, tetapi membuat iklan punya alasan
+              untuk diklik.
+            </li>
+            <li>
+              Bukan hanya mengejar traffic, tetapi membangun ketertarikan.
+            </li>
+            <li>
+              Bukan hanya menjual produk, tetapi menjual alasan kenapa produk
+              itu penting.
+            </li>
+            <li>
+              Bukan hanya melihat data, tetapi memahami manusia di balik data.
+            </li>
+          </ul>
+          <div class="quote reveal">
+            Iklan bukan hanya soal dilihat. Iklan harus membuat market merasa:
+            “ini untuk saya”.
+          </div>
+        </div>
+      </section>
+
+      <section class="section bab4">
+        <div class="content">
+          <h2 class="reveal">Bab 4</h2>
+          <h1 class="reveal">Empat Pilar Meta Ads Otak Kanan</h1>
+          <ul class="reveal">
+            <li>
+              <strong>Persepsi:</strong> apa yang muncul di kepala market saat
+              melihat brand.
+            </li>
+            <li>
+              <strong>Positioning:</strong> alasan kenapa brand dipilih
+              dibanding pilihan lain.
+            </li>
+            <li>
+              <strong>Value:</strong> nilai yang dirasakan market, bukan sekadar
+              fitur produk.
+            </li>
+            <li>
+              <strong>Market Behaviour:</strong> kebiasaan, keraguan, ketakutan,
+              dan pemicu tindakan market.
+            </li>
+          </ul>
+          <p class="reveal">
+            Empat pilar ini membuat iklan lebih tajam karena tidak hanya bicara
+            produk, tetapi bicara cara berpikir market.
+          </p>
+        </div>
+      </section>
+
+      <section class="section bab5">
+        <div class="content">
+          <h2 class="reveal">Bab 5</h2>
+          <h1 class="reveal">Market Behaviour</h1>
+          <p class="reveal">
+            Market tidak selalu membeli secara logika. Sering kali mereka
+            membeli karena emosi, lalu membenarkannya dengan logika.
+          </p>
+          <p class="reveal">
+            Mereka takut salah pilih. Mereka takut rugi. Mereka takut ditipu.
+            Mereka ingin aman. Mereka ingin terlihat benar. Mereka ingin solusi
+            cepat.
+          </p>
+          <div class="quote reveal">
+            Kalau kita paham behaviour market, kita tidak perlu selalu perang
+            harga.
+          </div>
+          <p class="reveal">
+            Tugas iklan bukan hanya menawarkan, tetapi mengurangi keraguan dan
+            memperbesar keyakinan.
+          </p>
+        </div>
+      </section>
+
+      <section class="section bab6">
+        <div class="content">
+          <h2 class="reveal">Bab 6</h2>
+          <h1 class="reveal">Alur Kerja Meta Ads Otak Kanan</h1>
+          <ul class="reveal">
+            <li>Tentukan siapa market yang paling sakit masalahnya.</li>
+            <li>Pahami kebiasaan dan ketakutan market.</li>
+            <li>Bentuk persepsi yang ingin ditanamkan.</li>
+            <li>Tentukan positioning yang berbeda.</li>
+            <li>Bangun value yang terasa penting.</li>
+            <li>Buat angle iklan yang relevan dengan behaviour market.</li>
+            <li>Susun landing page yang menguatkan trust.</li>
+            <li>Jalankan Meta Ads dan baca datanya.</li>
+          </ul>
+          <div class="quote reveal">
+            Teknis membuat iklan berjalan. Otak kanan membuat iklan punya rasa
+            dan alasan.
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta">
+        <div class="content reveal">
+          <h2>Kesimpulan</h2>
+          <h1>Meta Ads Otak Kanan Adalah Solusi</h1>
+          <p>
+            Kelas ini cocok untuk Anda yang ingin belajar iklan bukan hanya dari
+            setting, tetapi dari cara membaca manusia, persepsi, positioning,
+            value, dan market behaviour.
+          </p>
+          <p><strong>Kelas praktek 80% dan teori 20%.</strong></p>
+          <a
+            class="btn"
+            href="https://wa.me/6285174092993?text=Saya%20mau%20ikut%20kelas%20Meta%20Ads%20Otak%20Kanan"
+          >
+            Daftar via WhatsApp
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      function login() {
+        const u = document.getElementById('user').value.trim();
+        const p = document.getElementById('pass').value.trim();
+
+        if (u === 'admin' && p === '123456') {
+          document.getElementById('login').style.display = 'none';
+          document.getElementById('content').style.display = 'block';
+          localStorage.setItem('ebook_login', 'yes');
+        } else {
+          document.getElementById('error').innerText =
+            'Username atau password salah!';
+        }
+      }
+
+      if (localStorage.getItem('ebook_login') === 'yes') {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      }
+
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        },
+        { threshold: 0.18 }
+      );
+
+      reveals.forEach((el) => observer.observe(el));
+
+      window.addEventListener('scroll', function () {
+        const scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
+        document.getElementById('progress').style.width = progress + '%';
+      });
+
+      document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      document.onkeydown = function (e) {
+        if (e.keyCode === 123) return false;
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+        if (e.ctrlKey && e.keyCode === 85) return false;
+        if (e.ctrlKey && e.keyCode === 83) return false;
+      };
+    </script>
+  </body>
+</html>
