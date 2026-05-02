@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>20 Template Instagram Download JPG</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: white;
+        padding: 20px;
+      }
+
+      /* ===== LAYOUT ===== */
+      .container {
+        max-width: 1150px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 430px;
+        gap: 25px;
+      }
+
+      .panel {
+        background: #1e293b;
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: 28px;
+      }
+      p {
+        color: #cbd5e1;
+        line-height: 1.6;
+      }
+
+      /* ===== TEMPLATE GRID ===== */
+      .template-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .template-btn {
+        padding: 10px;
+        border-radius: 10px;
+        background: #334155;
+        color: white;
+        font-size: 13px;
+        text-align: left;
+        line-height: 1.3;
+        border: 0;
+        cursor: pointer;
+      }
+
+      .template-btn:hover {
+        background: #6366f1;
+      }
+
+      /* ===== INPUT ===== */
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 0;
+        border-radius: 12px;
+        margin: 8px 0 15px;
+        font-size: 15px;
+      }
+
+      textarea {
+        height: 120px;
+      }
+
+      /* ===== PREVIEW ===== */
+      .preview-wrap {
+        display: flex;
+        justify-content: center;
+      }
+
+      .preview {
+        width: 360px;
+        height: 640px;
+        background: linear-gradient(160deg, #111827, #4c1d95);
+        border-radius: 26px;
+        padding: 50px 40px 140px; /* SAFE AREA */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
+      }
+
+      /* background dekor */
+      .preview:before {
+        content: '';
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+        top: -80px;
+        left: -80px;
+      }
+
+      .preview:after {
+        content: '';
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 50%;
+        right: -90px;
+        bottom: -80px;
+      }
+
+      /* ===== BRAND ===== */
+      .brand {
+        position: absolute;
+        top: 40px; /* aman dari atas IG */
+        right: 30px;
+        font-size: 13px;
+        font-weight: bold;
+        opacity: 0.9;
+      }
+
+      /* ===== TEXT ===== */
+      .main-text {
+        font-size: 34px;
+        font-weight: 900;
+        line-height: 1.2;
+        white-space: pre-line;
+      }
+
+      .sub-text {
+        margin-top: 20px;
+        font-size: 18px;
+        line-height: 1.5;
+        opacity: 0.92;
+        white-space: pre-line;
+      }
+
+      /* ===== CTA (INI YANG PALING PENTING) ===== */
+      .cta {
+        position: absolute;
+        bottom: 100px; /* SAFE AREA IG */
+        left: 40px;
+        right: 40px;
+        background: white;
+        color: #111827;
+        padding: 14px;
+        border-radius: 16px;
+        text-align: center;
+        font-weight: 900;
+      }
+
+      /* ===== DOWNLOAD BUTTON ===== */
+      .download-btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 18px;
+        border-radius: 14px;
+        background: #22c55e;
+        color: white;
+        font-size: 16px;
+        border: 0;
+        cursor: pointer;
+      }
+
+      .download-btn:hover {
+        background: #16a34a;
+      }
+
+      /* ===== COLOR PICKER ===== */
+      .color-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .color-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 2px solid white;
+        cursor: pointer;
+      }
+
+      .note {
+        font-size: 14px;
+        color: #94a3b8;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 900px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+
+        .template-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .preview {
+          width: 100%;
+          max-width: 380px;
+          height: 650px;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .template-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="panel">
+        <h1>20 Template Instagram Sederhana</h1>
+        <p>Pilih template, ubah teks, pilih warna, lalu klik Download JPG.</p>
+
+        <h3>Pilih Template</h3>
+
+        <div class="template-grid">
+          <!-- 1 - 10 -->
+          <button class="template-btn" onclick="setTemplate(1)">
+            1. Meta Ads Dasar
+          </button>
+          <button class="template-btn" onclick="setTemplate(2)">
+            2. Klik vs Trust
+          </button>
+          <button class="template-btn" onclick="setTemplate(3)">
+            3. Otak Kiri vs Kanan
+          </button>
+          <button class="template-btn" onclick="setTemplate(4)">
+            4. Market Tidak Beli Produk
+          </button>
+          <button class="template-btn" onclick="setTemplate(5)">
+            5. Produk Sama Hasil Beda
+          </button>
+          <button class="template-btn" onclick="setTemplate(6)">
+            6. Budget Bocor
+          </button>
+          <button class="template-btn" onclick="setTemplate(7)">
+            7. Cara Lihat Market
+          </button>
+          <button class="template-btn" onclick="setTemplate(8)">
+            8. CTR vs Closing
+          </button>
+          <button class="template-btn" onclick="setTemplate(9)">
+            9. Jangan Kejar Leads
+          </button>
+          <button class="template-btn" onclick="setTemplate(10)">
+            10. Kekuatan Hook
+          </button>
+
+          <!-- 11 - 20 -->
+          <button class="template-btn" onclick="setTemplate(11)">
+            11. Positioning
+          </button>
+          <button class="template-btn" onclick="setTemplate(12)">
+            12. Branding Sales
+          </button>
+          <button class="template-btn" onclick="setTemplate(13)">
+            13. Iklan Mahal
+          </button>
+          <button class="template-btn" onclick="setTemplate(14)">
+            14. Data vs Rasa
+          </button>
+          <button class="template-btn" onclick="setTemplate(15)">
+            15. Emosi Beli
+          </button>
+          <button class="template-btn" onclick="setTemplate(16)">
+            16. Value vs Harga
+          </button>
+          <button class="template-btn" onclick="setTemplate(17)">
+            17. Iklan Edukasi
+          </button>
+          <button class="template-btn" onclick="setTemplate(18)">
+            18. Iklan Jadi Aset
+          </button>
+          <button class="template-btn" onclick="setTemplate(19)">
+            19. Gabungan Strategi
+          </button>
+          <button class="template-btn" onclick="setTemplate(20)">
+            20. Iklan Bernyawa
+          </button>
+
+          <!-- 21 - 30 -->
+          <button class="template-btn" onclick="setTemplate(21)">
+            21. Tidak Diingat
+          </button>
+          <button class="template-btn" onclick="setTemplate(22)">
+            22. Setting Bisa Ditiru
+          </button>
+          <button class="template-btn" onclick="setTemplate(23)">
+            23. Alasan Beli
+          </button>
+          <button class="template-btn" onclick="setTemplate(24)">
+            24. Narasi Lemah
+          </button>
+          <button class="template-btn" onclick="setTemplate(25)">
+            25. Rasa Aman
+          </button>
+          <button class="template-btn" onclick="setTemplate(26)">
+            26. Psikologi Market
+          </button>
+          <button class="template-btn" onclick="setTemplate(27)">
+            27. Konten Punya Rasa
+          </button>
+          <button class="template-btn" onclick="setTemplate(28)">
+            28. Jangan Murah Saja
+          </button>
+          <button class="template-btn" onclick="setTemplate(29)">
+            29. Stop Scroll
+          </button>
+          <button class="template-btn" onclick="setTemplate(30)">
+            30. Trust Hemat Iklan
+          </button>
+
+          <!-- 31 - 40 -->
+          <button class="template-btn" onclick="setTemplate(31)">
+            31. Branding + Sales
+          </button>
+          <button class="template-btn" onclick="setTemplate(32)">
+            32. Behaviour Market
+          </button>
+          <button class="template-btn" onclick="setTemplate(33)">
+            33. Jawab Keraguan
+          </button>
+          <button class="template-btn" onclick="setTemplate(34)">
+            34. Jangan Bikin Bingung
+          </button>
+          <button class="template-btn" onclick="setTemplate(35)">
+            35. Hook Offer Trust
+          </button>
+          <button class="template-btn" onclick="setTemplate(36)">
+            36. Iklan Jadi Aset
+          </button>
+          <button class="template-btn" onclick="setTemplate(37)">
+            37. Pesan Datar
+          </button>
+          <button class="template-btn" onclick="setTemplate(38)">
+            38. Seni Baca Manusia
+          </button>
+          <button class="template-btn" onclick="setTemplate(39)">
+            39. Optimasi Persepsi
+          </button>
+          <button class="template-btn" onclick="setTemplate(40)">
+            40. Iklan Dipercaya
+          </button>
+        </div>
+
+        <h3>Edit Konten</h3>
+
+        <label>Brand kecil</label>
+        <input
+          id="brandInput"
+          value="Meta Ads Otak Kanan"
+          oninput="updatePreview()"
+        />
+
+        <label>Teks utama</label>
+        <textarea id="mainInput" oninput="updatePreview()">
+Kenapa Iklan Anda
+Tidak Menghasilkan?</textarea
+        >
+
+        <label>Teks kecil</label>
+        <textarea id="subInput" oninput="updatePreview()">
+Padahal sudah jalan tiap hari</textarea
+        >
+
+        <label>CTA bawah</label>
+        <input id="ctaInput" value="Ketik: MAU" oninput="updatePreview()" />
+
+        <h3>Pilih Warna Background</h3>
+
+        <div class="color-grid">
+          <button
+            class="color-btn"
+            style="background: #111827"
+            onclick="setBg('#111827', '#4c1d95')"
+          ></button>
+          <button
+            class="color-btn"
+            style="background: #000000"
+            onclick="setBg('#000000', '#1f2937')"
+          ></button>
+          <button
+            class="color-btn"
+            style="background: #312e81"
+            onclick="setBg('#312e81', '#7c3aed')"
+          ></button>
+          <button
+            class="color-btn"
+            style="background: #064e3b"
+            onclick="setBg('#064e3b', '#022c22')"
+          ></button>
+          <button
+            class="color-btn"
+            style="background: #7f1d1d"
+            onclick="setBg('#7f1d1d', '#111827')"
+          ></button>
+          <button
+            class="color-btn"
+            style="background: #1e3a8a"
+            onclick="setBg('#1e3a8a', '#020617')"
+          ></button>
+          <button
+            class="color-btn"
+            style="background: #581c87"
+            onclick="setBg('#581c87', '#111827')"
+          ></button>
+          <button
+            class="color-btn"
+            style="background: #78350f"
+            onclick="setBg('#78350f', '#1c1917')"
+          ></button>
+        </div>
+
+        <p class="note">
+          Ukuran preview 9:16. Hasil JPG cocok untuk Story/Reels.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="preview-wrap">
+          <div class="preview" id="previewBox">
+            <div class="brand" id="brandText">Meta Ads Otak Kanan</div>
+            <div class="main-text" id="mainText">
+              Kenapa Iklan Anda Tidak Menghasilkan?
+            </div>
+            <div class="sub-text" id="subText">
+              Padahal sudah jalan tiap hari
+            </div>
+            <div class="cta" id="ctaText">Ketik: MAU</div>
+          </div>
+        </div>
+
+        <button class="download-btn" onclick="downloadImage()">
+          Download JPG
+        </button>
+      </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script>
+      const templates = {
+        1: {
+          main: 'Meta Ads Otak Kanan',
+          sub: 'Bukan cuma setting iklan.\nTapi cara membentuk persepsi market.',
+          cta: 'Mulai pahami polanya',
+        },
+        2: {
+          main: 'Iklan Itu Bukan Sekadar Klik',
+          sub: 'Klik hanya pintu masuk.\nYang membuat orang beli adalah rasa percaya.',
+          cta: 'Bangun trust',
+        },
+        3: {
+          main: 'Otak Kiri Main Setting',
+          sub: 'Otak kanan main persepsi,\nemosi, positioning, dan value.',
+          cta: 'Gabungkan keduanya',
+        },
+        4: {
+          main: 'Market Tidak Beli Produk',
+          sub: 'Market membeli alasan,\nmakna, rasa aman, dan harapan.',
+          cta: 'Ubah pesan iklan',
+        },
+        5: {
+          main: 'Produk Sama\nHasil Bisa Berbeda',
+          sub: 'Karena yang menang bukan selalu produk terbaik,\ntapi yang paling dipercaya.',
+          cta: 'Naikkan persepsi',
+        },
+        6: {
+          main: 'Budget Iklan Bocor?',
+          sub: 'Mungkin bukan karena iklannya jelek,\ntapi karena offer belum kuat.',
+          cta: 'Bedah penawaran',
+        },
+        7: {
+          main: 'Meta Ads Otak Kanan\nMelatih Cara Melihat Market',
+          sub: 'Bukan hanya angka.\nTapi perilaku manusia di balik angka.',
+          cta: 'Lihat lebih dalam',
+        },
+        8: {
+          main: 'CTR Tinggi\nBelum Tentu Closing',
+          sub: 'Karena penasaran berbeda dengan percaya.',
+          cta: 'Bangun jembatan trust',
+        },
+        9: {
+          main: 'Jangan Hanya Kejar Leads',
+          sub: 'Kejar juga kesan yang tertanam\ndi kepala calon pembeli.',
+          cta: 'Bangun brand',
+        },
+        10: {
+          main: 'Iklan Kuat Dimulai Dari Hook',
+          sub: 'Hook menghentikan scroll.\nValue membuat orang bertahan.',
+          cta: 'Latih hook Anda',
+        },
+
+        11: {
+          main: 'Positioning Itu Senjata',
+          sub: 'Kalau market tidak melihat beda,\nmereka akan membandingkan harga.',
+          cta: 'Jadi berbeda',
+        },
+        12: {
+          main: 'Branding Membantu Sales',
+          sub: 'Semakin dipercaya,\nsemakin ringan biaya edukasi market.',
+          cta: 'Satukan brand & sales',
+        },
+        13: {
+          main: 'Iklan Mahal Itu Sinyal',
+          sub: 'Ada pesan, offer, atau persepsi\nyang belum bekerja.',
+          cta: 'Cari titik bocor',
+        },
+        14: {
+          main: 'Meta Ads Otak Kanan\nBukan Anti Data',
+          sub: 'Data tetap penting.\nTapi data harus dibaca dengan rasa dan strategi.',
+          cta: 'Baca pola market',
+        },
+        15: {
+          main: 'Emosi Mendahului Logika',
+          sub: 'Orang sering membeli karena merasa cocok,\nbaru mencari alasan logis.',
+          cta: 'Sentuh emosinya',
+        },
+        16: {
+          main: 'Value Mengalahkan Harga',
+          sub: 'Saat value terasa kuat,\nharga tidak lagi jadi satu-satunya pertimbangan.',
+          cta: 'Perkuat value',
+        },
+        17: {
+          main: 'Iklan Jangan Hanya Menjual',
+          sub: 'Iklan juga harus mengedukasi,\nmenanamkan trust, dan membangun ingatan.',
+          cta: 'Naik level',
+        },
+        18: {
+          main: 'Satu Iklan Bisa Jadi Aset',
+          sub: 'Kalau pesannya kuat,\nia bukan cuma cari closing hari ini.',
+          cta: 'Bangun memori market',
+        },
+        19: {
+          main: 'Meta Ads Otak Kanan',
+          sub: 'Gabungan jualan langsung,\nbranding, persepsi, emosi, dan positioning.',
+          cta: 'Ini cara main baru',
+        },
+        20: {
+          main: 'Mau Iklan Lebih Bernyawa?',
+          sub: 'Jangan hanya tanya budget.\nTanya juga: market merasa apa?',
+          cta: 'Belajar polanya',
+        },
+
+        21: {
+          main: 'Iklan Anda Dilihat\nTapi Tidak Diingat?',
+          sub: 'Berarti pesan belum punya jejak emosional\ndi kepala market.',
+          cta: 'Buat lebih berkesan',
+        },
+        22: {
+          main: 'Setting Bisa Ditiru',
+          sub: 'Tapi cara membangun persepsi\nlebih sulit ditiru kompetitor.',
+          cta: 'Main lebih dalam',
+        },
+        23: {
+          main: 'Jangan Mulai Dari Tombol Beli',
+          sub: 'Mulailah dari alasan kenapa market harus percaya.',
+          cta: 'Bangun alasan',
+        },
+        24: {
+          main: 'Iklan Gagal Bukan Selalu Karena Budget',
+          sub: 'Sering kali karena narasi belum menyentuh masalah utama market.',
+          cta: 'Perbaiki narasi',
+        },
+        25: {
+          main: 'Calon Pembeli Butuh Rasa Aman',
+          sub: 'Sebelum transfer,\nmereka bertanya dalam hati: ini aman tidak?',
+          cta: 'Jawab keraguan',
+        },
+        26: {
+          main: 'Meta Ads Otak Kanan\nMembaca Isi Kepala Market',
+          sub: 'Apa yang mereka takutkan?\nApa yang mereka harapkan?',
+          cta: 'Pahami psikologi',
+        },
+        27: {
+          main: 'Konten Iklan Harus Punya Rasa',
+          sub: 'Bukan hanya informatif,\ntapi juga membuat market merasa dipahami.',
+          cta: 'Sentuh rasa',
+        },
+        28: {
+          main: 'Jangan Hanya Tampil Murah',
+          sub: 'Kalau hanya murah,\nkompetitor bisa lebih murah lagi.',
+          cta: 'Naikkan value',
+        },
+        29: {
+          main: 'Iklan Yang Baik\nMembuat Market Berhenti',
+          sub: 'Iklan yang kuat membuat market berpikir dan percaya.',
+          cta: 'Buat berhenti scroll',
+        },
+        30: {
+          main: 'Trust Adalah Pengurang Biaya Iklan',
+          sub: 'Semakin market percaya,\nsemakin ringan proses closing.',
+          cta: 'Investasi trust',
+        },
+
+        31: {
+          main: 'Jualan Langsung Perlu Branding',
+          sub: 'Branding membuat penawaran terasa lebih masuk akal.',
+          cta: 'Gabungkan strategi',
+        },
+        32: {
+          main: 'Market Behaviour Itu Penting',
+          sub: 'Orang tidak selalu membeli karena butuh.\nKadang karena merasa cocok.',
+          cta: 'Baca perilaku',
+        },
+        33: {
+          main: 'Pesan Iklan Harus Menjawab Keraguan',
+          sub: 'Bukan hanya menampilkan keunggulan produk.',
+          cta: 'Hilangkan ragu',
+        },
+        34: {
+          main: 'Jangan Biarkan Market Menebak',
+          sub: 'Jelaskan kenapa produk Anda layak dipilih sekarang.',
+          cta: 'Perjelas alasan',
+        },
+        35: {
+          main: 'Hook Menarik Perhatian',
+          sub: 'Offer membangun minat.\nTrust mendorong keputusan.',
+          cta: 'Lengkapi tiga unsur',
+        },
+        36: {
+          main: 'Iklan Bukan Cuma Memburu Closing',
+          sub: 'Iklan juga menanam memori,\nmembangun kedekatan, dan membuka peluang repeat order.',
+          cta: 'Bangun aset',
+        },
+        37: {
+          main: 'Kalau Pesan Anda Datar',
+          sub: 'Market akan lewat begitu saja\nwalaupun produk Anda bagus.',
+          cta: 'Tajamkan pesan',
+        },
+        38: {
+          main: 'Meta Ads Otak Kanan\nAdalah Seni Membaca Manusia',
+          sub: 'Angka penting.\nTapi manusia di balik angka jauh lebih penting.',
+          cta: 'Baca manusianya',
+        },
+        39: {
+          main: 'Jangan Hanya Optimasi Campaign',
+          sub: 'Optimasi juga cara market melihat brand Anda.',
+          cta: 'Optimasi persepsi',
+        },
+        40: {
+          main: 'Iklan Yang Menjual\nAdalah Iklan Yang Dipercaya',
+          sub: 'Sebelum klik beli,\nmarket harus merasa yakin.',
+          cta: 'Bangun keyakinan',
+        },
+      };
+
+      function setTemplate(num) {
+        document.getElementById('mainInput').value = templates[num].main;
+        document.getElementById('subInput').value = templates[num].sub;
+        document.getElementById('ctaInput').value = templates[num].cta;
+        updatePreview();
+      }
+
+      function updatePreview() {
+        const brand = document.getElementById('brandInput').value;
+        const main = document.getElementById('mainInput').value;
+        const sub = document.getElementById('subInput').value;
+        const cta = document.getElementById('ctaInput').value;
+
+        document.getElementById('brandText').innerText = brand;
+        document.getElementById('mainText').innerText = main;
+        document.getElementById('subText').innerText = sub;
+        document.getElementById('ctaText').innerText = cta;
+
+        document.getElementById('subText').style.display =
+          sub.trim() === '' ? 'none' : 'block';
+        document.getElementById('ctaText').style.display =
+          cta.trim() === '' ? 'none' : 'block';
+
+        autoFontSize(main);
+      }
+
+      function setBg(color1, color2) {
+        document.getElementById('previewBox').style.background =
+          `linear-gradient(160deg, ${color1}, ${color2})`;
+      }
+
+      function autoFontSize(text) {
+        const mainText = document.getElementById('mainText');
+        const length = text.length;
+
+        if (length > 150) {
+          mainText.style.fontSize = '24px';
+        } else if (length > 110) {
+          mainText.style.fontSize = '28px';
+        } else if (length > 70) {
+          mainText.style.fontSize = '32px';
+        } else {
+          mainText.style.fontSize = '36px';
+        }
+      }
+
+      function downloadImage() {
+        const element = document.getElementById('previewBox');
+
+        html2canvas(element, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: null,
+        }).then((canvas) => {
+          const link = document.createElement('a');
+          link.download = 'template-instagram.jpg';
+          link.href = canvas.toDataURL('image/jpeg', 1.0);
+          link.click();
+        });
+      }
+
+      updatePreview();
+    </script>
+  </body>
+</html>
