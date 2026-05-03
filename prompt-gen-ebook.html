@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arsitek Ebook - Digital Content Architect</title>
+
+    <!-- Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+        height: 100vh;
+        background-color: #f0fdfa;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      .animate-marquee {
+        animation: marquee 70s linear infinite;
+      }
+      .animate-marquee:hover {
+        animation-play-state: paused;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* Custom scrollbar for content */
+      .custom-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #ccfbf1;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body class="text-neutral-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState, useEffect, useMemo } = React;
+
+      // --- KONFIGURASI API KEY ---
+      // Masukkan API Key Anda di sini
+      const MY_API_KEY = 'AIzaSyAdxhIdE51AcE86q3MgnPTj8inYbvgFOoo';
+
+      const EBOOK_FORMATS = [
+        {
+          id: 'EPUB',
+          group: 'Reflowable',
+          full_name: 'Electronic Publication',
+          desc: 'Standar internasional, teks mengalir menyesuaikan layar.',
+          features: ['Ukuran font fleksibel', 'Layout adaptif'],
+        },
+        {
+          id: 'PDF',
+          group: 'Fixed Layout',
+          full_name: 'Portable Document Format',
+          desc: 'Layout presisi, cocok untuk diagram/tabel.',
+          features: ['Format tidak berubah', 'Enkripsi dokumen'],
+        },
+        {
+          id: 'FLIPBOOK',
+          group: 'Fixed Layout',
+          full_name: 'Interactive Flipbook',
+          desc: 'Efek membalikkan buku digital yang interaktif.',
+          features: ['Efek 3D Flip', 'Navigasi Visual'],
+        },
+      ];
+
+      const INITIAL_TEMPLATES = [
+        {
+          name: 'Panduan Otoritas Niche',
+          topic: 'Berkebun Perkotaan untuk Pemula',
+          audience: 'Pemilik balkon kecil dengan lahan terbatas',
+          tone: 'Ahli namun mudah diakses',
+          chapters: [
+            'Pengantar Ekologi Perkotaan',
+            'Teknik Optimalisasi Ruang',
+            'Sistem Penyiraman Otomatis',
+          ],
+          style: 'Langkah-demi-langkah',
+          custom: '',
+        },
+        {
+          name: 'Strategi Bisnis Modern',
+          topic: 'Scaling Agensi Tanpa Burnout',
+          audience: 'Solo pengusaha dan pemilik bisnis kecil',
+          tone: 'Profesional dan Analitis',
+          chapters: [
+            'Paradoks Skala',
+            'Otomatisasi Fondasi',
+            'Membangun Tim Ramping',
+          ],
+          style: 'Strategis Berbasis Data',
+          custom: '',
+        },
+      ];
+
+      function App() {
+        const [topic, setTopic] = useState('');
+        const [audience, setAudience] = useState('');
+        const [tone, setTone] = useState('Profesional');
+        const [chapters, setChapters] = useState(['']);
+        const [customInstructions, setCustomInstructions] = useState('');
+        const [ebookFormat, setEbookFormat] = useState('PDF');
+
+        const [isGenerating, setIsGenerating] = useState(false);
+        const [isSearchingTitles, setIsSearchingTitles] = useState(false);
+        const [titleIdeas, setTitleIdeas] = useState([]);
+        const [searchKeyword, setSearchKeyword] = useState('');
+        const [showTitleModal, setShowTitleModal] = useState(false);
+        const [copied, setCopied] = useState(false);
+
+        const [adText, setAdText] = useState(
+          'Selamat datang di Arsitek Ebook! Hubungi Admin untuk pemasangan iklan premium.'
+        );
+        const [adLink, setAdLink] = useState('https://wa.me/qr/5K6X4X2X1');
+        const [isAdminOpen, setIsAdminOpen] = useState(false);
+        const [adminPassword, setAdminPassword] = useState('');
+        const [isAuthorized, setIsAuthorized] = useState(false);
+
+        const generatePrompt = useMemo(() => {
+          if (!topic)
+            return 'Silakan masukkan Topik atau pilih dari Templat untuk melihat Prompt Anda...';
+          const chapterList = chapters
+            .filter((c) => c.trim())
+            .map((c, i) => `Bab ${i + 1}: ${c}`)
+            .join('\n');
+          return `Bertindaklah sebagai penulis ebook profesional dan ghostwriter ahli.\n\nTopik Utama: ${topic}\nTarget Audiens: ${audience || 'Umum'}\nNada Bicara: ${tone}\nFormat Luaran: ${ebookFormat}\n\nDaftar Isi / Struktur:\n${chapterList || '(Akan dibuatkan oleh AI)'}\n\nInstruksi Khusus:\n${customInstructions || 'Berikan konten yang mendalam dan mudah dipahami.'}\n\nPANDUAN PENULISAN:\n1. Tuliskan Daftar Isi lengkap terlebih dahulu.\n2. Pastikan alur antar bab mengalir logis.\n3. Gunakan Bahasa Indonesia sepenuhnya.`;
+        }, [topic, audience, tone, chapters, ebookFormat, customInstructions]);
+
+        const handleCopy = () => {
+          navigator.clipboard.writeText(generatePrompt);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        };
+
+        const addChapter = () => setChapters([...chapters, '']);
+        const removeChapter = (index) => {
+          if (chapters.length > 1)
+            setChapters(chapters.filter((_, i) => i !== index));
+        };
+
+        const applyTemplate = (template) => {
+          setTopic(template.topic);
+          setAudience(template.audience);
+          setTone(template.tone);
+          setChapters(template.chapters);
+          setCustomInstructions(template.custom || '');
+        };
+
+        // Menangani pencarian 50 judul
+        const handleSearchTitles = async () => {
+          if (!searchKeyword) return;
+          setIsSearchingTitles(true);
+
+          try {
+            // Jika ada API Key, gunakan Gemini
+            if (MY_API_KEY && !MY_API_KEY.includes('MASUKKAN')) {
+              const response = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${MY_API_KEY}`,
+                {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    contents: [
+                      {
+                        parts: [
+                          {
+                            text: `Berikan 50 ide judul ebook yang sangat menarik dan viral berdasarkan kata kunci: "${searchKeyword}". Berikan daftar saja tanpa teks lain.`,
+                          },
+                        ],
+                      },
+                    ],
+                  }),
+                }
+              );
+              const data = await response.json();
+              const text = data.candidates[0].content.parts[0].text;
+              const lines = text
+                .split('\n')
+                .filter((l) => l.trim())
+                .map((l) =>
+                  l
+                    .replace(/^\d+\.\s*/, '')
+                    .replace(/^-\s*/, '')
+                    .trim()
+                );
+              setTitleIdeas(lines);
+            } else {
+              // Jika tidak ada API Key, gunakan Mock 50 Judul
+              const mocks = Array.from({ length: 50 }, (_, i) => {
+                const prefixes = [
+                  'Rahasia',
+                  'Panduan',
+                  'Seni',
+                  'Strategi',
+                  'Kitab',
+                  'Cara',
+                  'Solusi',
+                  'Kekuatan',
+                  'Logika',
+                  'Masterclass',
+                ];
+                const suffixes = [
+                  'Modern',
+                  '2024',
+                  'Untuk Pemula',
+                  'Anti Gagal',
+                  'Yang Terlupakan',
+                  'Sangat Mudah',
+                  'Terperinci',
+                  'Digital',
+                  'Masa Depan',
+                  'Tanpa Batas',
+                ];
+                return `${prefixes[i % 10]} ${searchKeyword} ${suffixes[Math.floor(i / 5) % 10]} #${i + 1}`;
+              });
+              setTitleIdeas(mocks);
+            }
+            setShowTitleModal(true);
+          } catch (e) {
+            console.error('Gagal menjemput data:', e);
+          } finally {
+            setIsSearchingTitles(false);
+          }
+        };
+
+        const handleAISuggest = async () => {
+          if (!topic) return;
+          setIsGenerating(true);
+          setTimeout(() => {
+            setChapters([
+              'Fundamental Dasar',
+              'Strategi Teknikal',
+              'Studi Kasus Nyata',
+              'Optimalisasi Hasil',
+              'Kesalahan yang Dihindari',
+              'Langkah Aksi Akhir',
+            ]);
+            setIsGenerating(false);
+          }, 1200);
+        };
+
+        return (
+          <div class='h-screen grid grid-cols-1 lg:grid-cols-[400px_1fr] overflow-hidden bg-white text-neutral-900 font-sans relative'>
+            {/* Marquee Header */}
+            <div class='lg:col-span-2 bg-teal-500 text-white py-2 overflow-hidden whitespace-nowrap relative z-10 border-b border-white/20'>
+              <a
+                href={adLink}
+                target='_blank'
+                class='block group cursor-pointer'
+                title='Klik untuk Hubungi Admin'
+              >
+                <div class='inline-block animate-marquee px-4 font-bold uppercase text-[12px] tracking-widest'>
+                  <i class='fa-brands fa-whatsapp mr-2'></i>
+                  {adText} &nbsp;&bull;&nbsp; {adText} &nbsp;&bull;&nbsp;{' '}
+                  {adText} &nbsp;&bull;&nbsp; {adText}
+                </div>
+              </a>
+            </div>
+
+            {/* Sidebar */}
+            <aside class='bg-white border-r border-teal-100 overflow-y-auto p-6 md:p-8 space-y-8 custom-scroll relative pb-20'>
+              <header class='flex items-center gap-3 mb-10'>
+                <div class='w-10 h-10 bg-teal-500 rounded-xl flex items-center justify-center text-white shadow-xl shadow-teal-100'>
+                  <i class='fa-solid fa-book-open'></i>
+                </div>
+                <div>
+                  <h1 class='font-bold text-xl tracking-tight text-teal-900 leading-none'>
+                    Arsitek Ebook
+                  </h1>
+                  <p class='text-[9px] text-teal-400 font-bold uppercase tracking-widest mt-1'>
+                    Ebook Generator
+                  </p>
+                </div>
+              </header>
+
+              <section class='space-y-6'>
+                <div class='space-y-2 bg-teal-50/50 p-4 rounded-2xl border border-teal-100'>
+                  <label class='text-[10px] font-black text-teal-600 uppercase tracking-widest flex items-center gap-2'>
+                    <i class='fa-solid fa-magnifying-glass'></i> Cari 50 Ide
+                    Judul
+                  </label>
+                  <div class='flex gap-2'>
+                    <input
+                      type='text'
+                      value={searchKeyword}
+                      onChange={(e) => setSearchKeyword(e.target.value)}
+                      onKeyDown={(e) =>
+                        e.key === 'Enter' && handleSearchTitles()
+                      }
+                      placeholder='Ketikan kata kunci...'
+                      class='flex-1 bg-white border border-teal-200 rounded-xl px-4 py-2 text-sm focus:outline-none placeholder:text-neutral-300'
+                    />
+                    <button
+                      onClick={handleSearchTitles}
+                      class='bg-teal-500 text-white p-2 w-10 flex items-center justify-center rounded-xl hover:bg-teal-600 transition-colors'
+                    >
+                      {isSearchingTitles ? (
+                        <i class='fa-solid fa-spinner animate-spin'></i>
+                      ) : (
+                        <i class='fa-solid fa-wand-sparkles'></i>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <div class='space-y-2'>
+                  <label class='text-[10px] font-black text-neutral-400 uppercase tracking-widest flex items-center gap-2'>
+                    <i class='fa-solid fa-pen-nib'></i> Judul Ebook / Topik
+                  </label>
+                  <div class='relative'>
+                    <input
+                      type='text'
+                      value={topic}
+                      onChange={(e) => setTopic(e.target.value)}
+                      placeholder='Topik buku Anda...'
+                      class='w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm outline-none font-medium'
+                    />
+                    <button
+                      onClick={handleAISuggest}
+                      disabled={!topic || isGenerating}
+                      class='absolute right-2 top-2 p-2 text-teal-600 hover:bg-teal-50 rounded-lg'
+                    >
+                      <i
+                        class={`fa-solid ${isGenerating ? 'fa-spinner animate-spin' : 'fa-wand-magic-sparkles'}`}
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class='space-y-2'>
+                  <label class='text-[10px] font-black text-neutral-400 uppercase tracking-widest flex items-center gap-2'>
+                    <i class='fa-solid fa-users'></i> Target Audiens
+                  </label>
+                  <input
+                    type='text'
+                    value={audience}
+                    onChange={(e) => setAudience(e.target.value)}
+                    placeholder='Siapa pembaca Anda?'
+                    class='w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm outline-none font-medium'
+                  />
+                </div>
+
+                <div class='grid grid-cols-2 gap-4'>
+                  <div class='space-y-2'>
+                    <label class='text-[10px] font-black text-neutral-400 uppercase tracking-widest block'>
+                      Nada
+                    </label>
+                    <select
+                      value={tone}
+                      onChange={(e) => setTone(e.target.value)}
+                      class='w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-3 text-sm outline-none font-medium'
+                    >
+                      <option>Profesional</option>
+                      <option>Santai</option>
+                      <option>Inspiratif</option>
+                    </select>
+                  </div>
+                  <div class='space-y-2'>
+                    <label class='text-[10px] font-black text-neutral-400 uppercase tracking-widest block'>
+                      Format
+                    </label>
+                    <select
+                      value={ebookFormat}
+                      onChange={(e) => setEbookFormat(e.target.value)}
+                      class='w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-3 text-sm outline-none font-medium'
+                    >
+                      <option>PDF</option>
+                      <option>EPUB</option>
+                      <option>FLIPBOOK</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class='space-y-3'>
+                  <div class='flex items-center justify-between'>
+                    <label class='text-[10px] font-black text-neutral-400 uppercase tracking-widest flex items-center gap-2'>
+                      <i class='fa-solid fa-list-ul'></i> Struktur Bab
+                    </label>
+                    <button
+                      onClick={addChapter}
+                      class='text-[9px] font-black text-teal-500 uppercase'
+                    >
+                      + Tambah
+                    </button>
+                  </div>
+                  <div class='space-y-2 max-h-[160px] overflow-y-auto pr-1 scrollbar-hide'>
+                    {chapters.map((chapter, idx) => (
+                      <div key={idx} class='flex gap-2 items-center'>
+                        <span class='text-[10px] font-bold text-teal-300 w-4'>
+                          {idx + 1}
+                        </span>
+                        <input
+                          value={chapter}
+                          onChange={(e) => {
+                            const n = [...chapters];
+                            n[idx] = e.target.value;
+                            setChapters(n);
+                          }}
+                          class='flex-1 bg-neutral-50 border border-neutral-100 rounded-lg px-3 py-2 text-sm outline-none'
+                        />
+                        <button
+                          onClick={() => removeChapter(idx)}
+                          class='text-neutral-300 hover:text-red-500'
+                        >
+                          <i class='fa-solid fa-trash-can text-[10px]'></i>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div class='pt-6 border-t border-teal-50'>
+                  <label class='text-[10px] font-black text-neutral-400 uppercase tracking-widest block mb-4'>
+                    Galeri Templat
+                  </label>
+                  <div class='space-y-2'>
+                    {INITIAL_TEMPLATES.map((t, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => applyTemplate(t)}
+                        class='w-full p-4 bg-neutral-50 hover:bg-teal-50 border border-neutral-100 rounded-2xl text-left transition-all flex justify-between items-center group'
+                      >
+                        <span class='text-xs font-bold text-neutral-600 group-hover:text-teal-700'>
+                          {t.name}
+                        </span>
+                        <i class='fa-solid fa-chevron-right text-[10px] text-neutral-300 group-hover:text-teal-400'></i>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Samar Admin Icon at bottom left sidebar */}
+              <button
+                onClick={() => setIsAdminOpen(true)}
+                class='absolute bottom-4 left-4 p-2 text-teal-50 hover:text-teal-200 transition-colors z-[40]'
+                title='Admin'
+              >
+                <i class='fa-solid fa-shield-halved text-[10px]'></i>
+              </button>
+            </aside>
+
+            {/* Main Content Area */}
+            <main class='bg-teal-50/20 h-screen flex flex-col overflow-hidden relative border-t lg:border-t-0 lg:border-l border-teal-100'>
+              <div class='flex-1 p-6 lg:p-12 overflow-y-auto max-w-4xl mx-auto w-full custom-scroll'>
+                <div class='bg-white border border-teal-100 shadow-2xl shadow-teal-500/5 rounded-[3rem] p-8 lg:p-12 min-h-full flex flex-col relative transition-all'>
+                  <div class='flex justify-between items-center mb-8 gap-4'>
+                    <div class='flex items-center gap-3'>
+                      <span class='w-10 h-10 rounded-2xl bg-teal-500 text-white flex items-center justify-center shadow-lg shadow-teal-500/20'>
+                        <i class='fa-solid fa-sparkles'></i>
+                      </span>
+                      <div class='flex flex-col'>
+                        <span class='text-[12px] font-black uppercase tracking-[0.2em] text-teal-900'>
+                          Arsitektur Digital
+                        </span>
+                        <span class='text-[9px] text-teal-400 font-bold uppercase tracking-wider'>
+                          Professional Ghostwriter AI Prompt
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleCopy}
+                      class={`px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all ${copied ? 'bg-green-500 text-white' : 'bg-teal-500 text-white shadow-lg shadow-teal-200 hover:scale-[1.02] hover:bg-teal-600'}`}
+                    >
+                      {copied ? (
+                        <>
+                          <i class='fa-solid fa-check mr-2'></i> Tersalin!
+                        </>
+                      ) : (
+                        <>
+                          <i class='fa-solid fa-copy mr-2'></i> Salin Prompt
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <div class='flex-1 font-mono text-sm text-neutral-700 leading-relaxed whitespace-pre-wrap bg-neutral-50 p-8 rounded-3xl border border-neutral-100 shadow-inner overflow-y-auto scrollbar-hide'>
+                    {generatePrompt}
+                  </div>
+
+                  <div class='mt-8 p-4 bg-teal-50 rounded-2xl border border-teal-100 flex items-start gap-4'>
+                    <i class='fa-solid fa-circle-info text-teal-400 mt-1'></i>
+                    <p class='text-[11px] text-teal-600 leading-relaxed font-medium'>
+                      Salin prompt di atas dan gunakan di platform AI favorit
+                      Anda (Gemini/ChatGPT). Anda bisa mengatur detail lebih
+                      dalam melalui sidebar di kiri.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </main>
+
+            {/* Admin Modal */}
+            {isAdminOpen && (
+              <div class='fixed inset-0 z-[110] flex items-center justify-center p-4 bg-teal-950/20 backdrop-blur-sm'>
+                <div class='bg-white border border-teal-100 w-full max-w-sm p-10 rounded-[3rem] shadow-2xl flex flex-col gap-6'>
+                  {!isAuthorized ? (
+                    <div class='space-y-4 text-center'>
+                      <h3 class='text-xl font-black text-teal-900 uppercase'>
+                        System Verify
+                      </h3>
+                      <input
+                        type='password'
+                        value={adminPassword}
+                        onChange={(e) => setAdminPassword(e.target.value)}
+                        onKeyDown={(D) =>
+                          D.key === 'Enter' &&
+                          (adminPassword === 'DaengDaro'
+                            ? setIsAuthorized(true)
+                            : alert('Password Salah!'))
+                        }
+                        placeholder='Password Portal'
+                        class='w-full bg-neutral-50 border rounded-2xl px-4 py-4 text-center outline-none focus:ring-4 focus:ring-teal-500/10 placeholder:text-neutral-300'
+                      />
+                      <button
+                        onClick={() =>
+                          adminPassword === 'DaengDaro'
+                            ? setIsAuthorized(true)
+                            : alert('Salah!')
+                        }
+                        class='w-full py-4 bg-teal-500 text-white rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-lg shadow-teal-500/20'
+                      >
+                        Login
+                      </button>
+                      <button
+                        onClick={() => setIsAdminOpen(false)}
+                        class='text-[9px] font-bold text-neutral-300 uppercase'
+                      >
+                        Tutup
+                      </button>
+                    </div>
+                  ) : (
+                    <div class='space-y-4'>
+                      <h3 class='text-xl font-bold text-teal-900 tracking-tight uppercase'>
+                        Update Iklan
+                      </h3>
+                      <textarea
+                        value={adText}
+                        onChange={(e) => setAdText(e.target.value)}
+                        class='w-full bg-neutral-50 border rounded-2xl px-4 py-4 text-sm h-32 outline-none'
+                      />
+                      <input
+                        value={adLink}
+                        onChange={(e) => setAdLink(e.target.value)}
+                        class='w-full bg-neutral-50 border rounded-2xl px-4 py-4 text-sm outline-none'
+                      />
+                      <button
+                        onClick={() => {
+                          setIsAdminOpen(false);
+                          setIsAuthorized(false);
+                          setAdminPassword('');
+                        }}
+                        class='w-full py-4 bg-teal-500 text-white rounded-2xl font-black uppercase tracking-widest text-[10px]'
+                      >
+                        Update & Tutup
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Title Search Modal with 50 ideas */}
+            {showTitleModal && (
+              <div class='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-md'>
+                <div class='relative bg-white w-full max-w-2xl max-h-[85vh] rounded-[3.5rem] shadow-2xl overflow-hidden flex flex-col border border-teal-50'>
+                  <div class='p-8 border-b border-teal-50 flex justify-between items-center bg-teal-50/30'>
+                    <h3 class='font-black text-teal-900 uppercase tracking-tight'>
+                      Koleksi 50 Ide Judul Kreatif
+                    </h3>
+                    <button
+                      onClick={() => setShowTitleModal(false)}
+                      class='p-3 bg-white text-neutral-300 hover:text-teal-500 rounded-2xl transition-all shadow-sm'
+                    >
+                      <i class='fa-solid fa-xmark'></i>
+                    </button>
+                  </div>
+                  <div class='flex-1 overflow-y-auto p-6 space-y-2 custom-scroll'>
+                    {titleIdeas.map((title, i) => (
+                      <button
+                        key={i}
+                        onClick={() => {
+                          setTopic(title);
+                          setShowTitleModal(false);
+                        }}
+                        class='w-full text-left p-4 text-sm bg-teal-50/20 hover:bg-teal-500 hover:text-white rounded-2xl font-bold transition-all border border-teal-50 group flex gap-3'
+                      >
+                        <span class='text-[10px] font-black text-teal-300 group-hover:text-white/50'>
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        {title}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
