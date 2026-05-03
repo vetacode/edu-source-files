@@ -1,0 +1,1831 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator HPP UMKM Pro</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #000;
+        min-height: 100vh;
+        padding: 20px;
+        color: white;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        border: 1px solid #333;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .nav-title {
+        font-size: 1.5em;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-title-sub {
+        font-size: 0.55em;
+        font-weight: 400;
+        opacity: 0.85;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 2px;
+      }
+      .nav-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .nav-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 10px 18px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9em;
+      }
+      .nav-btn:hover,
+      .nav-btn.active {
+        background: white;
+        color: #333;
+        transform: translateY(-2px);
+      }
+
+      /* TABS & HEADER */
+      .content-tabs {
+        display: none;
+      }
+      .content-tabs.active {
+        display: block;
+      }
+      .header {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+      .header h1 {
+        font-size: 1.8em;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      .header-meta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .header-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85em;
+        opacity: 0.9;
+      }
+
+      /* LAYOUT MAIN KALKULATOR */
+      .kalkulator-layout {
+        display: flex;
+        gap: 20px;
+        padding: 30px;
+        align-items: flex-start;
+      }
+      .kalkulator-main {
+        flex: 1;
+      }
+      .kalkulator-sidebar {
+        width: 340px;
+        background: #222;
+        border: 1px solid #444;
+        border-radius: 15px;
+        padding: 20px;
+        position: sticky;
+        top: 20px;
+      }
+      @media (max-width: 900px) {
+        .kalkulator-layout {
+          flex-direction: column;
+        }
+        .kalkulator-sidebar {
+          width: 100%;
+          position: static;
+        }
+      }
+
+      /* REUSABLE UI ELEMENTS */
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.75em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #4ecdc4;
+        margin-bottom: 14px;
+        padding: 7px 12px;
+        background: rgba(78, 205, 196, 0.08);
+        border: 1px solid rgba(78, 205, 196, 0.2);
+        border-radius: 8px;
+      }
+      .input-group {
+        margin-bottom: 25px;
+      }
+      .input-group > label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-weight: 600;
+        color: #e0e0e0;
+        font-size: 1.05em;
+        gap: 10px;
+      }
+      .input-group > label i {
+        color: #4ecdc4;
+        width: 22px;
+        text-align: center;
+      }
+      .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 12px;
+      }
+      @media (max-width: 600px) {
+        .input-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .input-block {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .input-block-label {
+        font-size: 0.78em;
+        color: #888;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .input-block-label i {
+        color: #4ecdc4;
+        font-size: 11px;
+      }
+      .input-wrapper {
+        position: relative;
+      }
+      .input-wrapper .inp-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #4ecdc4;
+        font-size: 0.95em;
+        pointer-events: none;
+      }
+      .input-wrapper input {
+        padding-left: 44px !important;
+      }
+      input[type='number'],
+      input[type='text'] {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #444;
+        border-radius: 12px;
+        font-size: 0.95em;
+        background: #2a2a2a;
+        color: white;
+        transition: all 0.3s;
+      }
+      input[type='number']:focus,
+      input[type='text']:focus {
+        border-color: #4ecdc4;
+        box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.15);
+        background: #333;
+        outline: none;
+      }
+
+      .btn-calculate {
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1em;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 10px;
+      }
+      .btn-calculate:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+      }
+      .btn-action {
+        padding: 10px 15px;
+        background: rgba(78, 205, 196, 0.2);
+        color: #4ecdc4;
+        border: 1px solid rgba(78, 205, 196, 0.4);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-action:hover {
+        background: #4ecdc4;
+        color: #fff;
+      }
+      .btn-danger {
+        background: rgba(255, 107, 107, 0.2);
+        color: #ff6b6b;
+        border: 1px solid rgba(255, 107, 107, 0.4);
+      }
+      .btn-danger:hover {
+        background: #ff6b6b;
+        color: #fff;
+      }
+
+      /* BAHAN BAKU DYNAMIC */
+      .dynamic-list {
+        margin-bottom: 20px;
+      }
+      .dynamic-item {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr auto;
+        gap: 10px;
+        margin-bottom: 10px;
+        align-items: center;
+        background: #2a2a2a;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #444;
+      }
+      @media (max-width: 600px) {
+        .dynamic-item {
+          grid-template-columns: 1fr 1fr;
+        }
+        .dynamic-item input:first-child {
+          grid-column: span 2;
+        }
+        .dynamic-btn-remove {
+          grid-column: span 2;
+        }
+      }
+      .dynamic-item input {
+        padding: 10px 12px !important;
+      }
+
+      /* SIDEBAR */
+      .sidebar-title {
+        font-size: 1.1em;
+        color: #4ecdc4;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+      .sidebar-box {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        border: 1px dashed #555;
+      }
+      .sb-label {
+        font-size: 0.8em;
+        color: #aaa;
+        margin-bottom: 5px;
+      }
+      .sb-value {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: #ffd700;
+        margin-bottom: 10px;
+      }
+      .sb-helper {
+        font-size: 0.75em;
+        color: #888;
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+      .sb-btn {
+        width: 100%;
+        padding: 8px;
+        background: #4ecdc4;
+        color: black;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.85em;
+      }
+      .sb-btn:hover {
+        background: #3db8b0;
+      }
+
+      /* RESULTS */
+      .results {
+        margin-top: 30px;
+        padding: 30px;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        border-radius: 20px;
+        color: white;
+        display: none;
+        border: 1px solid #4ecdc4;
+      }
+      .results-header {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      .results-header h3 {
+        font-size: 1.4em;
+        color: #ffd700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .result-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 14px 18px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .result-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .result-icon {
+        font-size: 1em;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .result-label {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .result-label .rl-main {
+        font-size: 0.9em;
+        color: #ddd;
+      }
+      .result-value {
+        font-size: 1.2em;
+        font-weight: 800;
+        color: #ffd700;
+      }
+      .result-item.profit {
+        background: linear-gradient(45deg, #00b894, #00cec9) !important;
+        border-color: rgba(0, 200, 201, 0.4);
+        animation: pulse 2s infinite;
+      }
+      .result-item.profit .result-value,
+      .result-item.profit .rl-main {
+        color: white;
+      }
+      .result-item.loss {
+        background: linear-gradient(45deg, #d63031, #e17055) !important;
+        border-color: rgba(214, 48, 49, 0.4);
+      }
+      .result-item.loss .result-value,
+      .result-item.loss .rl-main {
+        color: white;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 15px rgba(0, 200, 201, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 25px rgba(0, 200, 201, 0.6);
+        }
+      }
+
+      .hpp-safe-box {
+        margin-top: 14px;
+        padding: 12px 16px;
+        background: rgba(255, 107, 107, 0.12);
+        border: 1px solid rgba(255, 107, 107, 0.3);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .hsb-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .hsb-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 107, 107, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff6b6b;
+      }
+      .hsb-label {
+        font-size: 0.75em;
+        color: #aaa;
+        margin-bottom: 2px;
+      }
+      .hsb-val {
+        font-size: 1.1em;
+        font-weight: 800;
+        color: #ff6b6b;
+      }
+      .status-badge-wrap {
+        margin-top: 16px;
+        text-align: center;
+      }
+
+      /* TUTORIAL & SUMMARY BOXES */
+      .tab-content {
+        padding: 40px;
+      }
+      .tutorial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+      }
+      .tutorial-card {
+        background: rgba(255, 255, 255, 0.06);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .tc-header {
+        color: #ffd700;
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 1.1em;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .formula-block {
+        background: rgba(0, 0, 0, 0.3);
+        border-left: 4px solid #4ecdc4;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+      }
+      .formula-block .fb-label {
+        color: #4ecdc4;
+        font-size: 0.85em;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      .formula-block .fb-eq {
+        font-family: monospace;
+        color: #ddd;
+      }
+
+      .input-detail-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .input-detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        border: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .input-detail-row:hover {
+        border-color: rgba(78, 205, 196, 0.2);
+      }
+      .input-detail-row .idr-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9em;
+        color: #bbb;
+      }
+      .input-detail-row .idr-label i {
+        color: #4ecdc4;
+        width: 16px;
+        text-align: center;
+        font-size: 12px;
+      }
+      .input-detail-row .idr-val {
+        font-weight: 700;
+        color: #ffd700;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .input-detail-row .idr-val i {
+        color: #aaa;
+        font-size: 10px;
+      }
+      .input-detail-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .input-detail-divider::after {
+        content: attr(data-label);
+        position: absolute;
+        background: rgba(78, 205, 196, 0.1);
+        border: 1px solid rgba(78, 205, 196, 0.2);
+        color: #4ecdc4;
+        font-size: 0.7em;
+        padding: 1px 8px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .step-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .step-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 12px 14px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        border: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .step-row:hover {
+        border-color: rgba(78, 205, 196, 0.2);
+      }
+      .step-num {
+        min-width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85em;
+        flex-shrink: 0;
+      }
+      .step-content {
+        flex: 1;
+      }
+      .step-title {
+        font-size: 0.8em;
+        color: #999;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .step-title i {
+        color: #4ecdc4;
+        font-size: 11px;
+      }
+      .step-calc {
+        font-family: 'Courier New', monospace;
+        font-size: 0.85em;
+        color: #ccc;
+        padding: 4px 8px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 6px;
+        display: inline-block;
+      }
+      .step-result {
+        font-weight: 700;
+        color: #ffd700;
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.95em;
+      }
+      .step-result i {
+        color: #4ecdc4;
+      }
+      .step-result .sr-icon-accent {
+        color: #ff6b6b;
+      }
+
+      .interpret-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .interpret-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 0.92em;
+        font-weight: 600;
+      }
+      .interpret-row .ir-icon {
+        font-size: 1.3em;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .interpret-row .ir-body .ir-main {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 1em;
+      }
+      .interpret-row .ir-body .ir-main i {
+        font-size: 12px;
+      }
+      .interpret-row .ir-body .ir-sub {
+        font-size: 0.82em;
+        font-weight: 400;
+        opacity: 0.85;
+        margin-top: 3px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .interpret-row .ir-body .ir-sub i {
+        font-size: 11px;
+      }
+      .interpret-row.sangat-untung {
+        background: rgba(0, 184, 148, 0.15);
+        border: 1px solid rgba(0, 184, 148, 0.35);
+        color: #00b894;
+      }
+      .interpret-row.cukup {
+        background: rgba(253, 203, 110, 0.12);
+        border: 1px solid rgba(253, 203, 110, 0.3);
+        color: #fdcb6e;
+      }
+      .interpret-row.rugi {
+        background: rgba(255, 107, 107, 0.12);
+        border: 1px solid rgba(255, 107, 107, 0.3);
+        color: #ff6b6b;
+      }
+
+      .tips-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .tip-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 14px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        font-size: 0.9em;
+        color: #ccc;
+        line-height: 1.5;
+        border: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .tip-row:hover {
+        border-color: rgba(78, 205, 196, 0.2);
+      }
+      .tip-row .tip-icon-wrap {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: rgba(78, 205, 196, 0.1);
+        border: 1px solid rgba(78, 205, 196, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #4ecdc4;
+        font-size: 13px;
+      }
+      .tip-row .tip-content strong {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 2px;
+      }
+      .tip-row .tip-content strong i {
+        color: #4ecdc4;
+        font-size: 11px;
+      }
+
+      .marketplace-summary {
+        background: rgba(78, 205, 196, 0.15);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(78, 205, 196, 0.3);
+        margin-top: 20px;
+      }
+      .marketplace-summary-big {
+        font-size: 1.8em;
+        color: #4ecdc4;
+        font-weight: bold;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- NAVBAR -->
+      <div class="navbar">
+        <div class="nav-title">
+          <i class="fas fa-calculator"></i>
+          <div>
+            UMKM Calculator Pro
+            <div class="nav-title-sub">
+              <i class="fas fa-store"></i> HPP, Bahan Baku & Marketplace
+            </div>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="nav-btn active" onclick="showTab('calculator', this)">
+            <i class="fas fa-chart-bar"></i> Kalkulator
+          </button>
+          <button class="nav-btn" onclick="showTab('bahan-baku', this)">
+            <i class="fas fa-box-open"></i> Bahan Baku
+          </button>
+          <button class="nav-btn" onclick="showTab('marketplace', this)">
+            <i class="fas fa-store"></i> Marketplace
+          </button>
+          <button class="nav-btn" onclick="showTab('gaji', this)">
+            <i class="fas fa-users"></i> Alokasi Gaji
+          </button>
+          <button class="nav-btn" onclick="showTab('tutorial', this)">
+            <i class="fas fa-book-open"></i> Tutorial
+          </button>
+        </div>
+      </div>
+
+      <!-- KALKULATOR UTAMA -->
+      <div id="calculator" class="content-tabs active">
+        <div class="header">
+          <h1><i class="fas fa-calculator"></i> Kalkulator Utama (HPP)</h1>
+          <div class="header-meta">
+            <div class="header-meta-item">
+              <i class="fas fa-chart-line"></i> Hitung Keuntungan Pokok
+            </div>
+          </div>
+        </div>
+        <div class="kalkulator-layout">
+          <div class="kalkulator-main">
+            <div class="input-group">
+              <label
+                ><i class="fas fa-boxes-stacked"></i> Jumlah Produksi</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-cubes inp-icon"></i
+                ><input
+                  type="number"
+                  id="jumlahProduksi"
+                  placeholder="Contoh: 100"
+                  min="1"
+                />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label><i class="fas fa-seedling"></i> Biaya Pokok (Rp)</label>
+              <div class="input-row">
+                <div class="input-block">
+                  <div class="input-block-label">Total Bahan Baku</div>
+                  <div class="input-wrapper">
+                    <i class="fas fa-wheat-awn inp-icon"></i
+                    ><input
+                      type="number"
+                      id="bahanBaku"
+                      placeholder="Contoh: 500000"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <div class="input-block">
+                  <div class="input-block-label">Upah Tenaga Kerja</div>
+                  <div class="input-wrapper">
+                    <i class="fas fa-user-gear inp-icon"></i
+                    ><input
+                      type="number"
+                      id="upahBuruh"
+                      placeholder="Contoh: 200000"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label><i class="fas fa-industry"></i> Biaya Overhead (Rp)</label>
+              <div class="input-row">
+                <div class="input-block">
+                  <div class="input-block-label">Listrik & Air</div>
+                  <div class="input-wrapper">
+                    <i class="fas fa-bolt inp-icon"></i
+                    ><input
+                      type="number"
+                      id="listrikAir"
+                      placeholder="Contoh: 100000"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <div class="input-block">
+                  <div class="input-block-label">Perawatan Mesin</div>
+                  <div class="input-wrapper">
+                    <i class="fas fa-wrench inp-icon"></i
+                    ><input
+                      type="number"
+                      id="perawatan"
+                      placeholder="Contoh: 50000"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <div class="input-block">
+                  <div class="input-block-label">Sewa Tempat</div>
+                  <div class="input-wrapper">
+                    <i class="fas fa-building inp-icon"></i
+                    ><input
+                      type="number"
+                      id="sewa"
+                      placeholder="Contoh: 100000"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <div class="input-block">
+                  <div class="input-block-label">Lain-lain / Admin MP</div>
+                  <div class="input-wrapper">
+                    <i class="fas fa-plus-circle inp-icon"></i
+                    ><input
+                      type="number"
+                      id="lainLain"
+                      placeholder="Contoh: 50000"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label><i class="fas fa-tag"></i> Harga Jual per Unit (Rp)</label>
+              <div class="input-wrapper">
+                <i class="fas fa-money-bill-wave inp-icon"></i
+                ><input
+                  type="number"
+                  id="hargaJual"
+                  placeholder="Contoh: 15000"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            <button class="btn-calculate" onclick="hitungHPP()">
+              <i class="fas fa-rocket"></i> HITUNG HPP & KEUNTUNGAN
+            </button>
+
+            <!-- HASIL HPP -->
+            <div class="results" id="results">
+              <div class="results-header">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan</h3>
+              </div>
+              <div class="result-item">
+                <div class="result-left">
+                  <div class="result-icon">
+                    <i class="fas fa-coins" style="color: #4ecdc4"></i>
+                  </div>
+                  <div class="result-label">
+                    <div class="rl-main">Total Biaya Produksi</div>
+                  </div>
+                </div>
+                <span class="result-value" id="totalBiaya">Rp 0</span>
+              </div>
+              <div class="result-item">
+                <div class="result-left">
+                  <div class="result-icon">
+                    <i class="fas fa-tag" style="color: #ffd700"></i>
+                  </div>
+                  <div class="result-label">
+                    <div class="rl-main">HPP per Unit</div>
+                  </div>
+                </div>
+                <span class="result-value" id="hppPerUnit">Rp 0</span>
+              </div>
+              <div class="result-item profit" id="keuntunganItem">
+                <div class="result-left">
+                  <div class="result-icon"><i class="fas fa-trophy"></i></div>
+                  <div class="result-label">
+                    <div class="rl-main">Keuntungan Bersih (Total)</div>
+                  </div>
+                </div>
+                <span class="result-value" id="keuntungan">Rp 0</span>
+              </div>
+
+              <div class="hpp-safe-box">
+                <div class="hsb-left">
+                  <div class="hsb-icon"><i class="fas fa-shield"></i></div>
+                  <div>
+                    <div class="hsb-label">Harga Minimum Aman</div>
+                    <div class="hsb-val" id="hppSafe">--</div>
+                  </div>
+                </div>
+              </div>
+              <div class="status-badge-wrap" id="statusBadge"></div>
+            </div>
+          </div>
+
+          <div class="kalkulator-sidebar">
+            <div class="sidebar-title">
+              <i class="fas fa-clipboard-list"></i> Ringkasan Ekstra
+            </div>
+            <div class="sidebar-box">
+              <div class="sb-label">
+                <i class="fas fa-leaf"></i> Tab Bahan Baku (Total):
+              </div>
+              <div class="sb-value" id="sidebarTotalBahan">Rp 0</div>
+              <div class="sb-helper">
+                Termasuk estimasi HPP Bahan Baku:
+                <span
+                  id="sidebarHPPBahan"
+                  style="color: #fff; font-weight: bold"
+                  >Rp 0</span
+                >/unit
+              </div>
+              <button class="sb-btn" onclick="applyBahanBaku()">
+                <i class="fas fa-arrow-left"></i> Set sbg Total Bahan Baku
+              </button>
+            </div>
+            <div class="sidebar-box">
+              <div class="sb-label">
+                <i class="fas fa-store"></i> Tab Marketplace (Potongan per
+                Produk):
+              </div>
+              <div class="sb-value" id="sidebarTotalMP" style="color: #ff6b6b">
+                Rp 0
+              </div>
+              <div class="sb-helper">Beban MP per satuan produk.</div>
+              <button class="sb-btn" onclick="applyMarketplace()">
+                <i class="fas fa-arrow-left"></i> Set sbg Admin MP (x Produksi)
+              </button>
+            </div>
+            <div class="sidebar-box">
+              <div class="sb-label">
+                <i class="fas fa-users"></i> Tab Gaji (Total per Bulan):
+              </div>
+              <div class="sb-value" id="sidebarTotalGaji">Rp 0</div>
+              <button class="sb-btn" onclick="applyGaji()">
+                <i class="fas fa-arrow-left"></i> Set sbg Upah Tenaga Kerja
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAHAN BAKU -->
+      <div id="bahan-baku" class="content-tabs">
+        <div class="header">
+          <h1><i class="fas fa-box-open"></i> Hitung Detail Bahan Baku</h1>
+          <p>Kalkulasi total nilai bahan dan HPP khusus bahan baku per unit.</p>
+        </div>
+        <div class="tab-content" style="max-width: 900px; margin: 0 auto">
+          <div class="dynamic-list" id="bb-list"></div>
+          <button class="btn-action" onclick="addBahanBakuRow()">
+            <i class="fas fa-plus"></i> Tambah Item
+          </button>
+
+          <!-- Input untuk Hasil -->
+          <div
+            style="
+              margin-top: 25px;
+              padding: 15px;
+              background: rgba(0, 0, 0, 0.2);
+              border-radius: 10px;
+              border: 1px solid #444;
+            "
+          >
+            <label
+              style="
+                display: block;
+                margin-bottom: 10px;
+                font-weight: bold;
+                color: #4ecdc4;
+              "
+              >Estimasi Akan Jadi Berapa Porsi/Pcs?</label
+            >
+            <div class="input-wrapper" style="max-width: 300px">
+              <i class="fas fa-cubes inp-icon"></i>
+              <input
+                type="number"
+                id="bbHasilJadi"
+                placeholder="Contoh: 50"
+                value="1"
+                min="1"
+                oninput="hitungTotalBahanBaku()"
+              />
+            </div>
+          </div>
+
+          <div class="marketplace-summary">
+            <div>Total Biaya Seluruh Bahan Baku:</div>
+            <div class="marketplace-summary-big" id="bb-grand-total">Rp 0</div>
+            <div style="margin-top: 15px">HPP Bahan Baku (per Pcs/Porsi):</div>
+            <div
+              class="marketplace-summary-big"
+              id="bb-hpp-unit"
+              style="color: #ffd700"
+            >
+              Rp 0
+            </div>
+            <p style="font-size: 0.8em; color: #ccc">
+              Terhubung otomatis ke Sidebar Tab Utama.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MARKETPLACE -->
+      <div id="marketplace" class="content-tabs">
+        <div class="header">
+          <h1><i class="fas fa-store"></i> Simulasi Marketplace & Ads</h1>
+          <p>Hitung potongan biaya e-commerce dan simulasi ROAS Iklan.</p>
+        </div>
+        <div class="tab-content" style="max-width: 900px; margin: 0 auto">
+          <div class="section-label">
+            <i class="fas fa-store"></i> Simulasi Potongan MP
+          </div>
+          <div class="input-group">
+            <label>Harga Jual di Marketplace (Rp)</label>
+            <div class="input-wrapper">
+              <i class="fas fa-tag inp-icon"></i
+              ><input
+                type="number"
+                id="mpHargaJual"
+                placeholder="Contoh: 50000"
+                oninput="hitungMarketplace()"
+              />
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-block">
+              <div class="input-block-label">Potongan Admin (%)</div>
+              <div class="input-wrapper">
+                <i class="fas fa-percent inp-icon"></i
+                ><input
+                  type="number"
+                  id="mpAdminPersen"
+                  placeholder="Contoh: 3.5"
+                  step="0.1"
+                  oninput="hitungMarketplace()"
+                />
+              </div>
+            </div>
+            <div class="input-block">
+              <div class="input-block-label">Bebas Ongkir (%)</div>
+              <div class="input-wrapper">
+                <i class="fas fa-truck inp-icon"></i
+                ><input
+                  type="number"
+                  id="mpOngkirPersen"
+                  placeholder="Contoh: 4"
+                  step="0.1"
+                  oninput="hitungMarketplace()"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="input-row" style="margin-top: 15px">
+            <div class="input-block">
+              <div class="input-block-label">Lain-lain / Campaign (%)</div>
+              <div class="input-wrapper">
+                <i class="fas fa-percent inp-icon"></i
+                ><input
+                  type="number"
+                  id="mpLainPersen"
+                  placeholder="Contoh: 1"
+                  step="0.1"
+                  oninput="hitungMarketplace()"
+                />
+              </div>
+            </div>
+            <div class="input-block">
+              <div class="input-block-label">Biaya Ekstra Tetap (Rp)</div>
+              <div class="input-wrapper">
+                <i
+                  class="fas fa-minus-circle inp-icon"
+                  style="color: #ff6b6b"
+                ></i
+                ><input
+                  type="number"
+                  id="mpTetap"
+                  placeholder="Contoh: 1000 atau 0"
+                  oninput="hitungMarketplace()"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="marketplace-summary">
+            <div>Total Potongan Marketplace per Produk:</div>
+            <div
+              class="marketplace-summary-big"
+              id="mp-total-potongan"
+              style="color: #ff6b6b"
+            >
+              - Rp 0
+            </div>
+            <div style="margin-top: 15px">
+              Penghasilan Bersih Anda per Produk:
+            </div>
+            <div
+              class="marketplace-summary-big"
+              id="mp-bersih"
+              style="color: #ffd700"
+            >
+              Rp 0
+            </div>
+          </div>
+
+          <!-- ROAS -->
+          <div class="section-label" style="margin-top: 40px">
+            <i class="fas fa-bullseye"></i> Kalkulator ROAS (Return On Ad Spend)
+          </div>
+          <div class="input-row" style="margin-top: 10px">
+            <div class="input-block">
+              <div class="input-block-label">Ad Spend (Biaya Iklan Rp)</div>
+              <div class="input-wrapper">
+                <i
+                  class="fas fa-money-bill-wave inp-icon"
+                  style="color: #ff6b6b"
+                ></i
+                ><input
+                  type="number"
+                  id="mpAdSpend"
+                  placeholder="Contoh: 150000"
+                  oninput="hitungROAS()"
+                />
+              </div>
+            </div>
+            <div class="input-block">
+              <div class="input-block-label">Ad Revenue (Omset Iklan Rp)</div>
+              <div class="input-wrapper">
+                <i
+                  class="fas fa-cash-register inp-icon"
+                  style="color: #4ecdc4"
+                ></i
+                ><input
+                  type="number"
+                  id="mpAdRevenue"
+                  placeholder="Contoh: 750000"
+                  oninput="hitungROAS()"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="marketplace-summary"
+            style="
+              border-color: rgba(255, 215, 0, 0.3);
+              background: rgba(255, 215, 0, 0.05);
+              margin-top: 15px;
+            "
+          >
+            <div>Nilai ROAS Anda:</div>
+            <div
+              class="marketplace-summary-big"
+              id="mp-roas"
+              style="color: #ffd700"
+            >
+              0.00 x
+            </div>
+            <p style="font-size: 0.85em; color: #ccc" id="mp-roas-status">
+              Masukkan biaya iklan dan omset hasil iklan.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALOKASI GAJI -->
+      <div id="gaji" class="content-tabs">
+        <div class="header">
+          <h1><i class="fas fa-users"></i> Alokasi Gaji (Headcount)</h1>
+          <p>
+            Hitung persentase jatah gaji dari penjualan produk (Headcount
+            Allocation).
+          </p>
+        </div>
+        <div class="tab-content" style="max-width: 900px; margin: 0 auto">
+          <div class="input-group">
+            <label>Harga Jual Produk (Rp)</label>
+            <div class="input-wrapper">
+              <i class="fas fa-tag inp-icon"></i
+              ><input
+                type="number"
+                id="gjHarga"
+                placeholder="Contoh: 50000"
+                oninput="hitungGaji()"
+              />
+            </div>
+          </div>
+          <div class="input-row" style="margin-bottom: 20px">
+            <div class="input-block">
+              <div class="input-block-label">Alokasi ke Gaji (%)</div>
+              <div class="input-wrapper">
+                <i class="fas fa-percent inp-icon"></i
+                ><input
+                  type="number"
+                  id="gjPersen"
+                  placeholder="Contoh: 15"
+                  oninput="hitungGaji()"
+                />
+              </div>
+            </div>
+            <div class="input-block">
+              <div class="input-block-label">
+                Target Terjual / Estimasi Produksi (Pcs)
+              </div>
+              <div class="input-wrapper">
+                <i class="fas fa-bullseye inp-icon"></i
+                ><input
+                  type="number"
+                  id="gjTarget"
+                  placeholder="Contoh: 1000"
+                  oninput="hitungGaji()"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="marketplace-summary" style="border-color: #4ecdc4">
+            <div>Alokasi Gaji dari Setiap 1 Produk:</div>
+            <div class="marketplace-summary-big" id="gj-per-produk">Rp 0</div>
+            <div style="margin-top: 15px">
+              Estimasi Terkumpul untuk Total Gaji Pekerja/Bulan:
+            </div>
+            <div
+              class="marketplace-summary-big"
+              id="gj-total"
+              style="color: #ffd700"
+            >
+              Rp 0
+            </div>
+            <p style="font-size: 0.85em; color: #ccc; margin-top: 10px">
+              Gunakan Data Ini ke Kalkulator Utama -> Upah Tenaga Kerja melalui
+              Sidebar.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TUTORIAL TAB ===== -->
+      <div id="tutorial" class="content-tabs">
+        <div class="header">
+          <h1><i class="fas fa-book-open"></i> Tutorial Lengkap HPP UMKM</h1>
+          <div class="header-meta">
+            <div class="header-meta-item">
+              <i class="fas fa-calculator"></i> Analisis Detail
+            </div>
+            <div class="header-meta-item">
+              <i class="fas fa-lightbulb"></i> Tips Praktis
+            </div>
+          </div>
+        </div>
+        <div class="tab-content">
+          <div class="tutorial-grid">
+            <!-- CARD 1: RUMUS DASAR -->
+            <div class="tutorial-card">
+              <div class="tc-header">
+                <i class="fas fa-equals"></i> 1. Rumus Dasar HPP
+              </div>
+              <div class="formula-block">
+                <div class="fb-label">
+                  <i class="fas fa-calculator"></i> HPP per Unit
+                </div>
+                <div class="fb-eq">
+                  = Total Biaya Produksi &divide; Jumlah Unit
+                </div>
+              </div>
+              <div class="formula-block">
+                <div class="fb-label">
+                  <i class="fas fa-plus-circle"></i> Total Biaya Produksi
+                </div>
+                <div class="fb-eq">= Bahan Pokok + Overhead</div>
+              </div>
+              <div class="formula-block">
+                <div class="fb-label">
+                  <i class="fas fa-percent"></i> Margin Keuntungan
+                </div>
+                <div class="fb-eq">
+                  = (Keuntungan &divide; Pendapatan) &times; 100%
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2: CONTOH INPUT -->
+            <div class="tutorial-card">
+              <div class="tc-header">
+                <i class="fas fa-keyboard"></i> 2. Contoh Input (100 pcs Kue)
+              </div>
+              <div class="input-detail-grid">
+                <div class="input-detail-row">
+                  <div class="idr-label">
+                    <i class="fas fa-boxes-stacked"></i> Produksi
+                  </div>
+                  <div class="idr-val">
+                    <i class="fas fa-hashtag"></i> 100 pcs
+                  </div>
+                </div>
+                <div
+                  class="input-detail-divider"
+                  data-label="Bahan Pokok"
+                ></div>
+                <div class="input-detail-row">
+                  <div class="idr-label">
+                    <i class="fas fa-wheat-awn"></i> Bahan
+                  </div>
+                  <div class="idr-val">
+                    <i class="fas fa-rupiah-sign"></i> 500.000
+                  </div>
+                </div>
+                <div class="input-detail-row">
+                  <div class="idr-label">
+                    <i class="fas fa-user-gear"></i> Upah
+                  </div>
+                  <div class="idr-val">
+                    <i class="fas fa-rupiah-sign"></i> 200.000
+                  </div>
+                </div>
+                <div class="input-detail-divider" data-label="Overhead"></div>
+                <div class="input-detail-row">
+                  <div class="idr-label">
+                    <i class="fas fa-bolt"></i> Listrik / Air
+                  </div>
+                  <div class="idr-val">
+                    <i class="fas fa-rupiah-sign"></i> 100.000
+                  </div>
+                </div>
+                <div class="input-detail-row">
+                  <div class="idr-label">
+                    <i class="fas fa-building"></i> Sewa + Lain
+                  </div>
+                  <div class="idr-val">
+                    <i class="fas fa-rupiah-sign"></i> 150.000
+                  </div>
+                </div>
+                <div class="input-detail-divider" data-label="Penjualan"></div>
+                <div class="input-detail-row">
+                  <div class="idr-label">
+                    <i class="fas fa-tag"></i> Harga Jual
+                  </div>
+                  <div class="idr-val">
+                    <i class="fas fa-rupiah-sign"></i> 15.000/pcs
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 3: LANGKAH PERHITUNGAN -->
+            <div class="tutorial-card">
+              <div class="tc-header">
+                <i class="fas fa-list-ol"></i> 3. Langkah Perhitungan
+              </div>
+              <div class="step-list">
+                <div class="step-row">
+                  <div class="step-num">1</div>
+                  <div class="step-content">
+                    <div class="step-title">
+                      <i class="fas fa-wheat-awn"></i> Pokok
+                    </div>
+                    <span class="step-calc">500k + 200k</span>
+                    <div class="step-result">
+                      <i class="fas fa-equals"></i> Rp 700.000
+                    </div>
+                  </div>
+                </div>
+                <div class="step-row">
+                  <div class="step-num">2</div>
+                  <div class="step-content">
+                    <div class="step-title">
+                      <i class="fas fa-industry"></i> Overhead
+                    </div>
+                    <span class="step-calc">100k + 150k</span>
+                    <div class="step-result">
+                      <i class="fas fa-equals"></i> Rp 250.000
+                    </div>
+                  </div>
+                </div>
+                <div class="step-row">
+                  <div class="step-num">3</div>
+                  <div class="step-content">
+                    <div class="step-title">
+                      <i class="fas fa-coins"></i> Total Biaya
+                    </div>
+                    <span class="step-calc">700k + 250k</span>
+                    <div class="step-result">
+                      <i class="fas fa-equals"></i> Rp 950.000
+                    </div>
+                  </div>
+                </div>
+                <div class="step-row">
+                  <div class="step-num">4</div>
+                  <div class="step-content">
+                    <div class="step-title">
+                      <i class="fas fa-tag"></i> HPP / Unit
+                    </div>
+                    <span class="step-calc">950k &divide; 100</span>
+                    <div class="step-result">
+                      <i class="fas fa-circle-check"></i> Rp 9.500/pcs
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 4: INTERPRETASI -->
+            <div class="tutorial-card">
+              <div class="tc-header">
+                <i class="fas fa-chart-pie"></i> 4. Interpretasi Margin
+              </div>
+              <div class="interpret-list">
+                <div class="interpret-row sangat-untung">
+                  <i class="fas fa-circle-check ir-icon"></i>
+                  <div class="ir-body">
+                    <div class="ir-main">
+                      <i class="fas fa-arrow-trend-up"></i> Margin &gt; 25%
+                    </div>
+                    <div class="ir-sub">
+                      <i class="fas fa-fire"></i> Sangat menguntungkan
+                    </div>
+                  </div>
+                </div>
+                <div class="interpret-row cukup">
+                  <i class="fas fa-circle-exclamation ir-icon"></i>
+                  <div class="ir-body">
+                    <div class="ir-main">
+                      <i class="fas fa-arrows-up-down"></i> Margin 10% &ndash;
+                      25%
+                    </div>
+                    <div class="ir-sub">
+                      <i class="fas fa-screwdriver-wrench"></i> Cukup, perlu
+                      optimasi
+                    </div>
+                  </div>
+                </div>
+                <div class="interpret-row rugi">
+                  <i class="fas fa-circle-xmark ir-icon"></i>
+                  <div class="ir-body">
+                    <div class="ir-main">
+                      <i class="fas fa-arrow-trend-down"></i> Margin &lt; 10%
+                    </div>
+                    <div class="ir-sub">
+                      <i class="fas fa-arrow-up"></i> Naikkan harga segera!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD BARU: PENJELASAN MARKETPLACE & GAJI -->
+            <div class="tutorial-card">
+              <div class="tc-header">
+                <i class="fas fa-store"></i> 5. Fitur Baru (Marketplace & Gaji)
+              </div>
+              <div class="tips-list">
+                <div class="tip-row">
+                  <div class="tip-icon-wrap"><i class="fas fa-store"></i></div>
+                  <div class="tip-content">
+                    <strong>Alokasi Marketplace</strong>Marketplace menagih
+                    biaya admin. Jaga margin Anda tinggi agar setelah dipotong
+                    MP Anda masih untung, atau set Biaya Admin MP x Produksi.
+                  </div>
+                </div>
+                <div class="tip-row">
+                  <div class="tip-icon-wrap"><i class="fas fa-users"></i></div>
+                  <div class="tip-content">
+                    <strong>Headcount / Gaji</strong>Anda bisa mengalokasikan
+                    (misal 15%) dari target harga per pcs. Kalikan dengan target
+                    terjual per bulan agar omset gaji dapat diestimasikan.
+                  </div>
+                </div>
+                <div class="tip-row">
+                  <div class="tip-icon-wrap">
+                    <i class="fas fa-bullseye"></i>
+                  </div>
+                  <div class="tip-content">
+                    <strong>ROAS (Return on Ad Spend)</strong>Punya iklan
+                    berbayar? ROAS = Omset Iklan dibagi Biaya Iklan. Jika ROAS =
+                    3x, artinya modal iklan balik 3x lipat.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 5: TIPS UMKM -->
+            <div class="tutorial-card">
+              <div class="tc-header">
+                <i class="fas fa-lightbulb"></i> 6. Tips Sukses UMKM
+              </div>
+              <div class="tips-list">
+                <div class="tip-row">
+                  <div class="tip-icon-wrap">
+                    <i class="fas fa-calendar-check"></i>
+                  </div>
+                  <div class="tip-content">
+                    <strong>CEK Tiap Bulan</strong>Pantau kenaikan bahan baku
+                    rutin tiap kali periode restock.
+                  </div>
+                </div>
+                <div class="tip-row">
+                  <div class="tip-icon-wrap">
+                    <i class="fas fa-bullseye"></i>
+                  </div>
+                  <div class="tip-content">
+                    <strong>Target Margin 30–40%</strong>Agar bisnis sehat dan
+                    mudah melakukan scaling/iklan.
+                  </div>
+                </div>
+                <div class="tip-row">
+                  <div class="tip-icon-wrap">
+                    <i class="fas fa-handshake"></i>
+                  </div>
+                  <div class="tip-content">
+                    <strong>Negosiasi Supplier</strong>Beli masif dalam jumlah
+                    besar akan menekan HPP secara agresif.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showTab(tabName, btn) {
+        document
+          .querySelectorAll('.content-tabs')
+          .forEach((t) => t.classList.remove('active'));
+        document
+          .querySelectorAll('.nav-btn')
+          .forEach((b) => b.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+        if (btn) btn.classList.add('active');
+      }
+
+      function formatRp(angka) {
+        return new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+          minimumFractionDigits: 0,
+        }).format(angka);
+      }
+
+      /* UTAMA */
+      function hitungHPP() {
+        const jumlah =
+          parseFloat(document.getElementById('jumlahProduksi').value) || 0;
+        const bahanBaku =
+          parseFloat(document.getElementById('bahanBaku').value) || 0;
+        const upahBuruh =
+          parseFloat(document.getElementById('upahBuruh').value) || 0;
+        const listrikAir =
+          parseFloat(document.getElementById('listrikAir').value) || 0;
+        const perawatan =
+          parseFloat(document.getElementById('perawatan').value) || 0;
+        const sewa = parseFloat(document.getElementById('sewa').value) || 0;
+        const lainLain =
+          parseFloat(document.getElementById('lainLain').value) || 0;
+        const hargaJual =
+          parseFloat(document.getElementById('hargaJual').value) || 0;
+
+        if (jumlah <= 0) {
+          alert('Jumlah produksi harus > 0!');
+          return;
+        }
+
+        const bahanPokok = bahanBaku + upahBuruh;
+        const overhead = listrikAir + perawatan + sewa + lainLain;
+        const totalBiaya = bahanPokok + overhead;
+        const hppUnit = totalBiaya / jumlah;
+        const pendapatan = hargaJual * jumlah;
+        const keuntungan = pendapatan - totalBiaya;
+        const margin = pendapatan > 0 ? (keuntungan / pendapatan) * 100 : 0;
+        const hppSafe = hppUnit * 1.3;
+
+        document.getElementById('totalBiaya').textContent =
+          formatRp(totalBiaya);
+        document.getElementById('hppPerUnit').textContent = formatRp(hppUnit);
+        document.getElementById('keuntungan').textContent =
+          formatRp(keuntungan);
+        document.getElementById('hppSafe').textContent = formatRp(hppSafe);
+
+        const kItem = document.getElementById('keuntunganItem');
+        kItem.classList.remove('profit', 'loss');
+        kItem.classList.add(keuntungan >= 0 ? 'profit' : 'loss');
+
+        let badge = '';
+        if (keuntungan < 0)
+          badge = `<span style="background:#c0392b;padding:8px 15px;border-radius:20px;color:white;font-weight:bold"><i class="fas fa-xmark"></i> Merugi</span>`;
+        else if (margin < 15)
+          badge = `<span style="background:#e17055;padding:8px 15px;border-radius:20px;color:white;font-weight:bold"><i class="fas fa-exclamation"></i> Margin Tipis (${margin.toFixed(1)}%)</span>`;
+        else
+          badge = `<span style="background:#00b894;padding:8px 15px;border-radius:20px;color:white;font-weight:bold"><i class="fas fa-check"></i> Menguntungkan (${margin.toFixed(1)}%)</span>`;
+        document.getElementById('statusBadge').innerHTML = badge;
+        document.getElementById('results').style.display = 'block';
+      }
+
+      /* BAHAN BAKU */
+      let totalBahanBakuGlobal = 0;
+      function addBahanBakuRow() {
+        const list = document.getElementById('bb-list');
+        const id = Date.now();
+        const row = document.createElement('div');
+        row.className = 'dynamic-item';
+        row.id = `bb-row-${id}`;
+        row.innerHTML = `<input type="text" placeholder="Nama Bahan"><input type="number" placeholder="Jumlah" class="bb-qty" value="1" min="0.1" step="0.1" oninput="hitungTotalBahanBaku()"><input type="number" placeholder="Harga/Satuan" class="bb-harga" value="0" min="0" oninput="hitungTotalBahanBaku()"><button class="btn-action btn-danger dynamic-btn-remove" onclick="document.getElementById('bb-row-${id}').remove(); hitungTotalBahanBaku();"><i class="fas fa-trash"></i></button>`;
+        list.appendChild(row);
+      }
+      function hitungTotalBahanBaku() {
+        let total = 0;
+        document.querySelectorAll('.dynamic-item').forEach((row) => {
+          const qty = parseFloat(row.querySelector('.bb-qty').value) || 0;
+          const hrga = parseFloat(row.querySelector('.bb-harga').value) || 0;
+          total += qty * hrga;
+        });
+        const hasilpcs =
+          parseFloat(document.getElementById('bbHasilJadi').value) || 1;
+        const hppBahan = total / hasilpcs;
+        totalBahanBakuGlobal = total;
+        document.getElementById('bb-grand-total').textContent = formatRp(total);
+        document.getElementById('bb-hpp-unit').textContent = formatRp(hppBahan);
+        document.getElementById('sidebarTotalBahan').textContent =
+          formatRp(total);
+        document.getElementById('sidebarHPPBahan').textContent =
+          formatRp(hppBahan);
+      }
+      function applyBahanBaku() {
+        document.getElementById('bahanBaku').value = totalBahanBakuGlobal;
+        const hsl = document.getElementById('bbHasilJadi').value;
+        if (hsl) document.getElementById('jumlahProduksi').value = hsl;
+        alert('Bahan Baku berhasil disalin!');
+      }
+
+      /* MARKETPLACE & ROAS */
+      let potonganMPGlobal = 0,
+        hargaJualMPGlobal = 0;
+      function hitungMarketplace() {
+        const harga =
+          parseFloat(document.getElementById('mpHargaJual').value) || 0;
+        const adminP =
+          parseFloat(document.getElementById('mpAdminPersen').value) || 0;
+        const ongkirP =
+          parseFloat(document.getElementById('mpOngkirPersen').value) || 0;
+        const lainP =
+          parseFloat(document.getElementById('mpLainPersen').value) || 0;
+        const tetap = parseFloat(document.getElementById('mpTetap').value) || 0;
+        const totalPersen = adminP + ongkirP + lainP;
+        const potonganPersenRp = (totalPersen / 100) * harga;
+        const totalPotongan = potonganPersenRp + tetap;
+        const bersih = harga - totalPotongan;
+        potonganMPGlobal = totalPotongan;
+        hargaJualMPGlobal = harga;
+        document.getElementById('mp-total-potongan').innerHTML =
+          '- ' + formatRp(totalPotongan);
+        document.getElementById('mp-bersih').innerHTML = formatRp(bersih);
+        document.getElementById('sidebarTotalMP').textContent =
+          formatRp(totalPotongan);
+      }
+      function applyMarketplace() {
+        const qty =
+          parseFloat(document.getElementById('jumlahProduksi').value) || 1;
+        if (hargaJualMPGlobal > 0)
+          document.getElementById('hargaJual').value = hargaJualMPGlobal;
+        if (potonganMPGlobal > 0)
+          document.getElementById('lainLain').value = potonganMPGlobal * qty;
+        alert('Potongan x Jumlah Produksi berhasil di set ke Lain-lain!');
+      }
+      function hitungROAS() {
+        const spend =
+          parseFloat(document.getElementById('mpAdSpend').value) || 0;
+        const rev =
+          parseFloat(document.getElementById('mpAdRevenue').value) || 0;
+        let roas = 0;
+        let msg = "<i class='fas fa-info-circle'></i> Masukkan data.";
+        if (spend > 0) roas = rev / spend;
+        document.getElementById('mp-roas').textContent = roas.toFixed(2) + ' x';
+        if (spend > 0) {
+          if (roas < 1)
+            msg = "<i class='fas fa-xmark'></i> Iklan Anda Merugi (Boncos)!";
+          else if (roas < 3)
+            msg = "<i class='fas fa-check'></i> Iklan Cukup, bisa dioptimasi.";
+          else msg = "<i class='fas fa-fire'></i> Iklan Sangat Menguntungkan!";
+        }
+        document.getElementById('mp-roas-status').innerHTML = msg;
+      }
+
+      /* GAJI / HEADCOUNT */
+      let totalGajiGlobal = 0;
+      function hitungGaji() {
+        const harga = parseFloat(document.getElementById('gjHarga').value) || 0;
+        const persen =
+          parseFloat(document.getElementById('gjPersen').value) || 0;
+        const target =
+          parseFloat(document.getElementById('gjTarget').value) || 0;
+
+        const perProduk = harga * (persen / 100);
+        const totalGaji = perProduk * target;
+        totalGajiGlobal = totalGaji;
+
+        document.getElementById('gj-per-produk').textContent =
+          formatRp(perProduk);
+        document.getElementById('gj-total').textContent = formatRp(totalGaji);
+        document.getElementById('sidebarTotalGaji').textContent =
+          formatRp(totalGaji);
+      }
+      function applyGaji() {
+        if (totalGajiGlobal > 0) {
+          document.getElementById('upahBuruh').value = totalGajiGlobal;
+          alert('Berhasil set ke Upah Tenaga Kerja!');
+        }
+      }
+
+      window.onload = function () {
+        addBahanBakuRow();
+      };
+    </script>
+  </body>
+</html>
