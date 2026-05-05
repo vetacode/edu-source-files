@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Meta Ads Otak Kanan - Dadan Hamdan Fuad | eBook Premium</title>
+    <!-- Font Awesome 6 (free) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Google Fonts: Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none; /* disable seleksi teks (opsional) */
+      }
+
+      body {
+        background-color: #0a0f1e; /* biru tua kehitaman */
+        font-family: 'Inter', sans-serif;
+        color: #f0f4fa;
+        line-height: 1.5;
+        scroll-behavior: smooth;
+      }
+
+      /* container utama modern */
+      .ebook {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #0a0f1e;
+        box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
+        position: relative;
+      }
+
+      /* efek hover shadow & animasi ringan pada card */
+      .card,
+      .profile-card,
+      .testimonial-card,
+      .bonus-card,
+      .cta-big,
+      .highlight-box,
+      .bab-card {
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.3s ease;
+      }
+      .card:hover,
+      .bab-card:hover,
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+      }
+
+      /* section styling */
+      .section {
+        padding: 2rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* cover */
+      .cover {
+        padding: 2rem 1.5rem;
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: radial-gradient(circle at 10% 20%, #0c1428, #02050b);
+      }
+      .cover-img {
+        width: 100%;
+        max-width: 320px;
+        border-radius: 28px;
+        box-shadow: 0 30px 35px -12px rgba(0, 0, 0, 0.8);
+        margin-bottom: 1.5rem;
+        transition: 0.3s;
+      }
+      h1 {
+        font-size: 2.4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ffffff, #7facff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.02em;
+      }
+      .subhead {
+        font-size: 1.2rem;
+        color: #c0d4ff;
+        margin: 0.5rem 0;
+      }
+
+      /* tombol CTA premium */
+      .btn-wa {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: #25d366;
+        color: #0a0f1e;
+        font-weight: 800;
+        padding: 0.9rem 2rem;
+        border-radius: 60px;
+        text-decoration: none;
+        transition: 0.2s;
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+      }
+      .btn-wa:hover {
+        background: #20b859;
+        transform: scale(1.02);
+        box-shadow: 0 12px 25px rgba(37, 211, 102, 0.5);
+      }
+
+      .btn-print {
+        background: #2c3e66;
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 40px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      /* profil */
+      .profile-card {
+        display: flex;
+        gap: 1.2rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 2rem;
+        padding: 1.5rem;
+        backdrop-filter: blur(2px);
+      }
+      .profile-img {
+        width: 85px;
+        height: 85px;
+        object-fit: cover;
+        border-radius: 100px;
+        border: 2px solid #3b82f6;
+      }
+
+      /* badge */
+      .badge {
+        background: #1f3a5f;
+        padding: 0.2rem 1rem;
+        border-radius: 40px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 0.8rem;
+      }
+
+      /* bab card */
+      .bab-card {
+        background: #0f1624;
+        border-radius: 1.8rem;
+        padding: 1.6rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(66, 153, 225, 0.2);
+        box-shadow: 0 15px 25px -12px rgba(0, 0, 0, 0.4);
+      }
+      .bab-img {
+        width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 1rem;
+        margin: 1rem 0;
+        background: #111b2e;
+      }
+
+      /* highlight box */
+      .highlight-box {
+        background: linear-gradient(105deg, #0b1a2e, #04152a);
+        border-left: 6px solid #3b82f6;
+        padding: 1rem 1.2rem;
+        border-radius: 1rem;
+        margin: 1.5rem 0;
+        font-weight: 700;
+        font-size: 1rem;
+      }
+
+      /* testimoni */
+      .testimonial-card {
+        background: #0e1729;
+        padding: 1.2rem;
+        border-radius: 1.2rem;
+        margin: 1rem 0;
+        font-style: italic;
+        border-left: 3px solid #f59e0b;
+      }
+
+      .ringkasan {
+        background: #09101e;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin-top: 1rem;
+        border-left: 3px solid #f59e0b;
+      }
+
+      .follow-ig-small {
+        font-size: 0.7rem;
+        margin-top: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #c9dfff;
+      }
+
+      .cta-big {
+        background: linear-gradient(115deg, #0c1a30, #01050f);
+        border-radius: 2rem;
+        text-align: center;
+        padding: 2rem;
+        margin: 1.5rem;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.7rem;
+        color: #6f8fbc;
+      }
+
+      @media (max-width: 550px) {
+        .section {
+          padding: 1.5rem 1rem;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+        .profile-card {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+      }
+
+      /* tombol daftar isi */
+      .toc-link {
+        display: block;
+        padding: 0.6rem 0;
+        color: #b8d0ff;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: 0.2s;
+      }
+      .toc-link:hover {
+        color: white;
+        padding-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ebook" id="ebookTop">
+      <!-- COVER -->
+      <div class="cover">
+        <img
+          class="cover-img"
+          src="https://sarimart.biz.id/gambarbebas/20260504-063630_cover%20produk.png"
+          alt="Cover Meta Ads Otak Kanan"
+        />
+        <h1>Meta Ads Otak Kanan</h1>
+        <div class="subhead">
+          Jualan Tanpa Ribet, Closing Pakai Emosi & Persepsi
+        </div>
+        <p style="margin-top: 10px">
+          <i class="fas fa-user-pen"></i> Dadan Hamdan Fuad
+        </p>
+        <a
+          href="https://wa.me/6285122944720?text=Halo%20Kak%20Dadan,%20saya%20ingin%20konsultasi%20Meta%20Ads%20Otak%20Kanan"
+          class="btn-wa"
+          style="margin: 1.5rem 0 0.5rem"
+          ><i class="fab fa-whatsapp"></i> Konsultasi Sekarang</a
+        >
+        <button class="btn-print" onclick="window.print()">
+          <i class="fas fa-print"></i> Cetak / Simpan PDF
+        </button>
+        <div
+          class="follow-ig-small"
+          style="justify-content: center; margin-top: 1rem"
+        >
+          <i class="fab fa-instagram"></i> Follow @dadan_fuad untuk tips harian
+        </div>
+      </div>
+
+      <!-- PROFIL PENULIS -->
+      <div class="section">
+        <div class="profile-card">
+          <img
+            class="profile-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-061533_usdan.jpg"
+            alt="Dadan Hamdan Fuad"
+          />
+          <div>
+            <h3 style="margin-bottom: 5px">Dadan Hamdan Fuad</h3>
+            <p>
+              Praktisi Meta Ads & Neuro Marketing. Membimbing UMKM mengubah
+              iklan biasa jadi closing tinggi. Buku ini adalah panduan praktis
+              menjual dengan emosi, bukan logika.
+            </p>
+            <div>
+              <i class="fab fa-instagram" style="color: #e1306c"></i>
+              <strong>@dadan_fuad</strong> |
+              <i class="fab fa-whatsapp"></i> 085122944720
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PENGANTAR -->
+      <div class="section">
+        <span class="badge"><i class="fas fa-book-open"></i> PENGANTAR</span>
+        <h2>Jualan Rasa, Raih Closing</h2>
+        <p>
+          Selamat datang di eBook yang akan merevolusi cara Anda beriklan di
+          Meta (FB/IG). Bukan tentang teknis rumit, tapi tentang bagaimana
+          menciptakan <strong>emosi & persepsi</strong> sehingga produk biasa
+          terlihat luar biasa. Target Anda: UMKM, pebisnis online, pemula — yang
+          ingin fokus ke hasil closing, bukan sekadar klik.
+        </p>
+        <p>
+          Di sini Anda belajar:
+          <strong
+            >Mindset Otak Kanan, Psikologi pembeli, Hook mematikan, Copywriting
+            menyentuh, Visual stop scroll, Persepsi harga, Struktur Iklan,
+            Testing efektif, CTA mematikan, dan Scaling aman.</strong
+          >
+          Mari kita ubah jualan fitur → jualan rasa!
+        </p>
+      </div>
+
+      <!-- DAFTAR ISI (anchor link) -->
+      <div class="section">
+        <span class="badge"
+          ><i class="fas fa-list-ul"></i> DAFTAR ISI PREMIUM</span
+        >
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+          "
+        >
+          <a href="#bab1" class="toc-link"
+            ><i class="fas fa-brain"></i> Bab 1: MINDSET META ADS OTAK KANAN</a
+          >
+          <a href="#bab2" class="toc-link"
+            ><i class="fas fa-mobile-alt"></i> Bab 2: PSIKOLOGI PEMBELI DI
+            SOSIAL MEDIA</a
+          >
+          <a href="#bab3" class="toc-link"
+            ><i class="fas fa-hook"></i> Bab 3: HOOK – PEMBUKA BIKIN BERHENTI</a
+          >
+          <a href="#bab4" class="toc-link"
+            ><i class="fas fa-feather-alt"></i> Bab 4: COPYWRITING OTAK KANAN</a
+          >
+          <a href="#bab5" class="toc-link"
+            ><i class="fas fa-palette"></i> Bab 5: VISUAL IKLAN YANG MENARIK</a
+          >
+          <a href="#bab6" class="toc-link"
+            ><i class="fas fa-tags"></i> Bab 6: PERSEPSI HARGA & VALUE</a
+          >
+          <a href="#bab7" class="toc-link"
+            ><i class="fas fa-chart-simple"></i> Bab 7: STRUKTUR IKLAN
+            SEDERHANA</a
+          >
+          <a href="#bab8" class="toc-link"
+            ><i class="fas fa-flask"></i> Bab 8: TESTING IKLAN TANPA BONCOS</a
+          >
+          <a href="#bab9" class="toc-link"
+            ><i class="fas fa-comment-dots"></i> Bab 9: CTA & CLOSING</a
+          >
+          <a href="#bab10" class="toc-link"
+            ><i class="fas fa-chart-line"></i> Bab 10: SCALE UP IKLAN CUAN</a
+          >
+          <a href="#penutup" class="toc-link"
+            ><i class="fas fa-flag-checkered"></i> Bab 11: PENUTUP + MOTIVASI</a
+          >
+        </div>
+      </div>
+
+      <!-- TESTIMONI -->
+      <div class="section">
+        <span class="badge"
+          ><i class="fas fa-star"></i> TESTIMONI PRAKTISI</span
+        >
+        <div class="testimonial-card">
+          <i class="fas fa-quote-left"></i> “Setelah pakai prinsip Otak Kanan,
+          biaya iklan lebih hemat tapi orderan naik 2x lipat. Metode Dadan
+          langsung praktis!” — <strong>@umkm_batikKita</strong>
+        </div>
+        <div class="testimonial-card">
+          <i class="fas fa-quote-left"></i> “Saya pemula, skrg paham cara bikin
+          hook & closing pakai emosi. Terima kasih ebook ini!” —
+          <strong>Sarah, Online Shop</strong>
+        </div>
+      </div>
+
+      <!-- =================== BAB 1 ================= -->
+      <div class="section" id="bab1">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-lightbulb"></i> BAB 1</span>
+          <h2>MINDSET META ADS OTAK KANAN</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063630_bab-1.png"
+            alt="Mindset"
+          />
+          <p>
+            <strong>Pembukaan:</strong> Otak kiri suka logika, data, fitur. Otak
+            kanan bicara emosi, cerita, persepsi. Mayoritas pemula sibuk
+            menjelaskan spesifikasi, padahal pembeli beli karena perasaan.
+            “Iklan bagus” secara teknis belum tentu laku karena tidak menyentuh
+            emosi.
+          </p>
+          <p>
+            <strong>Kesalahan umum:</strong> membuat iklan yang rasional,
+            membandingkan harga, tidak ada emotional trigger. Solusi: Ubah cara
+            pandang. Anda bukan jual produk, tapi jual perasaan memiliki.
+          </p>
+          <div class="highlight-box">
+            <i class="fas fa-quote-right"></i> “Orang beli bukan karena butuh,
+            tapi karena merasa butuh.”
+          </div>
+          <p>
+            <strong>Contoh praktis:</strong> Daripada bilang “jaket waterproof”,
+            ubah “Rasakan tetap kering saat hujan, percaya diri sepanjang hari”.
+          </p>
+          <div class="ringkasan">
+            <i class="fas fa-check-circle"></i>
+            <strong>Kesimpulan:</strong> Ganti mindset jualan fitur → jualan
+            rasa. Itu fondasi Meta Ads Otak Kanan.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Follow @dadan_fuad → cerita
+            inspiratif setiap hari
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 2 -->
+      <div class="section" id="bab2">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-brain"></i> BAB 2</span>
+          <h2>PSIKOLOGI PEMBELI DI SOSIAL MEDIA</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063608_Bab-2.png"
+            alt="psikologi"
+          />
+          <p>
+            <strong>Pembukaan:</strong> Attention span pendek di IG & FB: hanya
+            1.5-3 detik untuk menarik perhatian. Kenapa orang scroll? Karena
+            konten terlalu umum, tidak memicu rasa penasaran. Trigger emosi yang
+            membuat berhenti: humor, penasaran, masalah relatable.
+          </p>
+          <div class="highlight-box">
+            ⚡ “Di Meta Ads, yang cepat menarik = yang menang.”
+          </div>
+          <p>
+            <strong>Penerapan:</strong> Mulai iklan dengan visual atau teks yang
+            membangkitkan emosi dalam 3 detik pertama. Gunakan pertanyaan
+            retoris atau fakta mengejutkan. Contoh: “Kenapa produk biasa bisa
+            laris manis?”
+          </p>
+          <div class="ringkasan">
+            <strong>📌 Ringkasan:</strong> Kalau tidak menarik dalam 3 detik,
+            iklan kamu mati. Fokus pada “stop scrolling” emosional.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Dapatkan daily trigger emosi di
+            Instagram @dadan_fuad
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 3 -->
+      <div class="section" id="bab3">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-hand-peace"></i> BAB 3</span>
+          <h2>HOOK: PEMBUKA YANG BIKIN BERHENTI SCROLL</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063609_bab-3.png"
+            alt="hook"
+          />
+          <p>
+            <strong>Jenis hook:</strong> penasaran (“Rahasia ini tidak banyak
+            yang tahu”), masalah (“Pusing iklan mahal tapi penjualan sepi?”),
+            konflik (“Kenapa toko sebelah laku, kamu belum?”). Contoh viral:
+            hook yang mengganggu kenyamanan atau janji solusi instan.
+          </p>
+          <div class="highlight-box">
+            💥 “Kalau hook lemah, iklan mahal pun tetap gagal.”
+          </div>
+          <p>
+            <strong>Formula cepat:</strong> [Masalah umum] + [solusi emosional]
+            + bukti kecil. Contoh: "Bosan iklan habis tanpa orderan? Simak 3
+            trik emosi yang bikin pelanggan ngechat."
+          </p>
+          <div class="ringkasan">
+            Hook adalah 80% kekuatan iklan. Kuasai 3 detik pertama, kuasai hasil
+            closing.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Contoh hook viral ada di
+            @dadan_fuad setiap hari
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 4 -->
+      <div class="section" id="bab4">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-pen-fancy"></i> BAB 4</span>
+          <h2>COPYWRITING OTAK KANAN</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063609_bab-4.png"
+            alt="copywriting"
+          />
+          <p>
+            Teknik storytelling sederhana: buka dengan momen yang relatable,
+            lalu bawa ke solusi. Bahasa santai lebih dekat ke hati daripada
+            formal kaku. Cara bikin "ini gue banget": gunakan kata "kamu",
+            ceritakan situasi familiar.
+          </p>
+          <div class="highlight-box">
+            🔥 “Jualan terbaik adalah yang terasa bukan jualan.”
+          </div>
+          <p>
+            <strong>Contoh:</strong> “Kamu tahu rasanya capek mikirin iklan? Aku
+            juga. Tapi setelah pakai pendekatan emosi, closing mengalir deras.”
+          </p>
+          <div class="ringkasan">
+            Copywriting bukan soal keren, tapi soal nyambung. Bicara ke hati.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Follow -> @dadan_fuad untuk swipe
+            file copywriting
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 5 s.d BAB 11 dengan elemen lengkap (pembukaan, contoh, highlight, ringkasan) -->
+      <!-- BAB 5 -->
+      <div class="section" id="bab5">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-image"></i> BAB 5</span>
+          <h2>VISUAL IKLAN YANG MENARIK</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063609_bab-5.png"
+          />
+          <p>
+            Ciri visual stop scroll: kontras tinggi, ekspresi manusia, gambar
+            yang menggambarkan emosi (senang, penasaran). Warna merah untuk
+            urgensi, biru untuk kepercayaan. Konsep gambar otak kanan: menyentuh
+            rasa, misalnya foto orang yang sedang lega setelah pakai produk.
+          </p>
+          <div class="highlight-box">
+            🎯 “Yang jelek tapi nyentuh, lebih laku dari yang bagus tapi
+            dingin.”
+          </div>
+          <div class="ringkasan">
+            Visual harus bikin orang berhenti, bukan cuma bagus secara estetika.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> @dadan_fuad bagikan referensi
+            visual ngena
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 6 -->
+      <div class="section" id="bab6">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-coins"></i> BAB 6</span>
+          <h2>PERSEPSI HARGA & VALUE</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063610_bab-6.png"
+          />
+          <p>
+            Cara menaikkan persepsi tanpa ubah produk: packaging cerita, bonus
+            eksklusif, dan bukti sosial. Teknik “mahal tapi worth it”: tonjolkan
+            benefit emosional, hindari perang harga. Kesalahan umum: diskon
+            terlalu dini.
+          </p>
+          <div class="highlight-box">
+            💰 “Orang tidak beli murah, orang beli yang terasa pantas.”
+          </div>
+          <div class="ringkasan">
+            Bangun persepsi value tinggi, harga jadi lebih mudah diterima.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Follow @dadan_fuad untuk studi
+            kasus harga & value
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 7 -->
+      <div class="section" id="bab7">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-layer-group"></i> BAB 7</span>
+          <h2>STRUKTUR IKLAN SEDERHANA (NO RIBET)</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063610_bab-7.png"
+          />
+          <p>
+            Framework 4 langkah: Hook → Relate (masalah yang sama) → Offer
+            (solusi emosional) → CTA ajakan jelas. Template siap pakai: "Kamu
+            [masalah]? Sama dulu saya. Ternyata [solusi]+rasa. Yuk [CTA]". Real
+            case: produk kecantikan menggunakan hook "capek coba skincare ga
+            cocok" lalu relate, offer skin kit dengan rasa percaya diri.
+          </p>
+          <div class="highlight-box">
+            🚀 “Sederhana tapi kena, lebih baik dari rumit tapi gagal.”
+          </div>
+          <div class="ringkasan">
+            Iklan tidak perlu rumit, yang penting mengalir dan membawa emosi.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Dapatkan template di highlight IG
+            @dadan_fuad
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 8 -->
+      <div class="section" id="bab8">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-vial"></i> BAB 8</span>
+          <h2>TESTING IKLAN TANPA BONCOS</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063610_bab-8.png"
+          />
+          <p>
+            Cara testing benar: buat 2-3 variasi hook atau visual dengan budget
+            kecil (Rp50-100k/hari). Ukur indikator emosi: komentar, reaksi,
+            pesan masuk. Budget minimal testing: Rp50k per iklan selama 2-3
+            hari. Kapan stop: jika CTR buruk dan tidak ada chat; lanjut: jika
+            engagement tinggi meskipun CPC biasa saja.
+          </p>
+          <div class="highlight-box">
+            📊 “Bukan soal besar budget, tapi pintar membaca data.”
+          </div>
+          <div class="ringkasan">
+            Testing itu wajib, tapi harus terarah. Optimasi berdasarkan emosi
+            pelanggan.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Simak live testing di stories
+            @dadan_fuad
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 9 -->
+      <div class="section" id="bab9">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-comment"></i> BAB 9</span>
+          <h2>CTA & CLOSING</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063611_bab-9.png"
+          />
+          <p>
+            CTA yang efektif: langsung, spesifik, dan berbasis emosi. Contoh:
+            “Klik link untuk rasakan sendiri”, “Chat ‘otak kanan’ dapatkan
+            panduan gratis”. Cara bikin orang DM/WA: berikan instruksi sederhana
+            dan manfaat. Script closing sederhana: “Halo, saya lihat Anda
+            tertarik dengan [produk]. Apakah Anda ingin tahu bagaimana produk
+            ini bisa membantu rasa [percaya diri/nyaman]?”
+          </p>
+          <div class="highlight-box">
+            🔥 “Kalau orang bingung harus ngapain, dia tidak akan
+            ngapa-ngapain.”
+          </div>
+          <div class="ringkasan">
+            CTA menentukan hasil akhir iklan. Jangan biarkan mereka pasif.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Contoh real closing script di feed
+            @dadan_fuad
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 10 -->
+      <div class="section" id="bab10">
+        <div class="bab-card">
+          <span class="badge"><i class="fas fa-chart-line"></i> BAB 10</span>
+          <h2>SCALE UP IKLAN YANG SUDAH CUAN</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063611_bab-10.png"
+          />
+          <p>
+            Kapan iklan siap di-scale: ROAS konsisten 3-5 hari, cost per result
+            stabil, banyak chat masuk. Cara naikin budget aman: naikkan 20-30%
+            setiap 2 hari. Hindari scaling brutal (naik 2x lipat langsung)
+            karena bisa merusak performa.
+          </p>
+          <div class="highlight-box">
+            📈 “Yang kecil tapi konsisten, lebih aman dari yang besar tapi
+            nekat.”
+          </div>
+          <div class="ringkasan">
+            Jangan buru-buru scale sebelum stabil. Konsistensi > kebesaran
+            instan.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Follow @dadan_fuad untuk tips
+            scaling tiap pekan
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 11 PENUTUP -->
+      <div class="section" id="penutup">
+        <div class="bab-card">
+          <span class="badge"
+            ><i class="fas fa-flag-checkered"></i> PENUTUP EBOOK</span
+          >
+          <h2>Jualan Itu Soal Rasa, Bukan Sekadar Data</h2>
+          <img
+            class="bab-img"
+            src="https://sarimart.biz.id/gambarbebas/20260504-063630_penutup.png"
+          />
+          <p>
+            Reframe mindset jualan: Anda bukan penjual, Anda penghubung emosi.
+            Terapkan semua 10 bab, mulai dari mindset, hook, copy, visual,
+            hingga scaling. Dorongan action: segera buat 1 iklan dengan
+            pendekatan otak kanan minggu ini. Motivasi ringan: setiap besar
+            dimulai dari langkah kecil yang konsisten.
+          </p>
+          <div class="highlight-box">
+            ✨ “Yang menang bukan yang paling pintar, tapi yang paling paham
+            manusia.”
+          </div>
+          <div class="ringkasan">
+            Jadilah pebisnis yang mengerti hati pelanggan. Jualan tanpa ribet,
+            closing pakai emosi & persepsi.
+          </div>
+          <div class="follow-ig-small">
+            <i class="fab fa-instagram"></i> Terus belajar bersama @dadan_fuad
+            di Instagram
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA AKHIR + AJAKAN INSTAGRAM MENC mencolok -->
+      <div class="cta-big">
+        <i
+          class="fab fa-whatsapp"
+          style="font-size: 2.5rem; color: #25d366"
+        ></i>
+        <h3 style="margin: 0.5rem 0">💬 Silahkan konsultasi disini</h3>
+        <p>
+          Dadan Hamdan Fuad siap membantu Anda menerapkan Meta Ads Otak Kanan
+          untuk produk / bisnis Anda. Konsultasi langsung via WA.
+        </p>
+        <a
+          href="https://wa.me/6285122944720?text=Halo%20Kak%20Dadan,%20saya%20mau%20konsultasi%20eBook%20Otak%20Kanan"
+          class="btn-wa"
+          style="margin: 0.5rem 0 1rem"
+          ><i class="fab fa-whatsapp"></i> Hubungi Konsultan</a
+        >
+        <div
+          style="
+            background: linear-gradient(90deg, #f58529, #dd2a7b);
+            padding: 0.8rem;
+            border-radius: 60px;
+            margin-top: 1rem;
+          "
+        >
+          <a
+            href="https://www.instagram.com/dadan_fuad/"
+            target="_blank"
+            style="
+              color: white;
+              text-decoration: none;
+              font-weight: bold;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 12px;
+            "
+            ><i class="fab fa-instagram" style="font-size: 1.8rem"></i> Follow
+            Instagram @dadan_fuad <i class="fas fa-arrow-right"></i
+          ></a>
+          <p style="font-size: 0.7rem; margin-top: 5px">
+            Dapatkan update, template & live coaching gratis!
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <i class="far fa-copyright"></i> 2026 Dadan Hamdan Fuad — Meta Ads Otak
+        Kanan: Jualan Tanpa Ribet, Closing Pakai Emosi & Persepsi<br />Didedikasikan
+        untuk UMKM Indonesia.
+      </div>
+    </div>
+
+    <script>
+      // proteksi: disable klik kanan, Ctrl+U, Ctrl+S, F12
+      document.addEventListener('contextmenu', (e) => e.preventDefault());
+      document.addEventListener('keydown', (e) => {
+        if (
+          e.ctrlKey &&
+          (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')
+        ) {
+          e.preventDefault();
+          return false;
+        }
+        if (e.key === 'F12') {
+          e.preventDefault();
+          return false;
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // autentikasi username & password
+      let user = prompt(
+        '🔐 eBook Premium Meta Ads Otak Kanan\nMasukkan Username:'
+      );
+      if (user !== 'usdan12345') {
+        let pwd = prompt('Username valid. Masukkan Password:');
+        if (pwd !== 'usdan12345') {
+          document.body.innerHTML =
+            "<div style='background:#0A0F1E; color:white; height:100vh; display:flex; align-items:center; justify-content:center; font-family:monospace;'>🚫 Akses Ditolak. Silahkan hubungi pemilik eBook.</div>";
+          throw new Error('Unauthorized');
+        }
+      }
+    </script>
+  </body>
+</html>
