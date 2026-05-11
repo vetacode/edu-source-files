@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Algoritma Instagram Modern: Perilaku Pengguna, AI, Iklan & Pemilik
+      Platform
+    </title>
+
+    <meta
+      name="description"
+      content="Penjelasan lengkap tentang algoritma Instagram modern berdasarkan perilaku pengguna, keinginan pemilik platform, bisnis iklan, AI, dan strategi caption Instagram."
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+        line-height: 1.8;
+      }
+
+      .topbar {
+        background: #111827;
+        color: white;
+        padding: 10px 0;
+        font-size: 14px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #4f46e5, #7c3aed, #db2777);
+        color: white;
+        padding: 80px 0;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        font-size: 19px;
+        opacity: 0.95;
+      }
+
+      .badge-soft {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        padding: 8px 14px;
+        border-radius: 50px;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .card-box {
+        background: white;
+        border-radius: 22px;
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        height: 100%;
+        border: 1px solid #e5e7eb;
+      }
+
+      .card-box h3 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 15px;
+      }
+
+      .icon-circle {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: #eef2ff;
+        color: #4f46e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        margin-bottom: 18px;
+      }
+
+      .highlight {
+        background: #fff7ed;
+        border-left: 6px solid #f97316;
+        padding: 25px;
+        border-radius: 16px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .dark-section {
+        background: #111827;
+        color: white;
+        border-radius: 35px;
+        padding: 55px 30px;
+      }
+
+      .dark-section .card-box {
+        background: #1f2937;
+        border-color: #374151;
+        color: white;
+      }
+
+      .number {
+        width: 38px;
+        height: 38px;
+        background: #4f46e5;
+        color: white;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .table-modern {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      .table-modern th {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .quote-box {
+        background: linear-gradient(135deg, #111827, #312e81);
+        color: white;
+        padding: 35px;
+        border-radius: 25px;
+        font-size: 24px;
+        font-weight: 800;
+      }
+
+      .cta {
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+        color: white;
+        padding: 60px 30px;
+        border-radius: 35px;
+        text-align: center;
+      }
+
+      .cta h2 {
+        font-weight: 900;
+        font-size: 34px;
+      }
+
+      .btn-wa {
+        background: #111827;
+        color: white;
+        padding: 14px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 700;
+        margin-top: 15px;
+      }
+
+      .btn-wa:hover {
+        background: white;
+        color: #111827;
+      }
+
+      .footer {
+        background: #111827;
+        color: #cbd5e1;
+        padding: 30px 0;
+        text-align: center;
+        margin-top: 60px;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 31px;
+        }
+
+        .hero {
+          padding: 55px 0;
+        }
+
+        .section {
+          padding: 40px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container">
+        <i class="fa-brands fa-instagram"></i> Materi Strategi Instagram Modern
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <span class="badge-soft">
+              <i class="fa-solid fa-brain"></i> Behavior Algorithm
+            </span>
+            <h1>
+              Algoritma Instagram Modern Bukan Lagi Sekadar Like dan Follower
+            </h1>
+            <p class="mt-3">
+              Algoritma Instagram hari ini adalah gabungan dari perilaku
+              pengguna, keinginan pemilik platform, bisnis iklan, AI, dan mesin
+              pembaca perilaku manusia.
+            </p>
+            <p>
+              Jadi perang konten sekarang bukan hanya siapa yang paling rajin
+              upload, tetapi siapa yang paling paham cara manusia berhenti,
+              menonton, merasa, menyimpan, dan membagikan konten.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="highlight">
+          Kesimpulan awal: Instagram bukan hanya media sosial. Instagram adalah
+          mesin perilaku manusia yang mengubah perhatian menjadi data, data
+          menjadi iklan, dan iklan menjadi uang.
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">4 Mesin Besar di Balik Algoritma Instagram</h2>
+          <p>
+            Inilah gabungan yang membuat algoritma Instagram semakin pintar
+            membaca manusia.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="card-box">
+              <div class="icon-circle"><i class="fa-solid fa-user"></i></div>
+              <h3>1. Perilaku Pengguna</h3>
+              <p>
+                Instagram membaca apa yang ditonton, disimpan, diulang,
+                dikomentari, dibagikan, dan membuat pengguna berhenti scrolling.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card-box">
+              <div class="icon-circle">
+                <i class="fa-solid fa-building"></i>
+              </div>
+              <h3>2. Keinginan Platform</h3>
+              <p>
+                Pemilik platform ingin pengguna betah lebih lama, sering
+                kembali, creator terus upload, dan ekosistem tetap ramai.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card-box">
+              <div class="icon-circle">
+                <i class="fa-solid fa-bullhorn"></i>
+              </div>
+              <h3>3. Bisnis Iklan</h3>
+              <p>
+                Semakin akurat data perilaku pengguna, semakin mahal dan efektif
+                iklan yang bisa dijual kepada advertiser.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card-box">
+              <div class="icon-circle"><i class="fa-solid fa-robot"></i></div>
+              <h3>4. AI Perilaku</h3>
+              <p>
+                AI tidak hanya membaca perilaku, tetapi juga memprediksi konten
+                apa yang membuat pengguna bertahan lebih lama.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container dark-section">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Apa yang Dibaca Instagram dari Pengguna?</h2>
+          <p>
+            Setiap gerakan kecil pengguna bisa menjadi sinyal bagi algoritma.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">1</span> Watch Time</h3>
+              <p>
+                Berapa lama pengguna menonton Reels. Semakin lama ditonton,
+                semakin kuat sinyal bahwa konten menarik.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">2</span> Replay</h3>
+              <p>
+                Jika video ditonton ulang, Instagram menganggap konten tersebut
+                penting, menarik, lucu, atau membuat penasaran.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">3</span> Save</h3>
+              <p>
+                Konten yang disimpan dianggap bernilai. Biasanya berupa edukasi,
+                checklist, tutorial, insight, atau strategi.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">4</span> Share ke DM</h3>
+              <p>
+                Jika konten dibagikan ke teman, algoritma membaca bahwa konten
+                tersebut punya nilai sosial dan emosional.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">5</span> Komentar Panjang</h3>
+              <p>
+                Komentar yang panjang lebih kuat daripada komentar pendek,
+                karena menunjukkan keterlibatan pikiran dan emosi.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">6</span> Klik Profil</h3>
+              <p>
+                Jika setelah melihat konten orang membuka profil, berarti konten
+                berhasil membangun rasa penasaran dan minat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Perbandingan Algoritma Lama dan Modern</h2>
+          <p>
+            Perubahan terbesar terjadi dari sekadar interaksi ringan menjadi
+            sinyal perilaku mendalam.
+          </p>
+        </div>
+
+        <div class="table-responsive table-modern">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr>
+                <th>Algoritma Lama</th>
+                <th>Algoritma Modern</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Like dianggap sinyal utama</td>
+                <td>Watch time, save, share, dan replay lebih kuat</td>
+              </tr>
+              <tr>
+                <td>Follower besar mudah menang</td>
+                <td>Akun kecil tetap bisa naik jika retention bagus</td>
+              </tr>
+              <tr>
+                <td>Hashtag sangat dominan</td>
+                <td>Interest AI dan perilaku pengguna makin dominan</td>
+              </tr>
+              <tr>
+                <td>Posting banyak dianggap bagus</td>
+                <td>Konten yang membuat orang bertahan lebih diutamakan</td>
+              </tr>
+              <tr>
+                <td>Caption hanya pelengkap</td>
+                <td>Caption menjadi alat hook, emosi, insight, dan CTA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="quote-box">
+          “Perang sosial media modern bukan lagi sekadar perang konten, tetapi
+          perang memahami perilaku manusia.”
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Caption Instagram Modern Harus Diawali Hook</h2>
+          <p>
+            Paragraf pertama caption sebaiknya diperlakukan seperti judul atau
+            headline.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card-box">
+              <div class="icon-circle"><i class="fa-solid fa-magnet"></i></div>
+              <h3>Paragraf Pertama = Hook</h3>
+              <p>
+                Tujuannya bukan menjelaskan panjang lebar, tetapi menghentikan
+                scrolling pengguna dalam 1–2 detik pertama.
+              </p>
+              <p>
+                Jika awal caption lemah, pengguna tidak akan lanjut membaca.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <div class="icon-circle"><i class="fa-solid fa-bolt"></i></div>
+              <h3>Hook Harus Pendek dan Tajam</h3>
+              <p>
+                Hook yang baik biasanya menyentuh masalah, emosi, rasa
+                penasaran, konflik ringan, atau pengalaman yang sangat relate.
+              </p>
+              <p>Contoh: “Follower banyak belum tentu dagangan laku.”</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="card-box">
+          <h2 class="fw-bold mb-4">Struktur Caption Instagram yang Efektif</h2>
+
+          <h4><span class="number">1</span> Hook</h4>
+          <p>Kalimat pembuka yang membuat orang berhenti scrolling.</p>
+
+          <h4><span class="number">2</span> Emosi</h4>
+          <p>Masuk ke masalah nyata yang dirasakan audiens.</p>
+
+          <h4><span class="number">3</span> Insight</h4>
+          <p>
+            Berikan sudut pandang baru, edukasi, atau pemahaman yang membuat
+            pembaca merasa dapat sesuatu.
+          </p>
+
+          <h4><span class="number">4</span> CTA</h4>
+          <p>
+            Arahkan pembaca untuk komentar, save, share, DM, klik profil, atau
+            menghubungi WhatsApp.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <h2 class="fw-bold text-center mb-5">Contoh Hook Caption yang Kuat</h2>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card-box">
+              <h3>Hook Otak Kiri</h3>
+              <p>
+                <strong
+                  >“Konten banyak belum tentu menghasilkan penjualan.”</strong
+                >
+              </p>
+              <p>
+                Cocok untuk konten edukatif, data, analisa, dan penjelasan
+                logis.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-box">
+              <h3>Hook Otak Kanan</h3>
+              <p>
+                <strong
+                  >“Capek upload tiap hari, tapi orderan tetap sepi?”</strong
+                >
+              </p>
+              <p>
+                Cocok untuk menyentuh emosi, keresahan, dan pengalaman audiens.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-box">
+              <h3>Hook Out of The Box</h3>
+              <p>
+                <strong
+                  >“Instagram bukan sosial media. Instagram adalah mesin
+                  perilaku manusia.”</strong
+                >
+              </p>
+              <p>
+                Cocok untuk membuat orang berhenti karena sudut pandangnya tidak
+                biasa.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="card-box">
+          <h2 class="fw-bold mb-4">Contoh Caption Lengkap</h2>
+
+          <div
+            style="
+              background: #f9fafb;
+              border-radius: 18px;
+              padding: 25px;
+              border: 1px solid #e5e7eb;
+            "
+          >
+            <p><strong>“Follower banyak belum tentu dagangan laku.”</strong></p>
+
+            <p>
+              Karena masalah terbesar UMKM hari ini bukan sekadar dilihat banyak
+              orang.
+            </p>
+
+            <p>
+              Masalah sebenarnya adalah bagaimana mengubah perhatian menjadi
+              kepercayaan, dan kepercayaan menjadi keputusan membeli.
+            </p>
+
+            <p>
+              Banyak akun terlihat ramai, tetapi tidak punya positioning. Banyak
+              konten terlihat bagus, tetapi tidak membangun persepsi.
+            </p>
+
+            <p>
+              Di era Instagram modern, algoritma tidak hanya membaca like.
+              Algoritma membaca perilaku: siapa yang menonton lama, siapa yang
+              save, siapa yang share, siapa yang klik profil, dan siapa yang
+              kembali lagi.
+            </p>
+
+            <p>
+              Jadi tugas kita bukan hanya membuat konten indah. Tugas kita
+              adalah membuat konten yang membuat manusia berhenti, merasa,
+              berpikir, lalu bertindak.
+            </p>
+
+            <p><strong>Setuju?</strong></p>
+            <p>Save dulu kalau insight ini penting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="cta">
+          <h2>Ingin Menang di Instagram?</h2>
+          <p class="mt-3">
+            Jangan hanya kejar viral. Pahami perilaku manusia, bangun hook kuat,
+            buat konten yang membuat orang berhenti, dan arahkan mereka menuju
+            tindakan.
+          </p>
+          <a class="btn-wa" href="https://wa.me/6285174092993" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Konsultasi Strategi Konten
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="mb-1">Materi Strategi Instagram Modern</p>
+        <p class="mb-0">Perilaku Pengguna + AI + Iklan + Algoritma Platform</p>
+      </div>
+    </footer>
+  </body>
+</html>
