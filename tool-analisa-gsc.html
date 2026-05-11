@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analisa Google Search Console</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --card: #ffffff;
+        --text: #132238;
+        --muted: #64748b;
+        --primary: #4f46e5;
+        --secondary: #06b6d4;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --danger: #dc2626;
+        --border: #e2e8f0;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+
+      body.dark {
+        --bg: #0f172a;
+        --card: #111827;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --border: #263244;
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        transition: 0.3s;
+      }
+
+      .app {
+        max-width: 1200px;
+        margin: auto;
+        padding: 18px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #4f46e5, #06b6d4);
+        color: white;
+        border-radius: 28px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero:after {
+        content: '';
+        position: absolute;
+        right: -60px;
+        top: -60px;
+        width: 190px;
+        height: 190px;
+        background: rgba(255, 255, 255, 0.16);
+        border-radius: 50%;
+      }
+
+      .hero h1 {
+        margin: 0 0 10px;
+        font-size: clamp(28px, 6vw, 48px);
+        line-height: 1.05;
+      }
+
+      .hero p {
+        max-width: 760px;
+        line-height: 1.7;
+        opacity: 0.95;
+      }
+
+      .top-actions,
+      .button-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      button,
+      .btn {
+        border: 0;
+        border-radius: 14px;
+        padding: 13px 18px;
+        font-weight: 800;
+        cursor: pointer;
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.24);
+        transition: 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+
+      button:hover,
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-light {
+        background: white;
+        color: #1e293b;
+      }
+
+      .btn-danger {
+        background: var(--danger);
+      }
+
+      .btn-success {
+        background: var(--success);
+      }
+
+      .section {
+        margin-top: 20px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+      }
+
+      .upload-box {
+        border: 2px dashed var(--primary);
+        border-radius: 22px;
+        padding: 28px;
+        text-align: center;
+        background: rgba(79, 70, 229, 0.06);
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .upload-box.dragover {
+        background: rgba(6, 182, 212, 0.15);
+        transform: scale(1.01);
+      }
+
+      .upload-box h2 {
+        margin-bottom: 8px;
+      }
+
+      input[type='file'] {
+        display: none;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .kpi-title {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .kpi-value {
+        font-size: 28px;
+        font-weight: 900;
+        margin-top: 8px;
+      }
+
+      .badge {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .badge.good {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .badge.warn {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .badge.bad {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .badge.blue {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+
+      .charts {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 16px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 720px;
+        background: var(--card);
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        font-size: 14px;
+      }
+
+      th {
+        background: rgba(79, 70, 229, 0.08);
+        font-weight: 900;
+      }
+
+      .tools {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--card);
+        color: var(--text);
+        outline: none;
+      }
+
+      .insight-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .insight {
+        padding: 15px;
+        border-radius: 18px;
+        border-left: 6px solid var(--primary);
+        background: rgba(79, 70, 229, 0.08);
+        line-height: 1.6;
+      }
+
+      .warning-box {
+        border-left-color: var(--danger);
+        background: rgba(220, 38, 38, 0.08);
+      }
+
+      .success-box {
+        border-left-color: var(--success);
+        background: rgba(22, 163, 74, 0.08);
+      }
+
+      .footer-cta {
+        text-align: center;
+        padding: 28px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, #111827, #312e81);
+        color: white;
+        margin-top: 20px;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 20px;
+        font-weight: 900;
+        color: var(--primary);
+      }
+
+      .spinner {
+        width: 38px;
+        height: 38px;
+        border: 4px solid #ddd;
+        border-top-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: auto auto 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 850px) {
+        .grid,
+        .charts,
+        .tools {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding: 22px;
+        }
+
+        button,
+        .btn {
+          width: 100%;
+        }
+      }
+
+      @media print {
+        .upload-box,
+        .top-actions,
+        .button-row,
+        .tools {
+          display: none !important;
+        }
+
+        body {
+          background: white;
+        }
+
+        .section,
+        .card {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <section class="hero">
+        <h1>Analisa Google Search Console</h1>
+        <p>
+          Dashboard Decision Support System untuk membaca data SEO, Top Query,
+          Top Page, CTR, Impression, Click, Position, peluang traffic, warning
+          performa, dan rekomendasi tindakan.
+        </p>
+
+        <div class="top-actions">
+          <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+          <button onclick="printReport()" class="btn-light">
+            🖨️ Print / Simpan PDF
+          </button>
+          <button onclick="exportReport()" class="btn-success">
+            📄 Export Laporan
+          </button>
+          <a
+            class="btn btn-light"
+            href="https://www.instagram.com/kandisha_cb/"
+            target="_blank"
+            >📸 Follow Instagram</a
+          >
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="upload-box" id="dropArea">
+          <h2>Upload File CSV Google Search Console</h2>
+          <p>Drag & drop file CSV ke sini, atau klik untuk memilih file.</p>
+          <p>
+            <b>Kolom yang didukung:</b> Query, Page, Clicks, Impressions, CTR,
+            Position
+          </p>
+          <input type="file" id="csvFile" accept=".csv" />
+          <button onclick="document.getElementById('csvFile').click()">
+            Upload CSV
+          </button>
+        </div>
+
+        <div class="button-row">
+          <button onclick="loadDummyData()">Gunakan Dummy Data</button>
+          <button onclick="resetData()" class="btn-danger">Reset Data</button>
+          <button onclick="document.getElementById('csvFile').click()">
+            Upload Ulang
+          </button>
+        </div>
+
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          Membaca data dan membuat analisa otomatis...
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>KPI Dashboard</h2>
+        <div class="grid" id="kpiGrid"></div>
+      </section>
+
+      <section class="section">
+        <h2>Visualisasi Funnel & Performa SEO</h2>
+        <div class="charts">
+          <div class="card">
+            <h3>Funnel Search Console</h3>
+            <canvas id="funnelChart"></canvas>
+          </div>
+          <div class="card">
+            <h3>KPI Performance</h3>
+            <canvas id="kpiChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Insight, Warning, dan Rekomendasi Otomatis</h2>
+        <div class="insight-list" id="insightBox"></div>
+      </section>
+
+      <section class="section">
+        <h2>Top Query & Top Page</h2>
+
+        <div class="tools">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Cari query, page, atau data..."
+            onkeyup="renderTable()"
+          />
+          <select id="filterType" onchange="renderTable()">
+            <option value="all">Semua Data</option>
+            <option value="query">Top Query</option>
+            <option value="page">Top Page</option>
+            <option value="lowctr">CTR Rendah</option>
+            <option value="highimp">Impression Tinggi</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Kesimpulan Akhir</h2>
+        <div id="finalConclusion" class="insight success-box"></div>
+      </section>
+
+      <section class="footer-cta">
+        <h2>Hubungi Saya jika mau bisa bikin tool2 seperti ini</h2>
+        <p>
+          Tool seperti ini bisa dipakai untuk SEO, laporan bisnis, AI For
+          Direktur, analisa produk, laporan iklan, dan dashboard UMKM.
+        </p>
+        <a
+          href="https://www.instagram.com/kandisha_cb/"
+          target="_blank"
+          class="btn btn-light"
+          >Follow Instagram @kandisha_cb</a
+        >
+      </section>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA GLOBAL
+      // ==============================
+      let rawData = [];
+      let filteredData = [];
+      let funnelChartInstance = null;
+      let kpiChartInstance = null;
+
+      // ==============================
+      // DUMMY DATA
+      // ==============================
+      function loadDummyData() {
+        rawData = [
+          {
+            Query: 'jasa seo bekasi',
+            Page: '/jasa-seo-bekasi',
+            Clicks: 120,
+            Impressions: 9000,
+            CTR: '1.33%',
+            Position: 7.8,
+          },
+          {
+            Query: 'belajar digital marketing',
+            Page: '/belajar-digital-marketing',
+            Clicks: 430,
+            Impressions: 12000,
+            CTR: '3.58%',
+            Position: 4.2,
+          },
+          {
+            Query: 'aplikasi pantau seo',
+            Page: '/pantau-seo',
+            Clicks: 75,
+            Impressions: 8500,
+            CTR: '0.88%',
+            Position: 10.5,
+          },
+          {
+            Query: 'kursus seo online',
+            Page: '/kursus-seo-online',
+            Clicks: 220,
+            Impressions: 6000,
+            CTR: '3.66%',
+            Position: 5.1,
+          },
+          {
+            Query: 'jasa landing page',
+            Page: '/jasa-landing-page',
+            Clicks: 55,
+            Impressions: 10000,
+            CTR: '0.55%',
+            Position: 12.4,
+          },
+          {
+            Query: 'ai for direktur',
+            Page: '/ai-for-direktur',
+            Clicks: 310,
+            Impressions: 7200,
+            CTR: '4.30%',
+            Position: 3.2,
+          },
+          {
+            Query: 'meta ads otak kanan',
+            Page: '/meta-ads-otak-kanan',
+            Clicks: 95,
+            Impressions: 11000,
+            CTR: '0.86%',
+            Position: 8.7,
+          },
+        ];
+        processData();
+      }
+
+      // Jalankan dummy data saat awal agar dashboard tidak kosong
+      loadDummyData();
+
+      // ==============================
+      // UPLOAD CSV
+      // ==============================
+      const csvInput = document.getElementById('csvFile');
+      const dropArea = document.getElementById('dropArea');
+
+      csvInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) readCSV(file);
+      });
+
+      dropArea.addEventListener('click', function () {
+        csvInput.click();
+      });
+
+      dropArea.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        dropArea.classList.add('dragover');
+      });
+
+      dropArea.addEventListener('dragleave', function () {
+        dropArea.classList.remove('dragover');
+      });
+
+      dropArea.addEventListener('drop', function (e) {
+        e.preventDefault();
+        dropArea.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.name.endsWith('.csv')) {
+          readCSV(file);
+        } else {
+          alert('Mohon upload file format CSV.');
+        }
+      });
+
+      function readCSV(file) {
+        showLoading(true);
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          setTimeout(() => {
+            rawData = parseCSV(e.target.result);
+            processData();
+            showLoading(false);
+          }, 700);
+        };
+        reader.readAsText(file);
+      }
+
+      // Parser CSV sederhana
+      function parseCSV(text) {
+        const lines = text.trim().split(/\r?\n/);
+        const headers = lines[0]
+          .split(',')
+          .map((h) => h.trim().replace(/"/g, ''));
+
+        return lines.slice(1).map((line) => {
+          const values = splitCSVLine(line);
+          const obj = {};
+          headers.forEach((header, i) => {
+            obj[header] = values[i]
+              ? values[i].trim().replace(/^"|"$/g, '')
+              : '';
+          });
+          return obj;
+        });
+      }
+
+      function splitCSVLine(line) {
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+
+        for (let char of line) {
+          if (char === '"') inQuotes = !inQuotes;
+          else if (char === ',' && !inQuotes) {
+            result.push(current);
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+
+        result.push(current);
+        return result;
+      }
+
+      // ==============================
+      // NORMALISASI ANGKA
+      // ==============================
+      function num(value) {
+        if (value === undefined || value === null) return 0;
+        return (
+          parseFloat(String(value).replace('%', '').replace(',', '.')) || 0
+        );
+      }
+
+      function getField(row, names) {
+        for (let name of names) {
+          if (row[name] !== undefined) return row[name];
+        }
+        return '';
+      }
+
+      function getClicks(row) {
+        return num(
+          getField(row, ['Clicks', 'Click', 'Klik', 'klik', 'clicks']),
+        );
+      }
+
+      function getImpressions(row) {
+        return num(
+          getField(row, [
+            'Impressions',
+            'Impression',
+            'Tayangan',
+            'impressions',
+          ]),
+        );
+      }
+
+      function getCTR(row) {
+        let ctr = getField(row, ['CTR', 'ctr']);
+        return num(ctr);
+      }
+
+      function getPosition(row) {
+        return num(
+          getField(row, ['Position', 'Average position', 'Posisi', 'position']),
+        );
+      }
+
+      function getQuery(row) {
+        return getField(row, ['Query', 'Top queries', 'Kueri', 'query']);
+      }
+
+      function getPage(row) {
+        return getField(row, ['Page', 'Top pages', 'Halaman', 'page']);
+      }
+
+      // ==============================
+      // PROSES UTAMA
+      // ==============================
+      function processData() {
+        filteredData = [...rawData];
+        renderKPI();
+        renderCharts();
+        renderInsights();
+        renderTable();
+        renderConclusion();
+      }
+
+      function getSummary() {
+        const totalRows = rawData.length;
+        const totalClicks = rawData.reduce(
+          (sum, row) => sum + getClicks(row),
+          0,
+        );
+        const totalImpressions = rawData.reduce(
+          (sum, row) => sum + getImpressions(row),
+          0,
+        );
+        const avgCTR =
+          totalImpressions > 0 ? (totalClicks / totalImpressions) * 100 : 0;
+        const avgPosition =
+          totalRows > 0
+            ? rawData.reduce((sum, row) => sum + getPosition(row), 0) /
+              totalRows
+            : 0;
+
+        const highOpportunity = rawData.filter(
+          (row) => getImpressions(row) >= 5000 && getCTR(row) < 2,
+        ).length;
+        const riskCount = rawData.filter(
+          (row) => getCTR(row) < 1 || getPosition(row) > 10,
+        ).length;
+
+        let score = 0;
+        score += avgCTR >= 5 ? 35 : avgCTR >= 2 ? 25 : avgCTR >= 1 ? 15 : 5;
+        score +=
+          avgPosition <= 3
+            ? 30
+            : avgPosition <= 8
+              ? 22
+              : avgPosition <= 12
+                ? 12
+                : 5;
+        score += highOpportunity <= 2 ? 20 : highOpportunity <= 5 ? 12 : 6;
+        score += riskCount <= 2 ? 15 : riskCount <= 5 ? 8 : 3;
+
+        let category = 'Bahaya';
+        if (score >= 85) category = 'Sangat Bagus';
+        else if (score >= 65) category = 'Bagus';
+        else if (score >= 45) category = 'Cukup';
+
+        const bestRow =
+          [...rawData].sort((a, b) => getClicks(b) - getClicks(a))[0] || {};
+
+        return {
+          totalRows,
+          totalClicks,
+          totalImpressions,
+          avgCTR,
+          avgPosition,
+          highOpportunity,
+          riskCount,
+          score,
+          category,
+          bestRow,
+        };
+      }
+
+      // ==============================
+      // RENDER KPI
+      // ==============================
+      function renderKPI() {
+        const s = getSummary();
+        const badgeClass =
+          s.category === 'Bahaya'
+            ? 'bad'
+            : s.category === 'Cukup'
+              ? 'warn'
+              : 'good';
+
+        const kpis = [
+          ['Total Data', s.totalRows, 'Data berhasil dibaca', 'blue'],
+          [
+            'Total Klik',
+            s.totalClicks.toLocaleString('id-ID'),
+            'Traffic masuk dari Google',
+            'good',
+          ],
+          [
+            'Total Impression',
+            s.totalImpressions.toLocaleString('id-ID'),
+            'Potensi dilihat market',
+            'blue',
+          ],
+          [
+            'Rata-rata CTR',
+            s.avgCTR.toFixed(2) + '%',
+            'Daya tarik judul/meta',
+            s.avgCTR < 2 ? 'bad' : 'good',
+          ],
+          [
+            'Rata-rata Posisi',
+            s.avgPosition.toFixed(1),
+            'Ranking rata-rata',
+            s.avgPosition > 10 ? 'bad' : 'good',
+          ],
+          [
+            'Peluang Besar',
+            s.highOpportunity,
+            'Impression tinggi klik rendah',
+            'warn',
+          ],
+          [
+            'Indikator Risiko',
+            s.riskCount,
+            'Perlu tindakan cepat',
+            s.riskCount > 5 ? 'bad' : 'warn',
+          ],
+          ['Skor Kesehatan', s.score + '/100', s.category, badgeClass],
+        ];
+
+        document.getElementById('kpiGrid').innerHTML = kpis
+          .map(
+            (k) => `
+      <div class="card">
+        <div class="kpi-title">${k[0]}</div>
+        <div class="kpi-value">${k[1]}</div>
+        <span class="badge ${k[3]}">${k[2]}</span>
+      </div>
+    `,
+          )
+          .join('');
+      }
+
+      // ==============================
+      // RENDER CHART
+      // ==============================
+      function renderCharts() {
+        const s = getSummary();
+
+        if (funnelChartInstance) funnelChartInstance.destroy();
+        if (kpiChartInstance) kpiChartInstance.destroy();
+
+        const funnelCtx = document.getElementById('funnelChart');
+        const kpiCtx = document.getElementById('kpiChart');
+
+        funnelChartInstance = new Chart(funnelCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Impression', 'Klik', 'Peluang CTR'],
+            datasets: [
+              {
+                label: 'Funnel SEO',
+                data: [
+                  s.totalImpressions,
+                  s.totalClicks,
+                  Math.round(s.totalImpressions * 0.05),
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+            },
+          },
+        });
+
+        kpiChartInstance = new Chart(kpiCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Skor SEO', 'Sisa Perbaikan'],
+            datasets: [
+              {
+                data: [s.score, 100 - s.score],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+          },
+        });
+      }
+
+      // ==============================
+      // INSIGHT OTOMATIS
+      // ==============================
+      function renderInsights() {
+        const s = getSummary();
+        const insights = [];
+
+        if (s.avgCTR < 1) {
+          insights.push([
+            'warning-box',
+            'CTR sangat rendah. Artinya halaman sering tampil, tetapi orang belum tertarik klik. Perbaiki judul SEO, meta description, dan angle copywriting.',
+          ]);
+        } else if (s.avgCTR < 2) {
+          insights.push([
+            'warning-box',
+            'CTR masih rendah. Ada peluang besar menaikkan traffic tanpa membuat konten baru, cukup optimasi judul dan deskripsi.',
+          ]);
+        } else {
+          insights.push([
+            'success-box',
+            'CTR cukup sehat. Artinya judul dan tampilan hasil pencarian sudah mulai menarik perhatian market.',
+          ]);
+        }
+
+        if (s.avgPosition > 10) {
+          insights.push([
+            'warning-box',
+            'Rata-rata posisi masih di luar halaman pertama Google. Perlu optimasi konten, struktur heading, internal link, dan relevansi query.',
+          ]);
+        } else {
+          insights.push([
+            'success-box',
+            'Rata-rata posisi cukup kompetitif. Fokus berikutnya adalah menaikkan CTR agar klik bertambah.',
+          ]);
+        }
+
+        if (s.highOpportunity > 0) {
+          insights.push([
+            '',
+            `Ada ${s.highOpportunity} data dengan impression tinggi tetapi klik rendah. Ini adalah tambang traffic yang belum digarap maksimal.`,
+          ]);
+        }
+
+        if (s.bestRow) {
+          const bestName =
+            getQuery(s.bestRow) || getPage(s.bestRow) || 'data terbaik';
+          insights.push([
+            'success-box',
+            `"${bestName}" adalah aset terbaik berdasarkan klik. Jadikan ini halaman unggulan, tambah internal link, CTA, dan konten pendukung.`,
+          ]);
+        }
+
+        insights.push([
+          '',
+          'Catatan DSS: angka bukan sekadar laporan. Data ini harus dipakai untuk mengambil keputusan: mana yang diperbaiki, mana yang didorong, dan mana yang dijadikan mesin traffic utama.',
+        ]);
+
+        document.getElementById('insightBox').innerHTML = insights
+          .map(
+            (item) => `
+      <div class="insight ${item[0]}">${item[1]}</div>
+    `,
+          )
+          .join('');
+      }
+
+      // ==============================
+      // TABLE PREVIEW
+      // ==============================
+      function renderTable() {
+        const search = document
+          .getElementById('searchInput')
+          .value.toLowerCase();
+        const filter = document.getElementById('filterType').value;
+
+        let data = rawData.filter((row) => {
+          const text = JSON.stringify(row).toLowerCase();
+          const matchesSearch = text.includes(search);
+
+          let matchesFilter = true;
+
+          if (filter === 'query') matchesFilter = !!getQuery(row);
+          if (filter === 'page') matchesFilter = !!getPage(row);
+          if (filter === 'lowctr') matchesFilter = getCTR(row) < 2;
+          if (filter === 'highimp') matchesFilter = getImpressions(row) >= 5000;
+
+          return matchesSearch && matchesFilter;
+        });
+
+        filteredData = data;
+
+        const headers = [
+          'Jenis',
+          'Query',
+          'Page',
+          'Clicks',
+          'Impressions',
+          'CTR',
+          'Position',
+          'Status',
+        ];
+
+        document.getElementById('tableHead').innerHTML = `
+      <tr>${headers.map((h) => `<th>${h}</th>`).join('')}</tr>
+    `;
+
+        document.getElementById('tableBody').innerHTML = data
+          .slice(0, 150)
+          .map((row) => {
+            const query = getQuery(row);
+            const page = getPage(row);
+            const clicks = getClicks(row);
+            const imp = getImpressions(row);
+            const ctr = getCTR(row);
+            const pos = getPosition(row);
+
+            const jenis = query ? 'Top Query' : page ? 'Top Page' : 'Data';
+            let status = 'Bagus';
+            let badge = 'good';
+
+            if (ctr < 1 || pos > 10) {
+              status = 'Bahaya';
+              badge = 'bad';
+            } else if (ctr < 2 || pos > 7) {
+              status = 'Cukup';
+              badge = 'warn';
+            }
+
+            return `
+        <tr>
+          <td>${jenis}</td>
+          <td>${query || '-'}</td>
+          <td>${page || '-'}</td>
+          <td>${clicks}</td>
+          <td>${imp}</td>
+          <td>${ctr.toFixed(2)}%</td>
+          <td>${pos.toFixed(1)}</td>
+          <td><span class="badge ${badge}">${status}</span></td>
+        </tr>
+      `;
+          })
+          .join('');
+      }
+
+      // ==============================
+      // KESIMPULAN
+      // ==============================
+      function renderConclusion() {
+        const s = getSummary();
+
+        let text = '';
+
+        if (s.category === 'Bahaya') {
+          text =
+            'Kesimpulan: performa SEO sedang dalam kondisi rawan. Prioritas utama adalah memperbaiki CTR rendah, meningkatkan kualitas judul/meta description, memperkuat internal link, dan mengoptimasi halaman yang memiliki impression tinggi tetapi klik rendah.';
+        } else if (s.category === 'Cukup') {
+          text =
+            'Kesimpulan: performa SEO sudah berjalan, tetapi belum maksimal. Ada peluang traffic yang bisa dinaikkan dari query dan page yang sudah punya impression. Fokus pada optimasi snippet, struktur konten, dan CTA.';
+        } else if (s.category === 'Bagus') {
+          text =
+            'Kesimpulan: performa SEO cukup bagus. Sistem sudah memiliki aset traffic yang bisa dikembangkan. Langkah berikutnya adalah scale konten pendukung, tambah internal link, dan dorong halaman unggulan menjadi mesin konversi.';
+        } else {
+          text =
+            'Kesimpulan: performa SEO sangat bagus. Fokus berikutnya adalah mempertahankan ranking, memperkuat brand authority, dan mengubah traffic menjadi database, leads, serta penjualan.';
+        }
+
+        document.getElementById('finalConclusion').innerText = text;
+      }
+
+      // ==============================
+      // FITUR TAMBAHAN
+      // ==============================
+      function toggleDarkMode() {
+        document.body.classList.toggle('dark');
+      }
+
+      function resetData() {
+        if (confirm('Reset semua data dan kembali ke dummy data?')) {
+          loadDummyData();
+        }
+      }
+
+      function printReport() {
+        window.print();
+      }
+
+      function exportReport() {
+        const s = getSummary();
+
+        const report = `
+LAPORAN ANALISA GOOGLE SEARCH CONSOLE
+
+Total Data: ${s.totalRows}
+Total Klik: ${s.totalClicks}
+Total Impression: ${s.totalImpressions}
+Rata-rata CTR: ${s.avgCTR.toFixed(2)}%
+Rata-rata Posisi: ${s.avgPosition.toFixed(1)}
+Peluang Besar: ${s.highOpportunity}
+Indikator Risiko: ${s.riskCount}
+Skor Kesehatan: ${s.score}/100
+Kategori: ${s.category}
+
+KESIMPULAN:
+${document.getElementById('finalConclusion').innerText}
+
+CTA:
+Hubungi Saya jika mau bisa bikin tool2 seperti ini
+Instagram: https://www.instagram.com/kandisha_cb/
+    `;
+
+        const blob = new Blob([report], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'laporan-analisa-google-search-console.txt';
+        a.click();
+
+        URL.revokeObjectURL(url);
+      }
+
+      function showLoading(show) {
+        document.getElementById('loading').style.display = show
+          ? 'block'
+          : 'none';
+      }
+    </script>
+  </body>
+</html>
