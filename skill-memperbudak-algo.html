@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Skill Basic Memperbudak Algoritma</title>
+    <meta
+      name="description"
+      content="Skill dasar yang dibutuhkan untuk memperbudak algoritma: memahami manusia, hook, storytelling, distribusi, SEO, landing page, database, AI, data, dan sistem."
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #1f2937;
+        line-height: 1.8;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #020617, #4c1d95, #be123c);
+        color: white;
+        padding: 85px 0;
+        border-bottom-left-radius: 45px;
+        border-bottom-right-radius: 45px;
+      }
+
+      .hero h1 {
+        font-size: 45px;
+        font-weight: 900;
+        line-height: 1.15;
+      }
+
+      .hero p {
+        font-size: 19px;
+        opacity: 0.95;
+      }
+
+      .badge-custom {
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 9px 17px;
+        border-radius: 50px;
+        display: inline-block;
+        margin-bottom: 18px;
+        font-weight: 700;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .card-box {
+        background: white;
+        border-radius: 25px;
+        padding: 30px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+        border: 1px solid #e5e7eb;
+        height: 100%;
+      }
+
+      .card-box h3 {
+        font-size: 22px;
+        font-weight: 900;
+        margin-bottom: 15px;
+      }
+
+      .icon-box {
+        width: 62px;
+        height: 62px;
+        border-radius: 20px;
+        background: #eef2ff;
+        color: #4f46e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 18px;
+      }
+
+      .warning-box {
+        background: #fff7ed;
+        border-left: 7px solid #f97316;
+        padding: 30px;
+        border-radius: 20px;
+        font-size: 21px;
+        font-weight: 800;
+      }
+
+      .dark-area {
+        background: #020617;
+        color: white;
+        border-radius: 35px;
+        padding: 55px 30px;
+      }
+
+      .dark-area .card-box {
+        background: #111827;
+        color: white;
+        border-color: #374151;
+      }
+
+      .number {
+        display: inline-flex;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #7c3aed;
+        color: white;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        margin-right: 10px;
+      }
+
+      .quote-box {
+        background: linear-gradient(135deg, #111827, #4c1d95);
+        color: white;
+        padding: 38px;
+        border-radius: 30px;
+        font-size: 25px;
+        font-weight: 900;
+      }
+
+      .flow-box {
+        background: white;
+        border-radius: 28px;
+        padding: 35px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+        text-align: center;
+      }
+
+      .flow-item {
+        background: #eef2ff;
+        color: #312e81;
+        border-radius: 18px;
+        padding: 16px;
+        font-weight: 900;
+        margin-bottom: 12px;
+      }
+
+      .flow-data {
+        background: #dcfce7;
+        color: #14532d;
+        border-radius: 18px;
+        padding: 18px;
+        font-weight: 900;
+        margin-bottom: 12px;
+      }
+
+      .arrow {
+        font-size: 26px;
+        color: #7c3aed;
+        margin-bottom: 12px;
+      }
+
+      .table-modern {
+        background: white;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+      }
+
+      .table-modern th {
+        background: #4c1d95;
+        color: white;
+        padding: 16px;
+      }
+
+      .table-modern td {
+        padding: 16px;
+        vertical-align: middle;
+      }
+
+      .cta {
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+        color: white;
+        text-align: center;
+        padding: 60px 25px;
+        border-radius: 38px;
+      }
+
+      .cta h2 {
+        font-size: 35px;
+        font-weight: 900;
+      }
+
+      .btn-wa {
+        display: inline-block;
+        background: #020617;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 900;
+        margin-top: 18px;
+      }
+
+      .btn-wa:hover {
+        background: white;
+        color: #020617;
+      }
+
+      footer {
+        background: #020617;
+        color: #cbd5e1;
+        padding: 32px 0;
+        text-align: center;
+        margin-top: 60px;
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 60px 0;
+        }
+
+        .hero h1 {
+          font-size: 34px;
+        }
+
+        .section {
+          padding: 42px 0;
+        }
+
+        .quote-box {
+          font-size: 21px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="hero">
+      <div class="container">
+        <span class="badge-custom">
+          <i class="fa-solid fa-brain"></i> Skill Dasar Strategi Digital
+        </span>
+
+        <h1>Skill Basic untuk Memperbudak Algoritma</h1>
+
+        <p class="mt-3">
+          Memperbudak algoritma bukan sekadar membuat konten viral. Ini adalah
+          kemampuan mengubah perhatian manusia menjadi data asli, hubungan,
+          kepercayaan, komunitas, dan aset bisnis.
+        </p>
+
+        <p>
+          Algoritma bekerja menarik perhatian. Kita harus bekerja mengalirkan
+          perhatian itu ke sistem milik sendiri.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="warning-box">
+          Orang biasa membuat konten untuk platform. Orang yang paham sistem
+          membuat platform bekerja mengirim manusia masuk ke kolam data sendiri.
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">10 Skill Basic yang Wajib Dikuasai</h2>
+          <p>
+            Ini bukan hanya skill konten, tetapi skill memahami manusia,
+            distribusi, data, dan sistem.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-solid fa-user-group"></i></div>
+              <h3>1. Memahami Perilaku Manusia</h3>
+              <p>
+                Algoritma membaca manusia. Maka yang harus dipahami adalah rasa
+                penasaran, ketakutan, harapan, ego, emosi, kebiasaan scrolling,
+                dan alasan orang bertindak.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-solid fa-magnet"></i></div>
+              <h3>2. Skill Hook</h3>
+              <p>
+                Hook adalah alat menghentikan scrolling. Bisa berupa headline,
+                caption pertama, opening video, visual awal, konflik, atau
+                kalimat yang bikin penasaran.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-solid fa-book-open"></i></div>
+              <h3>3. Storytelling</h3>
+              <p>
+                Manusia suka cerita. Algoritma suka retention. Storytelling
+                menjembatani emosi manusia dengan sinyal algoritma seperti watch
+                time dan replay.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box">
+                <i class="fa-solid fa-share-nodes"></i>
+              </div>
+              <h3>4. Skill Distribusi</h3>
+              <p>
+                Konten bagus tanpa distribusi akan mati. Satu konten harus bisa
+                dialirkan ke Instagram, WhatsApp, SEO, Facebook, TikTok,
+                komunitas, email, dan AI visibility.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-brands fa-google"></i></div>
+              <h3>5. SEO dan Entity</h3>
+              <p>
+                Google dan AI membaca hubungan topik. Artikel SEO, keyword,
+                internal link, nama brand, dan konsistensi niche membantu
+                memperkuat identitas digital.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box">
+                <i class="fa-solid fa-window-restore"></i>
+              </div>
+              <h3>6. Landing Page</h3>
+              <p>
+                Landing page adalah jembatan dari perhatian menjadi data. Tanpa
+                landing page, traffic sering bocor dan kembali menjadi milik
+                platform.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-solid fa-database"></i></div>
+              <h3>7. Database Marketing</h3>
+              <p>
+                Inti memperbudak algoritma adalah mengumpulkan data asli:
+                WhatsApp, email, minat, masalah, kota, kebutuhan, dan perilaku
+                calon pembeli.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-solid fa-gears"></i></div>
+              <h3>8. Membangun Sistem</h3>
+              <p>
+                Sistem membuat kerja digital tidak berhenti di postingan. Reels
+                harus mengarah ke link, link ke landing page, landing page ke
+                database, database ke follow up.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
+              <h3>9. AI dan Prompting</h3>
+              <p>
+                AI mempercepat produksi ide, hook, artikel, script, landing
+                page, analisa data, segmentasi, dan sistem follow up.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+              <h3>10. Membaca Data</h3>
+              <p>
+                Data adalah bahasa algoritma. Kita perlu membaca retention, CTR,
+                save, share, watch time, klik link, conversion, sumber traffic,
+                dan respons follow up.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container dark-area">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Skill Ini Harus Mengalir Menjadi Sistem</h2>
+          <p>
+            Skill yang berdiri sendiri belum cukup. Semua harus saling
+            terhubung.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">1</span> Manusia</h3>
+              <p>
+                Pahami apa yang membuat orang berhenti, tertarik, percaya, klik,
+                bertanya, dan membeli.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">2</span> Konten</h3>
+              <p>
+                Buat hook, cerita, insight, dan CTA yang tidak hanya ramai,
+                tetapi mengarahkan tindakan.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">3</span> Distribusi</h3>
+              <p>
+                Sebarkan ke Instagram, Google, WhatsApp, TikTok, Facebook,
+                YouTube, dan komunitas.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-box">
+              <h3><span class="number">4</span> Data</h3>
+              <p>
+                Ubah perhatian menjadi nama, WhatsApp, email, minat, kebutuhan,
+                dan masalah calon pembeli.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="card-box">
+              <h3><span class="number">5</span> Aset</h3>
+              <p>
+                Data yang terkumpul menjadi aset bisnis: bisa difollow up,
+                diedukasi, ditawarkan, dan dijadikan komunitas jangka panjang.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="quote-box">
+          “Memperbudak algoritma bukan tentang menuruti platform. Ini tentang
+          membuat platform bekerja membawa manusia masuk ke sistem kita.”
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Rumus Besar Memperbudak Algoritma</h2>
+          <p>Dari perhatian menjadi aset bisnis.</p>
+        </div>
+
+        <div class="flow-box">
+          <div class="flow-item"><i class="fa-solid fa-eye"></i> Perhatian</div>
+          <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+          <div class="flow-item">
+            <i class="fa-solid fa-share-nodes"></i> Distribusi
+          </div>
+          <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+          <div class="flow-item">
+            <i class="fa-solid fa-computer-mouse"></i> Klik
+          </div>
+          <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+          <div class="flow-data">
+            <i class="fa-solid fa-database"></i> Data Asli
+          </div>
+          <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+          <div class="flow-data">
+            <i class="fa-solid fa-handshake"></i> Hubungan & Kepercayaan
+          </div>
+          <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+          <div class="flow-data">
+            <i class="fa-solid fa-cart-shopping"></i> Penjualan
+          </div>
+          <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+          <div class="flow-data">
+            <i class="fa-solid fa-people-group"></i> Komunitas & Aset Jangka
+            Panjang
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Skill Biasa vs Skill Memperbudak Algoritma</h2>
+        </div>
+
+        <div class="table-responsive table-modern">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr>
+                <th>Skill Biasa</th>
+                <th>Skill Memperbudak Algoritma</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Membuat konten agar ramai</td>
+                <td>Membuat konten agar orang masuk ke sistem data</td>
+              </tr>
+              <tr>
+                <td>Mengejar like dan follower</td>
+                <td>Mengejar klik, leads, database, dan follow up</td>
+              </tr>
+              <tr>
+                <td>Posting lalu selesai</td>
+                <td>Posting → link → landing page → database → penawaran</td>
+              </tr>
+              <tr>
+                <td>Mengikuti tren</td>
+                <td>Memakai tren sebagai pintu masuk data</td>
+              </tr>
+              <tr>
+                <td>Bangga viral</td>
+                <td>Bangga punya aset data dan komunitas</td>
+              </tr>
+              <tr>
+                <td>Platform menjadi pusat</td>
+                <td>Sistem sendiri menjadi pusat</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card-box">
+          <h2 class="fw-bold mb-4">Urutan Belajar yang Disarankan</h2>
+
+          <h4><span class="number">1</span> Belajar Membaca Manusia</h4>
+          <p>
+            Pahami masalah, harapan, ketakutan, keinginan, dan bahasa target
+            market.
+          </p>
+
+          <h4><span class="number">2</span> Belajar Hook dan Copywriting</h4>
+          <p>
+            Buat kalimat pembuka yang membuat orang berhenti, membaca, dan klik.
+          </p>
+
+          <h4>
+            <span class="number">3</span> Belajar Membuat Konten Multi Platform
+          </h4>
+          <p>
+            Satu ide bisa menjadi Reels, caption, artikel SEO, status WA, email,
+            dan script video.
+          </p>
+
+          <h4><span class="number">4</span> Belajar Landing Page</h4>
+          <p>
+            Buat halaman yang mampu mengubah traffic menjadi leads dan data.
+          </p>
+
+          <h4><span class="number">5</span> Belajar Database dan Follow Up</h4>
+          <p>
+            Kumpulkan data, kelompokkan minat, lalu bangun komunikasi lanjutan.
+          </p>
+
+          <h4><span class="number">6</span> Belajar Membaca Data</h4>
+          <p>
+            Lihat sumber traffic, klik, konversi, minat, dan perilaku pelanggan
+            untuk keputusan berikutnya.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="cta">
+          <h2>Belajar Memperbudak Algoritma</h2>
+          <p class="mt-3">
+            Belajar memahami manusia, membuat hook, membangun konten,
+            mengalirkan traffic, mengumpulkan data, dan menjadikan algoritma
+            sebagai mesin akuisisi aset.
+          </p>
+
+          <a href="https://wa.me/6285174092993" target="_blank" class="btn-wa">
+            <i class="fa-brands fa-whatsapp"></i> Hubungi via WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p class="mb-1"><strong>Skill Basic Memperbudak Algoritma</strong></p>
+        <p class="mb-0">Manusia → Konten → Distribusi → Data → Sistem → Aset</p>
+      </div>
+    </footer>
+  </body>
+</html>
