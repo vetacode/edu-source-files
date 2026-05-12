@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Generator Poster Iklan</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: #0b1020;
+        color: #fff;
+        font-family: Arial, sans-serif;
+      }
+      .hero {
+        background: linear-gradient(135deg, #06152f, #102d6b, #700000);
+        padding: 35px 20px;
+        border-radius: 0 0 30px 30px;
+      }
+      .card {
+        border: 0;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      }
+      label {
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #111;
+      }
+      .form-control,
+      .form-select {
+        border-radius: 12px;
+        padding: 12px;
+      }
+      textarea {
+        min-height: 90px;
+      }
+      .btn-main {
+        background: #ffcc00;
+        color: #111;
+        font-weight: bold;
+        border-radius: 14px;
+        padding: 14px;
+        border: 0;
+      }
+      .output-box {
+        background: #111827;
+        color: #e5e7eb;
+        border-radius: 18px;
+        padding: 20px;
+        white-space: pre-wrap;
+        min-height: 260px;
+        border: 1px solid #374151;
+      }
+      .copy-btn {
+        background: #22c55e;
+        color: white;
+        border: 0;
+        border-radius: 12px;
+        padding: 12px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hero text-center">
+      <h1 class="fw-bold">
+        <i class="fa-solid fa-wand-magic-sparkles"></i><br />
+        Prompt Generator Poster Image Creative Iklan
+      </h1>
+      <p class="lead mb-0">
+        Buat prompt gambar iklan untuk Meta Ads, Instagram, TikTok, banner,
+        poster, flyer, dan creative ads.
+      </p>
+    </div>
+
+    <div class="container my-4">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card p-4">
+            <h3 class="text-dark fw-bold mb-3">Isi Data Creative</h3>
+
+            <div class="mb-3">
+              <label>Jenis Ukuran Gambar</label>
+              <select id="ukuran" class="form-select">
+                <option>1:1 Square Feed</option>
+                <option>9:16 Story / Reels / TikTok</option>
+                <option>4:5 Instagram Feed</option>
+                <option>16:9 Youtube / Banner Lebar</option>
+                <option>15:9 Cover Promosi</option>
+                <option>3:4 Poster Vertikal</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label>Jenis Iklan</label>
+              <select id="jenisIklan" class="form-select">
+                <option>Meta Ads</option>
+                <option>Instagram Ads</option>
+                <option>TikTok Ads</option>
+                <option>Facebook Feed</option>
+                <option>Instagram Story</option>
+                <option>Reels Creative</option>
+                <option>Banner Website</option>
+                <option>Poster Event</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label>Headline Utama</label>
+              <input
+                id="headline"
+                class="form-control"
+                placeholder="Contoh: Budget Iklan Dibakar Setiap Hari"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label>Sub Headline</label>
+              <textarea
+                id="subheadline"
+                class="form-control"
+                placeholder="Contoh: Owner dan advertiser sibuk saling menyalahkan, padahal masalahnya ada di strategi."
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label>Pilihan Layout</label>
+              <select id="layout" class="form-select">
+                <option>Template berita online seperti portal news</option>
+                <option>Poster dramatis dengan headline besar</option>
+                <option>Advertorial koran / tabloid</option>
+                <option>Split screen sebelum dan sesudah</option>
+                <option>Komik dialog lucu dan menyindir</option>
+                <option>Dashboard data iklan dengan warning merah</option>
+                <option>Luxury premium class poster</option>
+                <option>Minimalis clean professional</option>
+                <option>Dark mode tech premium</option>
+                <option>Viral meme marketing</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label>Nuansa Warna</label>
+              <select id="warna" class="form-select">
+                <option>Merah, hitam, kuning - dramatis dan urgent</option>
+                <option>Biru, putih, merah - gaya berita profesional</option>
+                <option>Hitam, emas - premium dan mahal</option>
+                <option>Ungu, putih - modern dan edukatif</option>
+                <option>Hijau, putih - segar dan terpercaya</option>
+                <option>Oranye, hitam - agresif dan energetic</option>
+                <option>Dark mode neon - futuristik</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label>Nama Program / Produk / Kelas</label>
+              <input
+                id="produk"
+                class="form-control"
+                placeholder="Contoh: Kelas Meta Ads Otak Kanan"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label>Narasumber</label>
+              <input
+                id="narasumber"
+                class="form-control"
+                placeholder="Contoh: Putra Candra Buana"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label>Jadwal</label>
+              <input
+                id="jadwal"
+                class="form-control"
+                placeholder="Contoh: 30 - 31 Mei 2026"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label>Bonus / Lead Magnet</label>
+              <textarea
+                id="bonus"
+                class="form-control"
+                placeholder="Contoh:
+1. Tool membuat poster Meta Ads Otak Kanan
+2. Tool membuat landing page Meta Ads Otak Kanan
+3. Tool membaca matrix Meta Ads"
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label>Target Market</label>
+              <input
+                id="target"
+                class="form-control"
+                placeholder="Contoh: Owner bisnis, advertiser, UMKM, digital marketer"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label>Masalah Utama Target Market</label>
+              <textarea
+                id="masalah"
+                class="form-control"
+                placeholder="Contoh: Iklan boncos, budget habis, ROAS turun, owner marah, advertiser bingung."
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label>Call To Action</label>
+              <input
+                id="cta"
+                class="form-control"
+                placeholder="Contoh: Daftar Sekarang"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label>Nomor WhatsApp / Link CTA</label>
+              <input
+                id="wa"
+                class="form-control"
+                placeholder="Contoh: 085174092993"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label>Gaya Emosi Iklan</label>
+              <select id="emosi" class="form-select">
+                <option>Menyindir tajam tapi tetap profesional</option>
+                <option>Menakut-nakuti dengan data dan risiko</option>
+                <option>Membangunkan kesadaran owner</option>
+                <option>Membela advertiser yang tertekan</option>
+                <option>Lucu, satir, dan relatable</option>
+                <option>Serius, premium, dan meyakinkan</option>
+                <option>Provokatif, keras, dan out of the box</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label>Elemen Visual Wajib</label>
+              <textarea
+                id="visual"
+                class="form-control"
+                placeholder="Contoh: orang panik melihat dashboard iklan, grafik merah turun, uang terbakar, headline besar, sidebar berita populer."
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label>Form Tambahan Umum</label>
+              <textarea
+                id="tambahan"
+                class="form-control"
+                placeholder="Masukkan instruksi tambahan bebas di sini..."
+              ></textarea>
+            </div>
+
+            <button onclick="generatePrompt()" class="btn-main w-100">
+              <i class="fa-solid fa-bolt"></i> Buat Prompt
+            </button>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card p-4 bg-dark">
+            <h3 class="fw-bold mb-3">Output Prompt</h3>
+            <div id="output" class="output-box">
+              Prompt akan muncul di sini...
+            </div>
+
+            <button onclick="copyPrompt()" class="copy-btn w-100 mt-3">
+              <i class="fa-solid fa-copy"></i> Copy Prompt
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function val(id) {
+        return document.getElementById(id).value.trim();
+      }
+
+      function generatePrompt() {
+        const prompt = `Buatkan gambar poster image creative untuk iklan dengan spesifikasi berikut:
+
+UKURAN GAMBAR:
+${val('ukuran')}
+
+JENIS IKLAN:
+${val('jenisIklan')}
+
+GAYA LAYOUT:
+${val('layout')}
+
+NUANSA WARNA:
+${val('warna')}
+
+HEADLINE UTAMA:
+"${val('headline')}"
+
+SUB HEADLINE:
+"${val('subheadline')}"
+
+NAMA PROGRAM / PRODUK / KELAS:
+${val('produk')}
+
+NARASUMBER:
+${val('narasumber')}
+
+JADWAL:
+${val('jadwal')}
+
+BONUS / LEAD MAGNET:
+${val('bonus')}
+
+TARGET MARKET:
+${val('target')}
+
+MASALAH UTAMA TARGET MARKET:
+${val('masalah')}
+
+GAYA EMOSI IKLAN:
+${val('emosi')}
+
+ELEMEN VISUAL WAJIB:
+${val('visual')}
+
+CALL TO ACTION:
+${val('cta')}
+
+NOMOR WHATSAPP / LINK CTA:
+${val('wa')}
+
+INSTRUKSI TAMBAHAN:
+${val('tambahan')}
+
+ARAHAN DESAIN:
+Buat desain yang kuat untuk kebutuhan iklan digital. Visual harus terlihat profesional, tajam, mudah dibaca di HP, dan cocok untuk menarik perhatian dalam 3 detik pertama. Gunakan headline besar, kontras tinggi, hierarki teks yang jelas, komposisi rapi, dan elemen visual yang mendukung pesan utama.
+
+Pastikan desain tidak terlalu penuh, namun tetap terasa menjual. Fokus utama adalah membuat orang berhenti scroll, merasa tersindir atau tertarik, lalu ingin membaca informasi kelas/produk lebih lanjut.
+
+Jika menggunakan gaya berita, buat tampilannya seperti portal berita modern: ada logo media, headline besar, subheadline, tanggal, kategori berita, gambar utama, sidebar berita populer, dan box promosi kelas.
+
+Jika menggunakan gaya poster iklan, buat headline sangat dominan, visual dramatis, CTA jelas, bonus terlihat menarik, dan jadwal mudah terbaca.
+
+Pastikan semua teks penting terlihat jelas:
+- Headline
+- Nama program
+- Jadwal
+- Bonus
+- CTA
+
+Hindari typo. Gunakan bahasa Indonesia yang natural, tajam, dan menjual.`;
+
+        document.getElementById('output').innerText = prompt;
+      }
+
+      function copyPrompt() {
+        const text = document.getElementById('output').innerText;
+        navigator.clipboard.writeText(text);
+        alert('Prompt berhasil dicopy!');
+      }
+    </script>
+  </body>
+</html>
