@@ -5,194 +5,475 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prompt Generator Aplikasi Sertifikat Massal</title>
     <style>
+      :root {
+        --bg: #f8f4ea;
+        --surface: #fffdf8;
+        --surface-soft: #f4ecda;
+        --line: #e3d4aa;
+        --line-strong: #d4af37;
+        --gold: #d4af37;
+        --gold-deep: #b8921f;
+        --text: #2e2412;
+        --muted: #6b604d;
+        --shadow: 0 20px 60px rgba(103, 80, 24, 0.12);
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #064e3b, #0f766e);
+        font-family: 'Trebuchet MS', Arial, sans-serif;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(212, 175, 55, 0.22),
+            transparent 28%
+          ),
+          linear-gradient(180deg, #fbf7ef 0%, #f7f1e4 100%);
         margin: 0;
-        padding: 20px;
-        color: #111827;
+        padding: 24px;
+        color: var(--text);
       }
       .container {
-        max-width: 1000px;
+        max-width: 1120px;
         margin: auto;
-        background: #ffffff;
-        border-radius: 20px;
-        padding: 25px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        background: var(--surface);
+        border: 1px solid rgba(212, 175, 55, 0.24);
+        border-radius: 28px;
+        padding: 32px;
+        box-shadow: var(--shadow);
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.4fr 0.8fr;
+        gap: 22px;
+        align-items: stretch;
+        margin-bottom: 28px;
+      }
+      .hero-panel {
+        padding: 28px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, #fff9ec 0%, #f6ecd2 100%);
+        border: 1px solid rgba(212, 175, 55, 0.34);
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(212, 175, 55, 0.14);
+        color: #7b5b00;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 16px;
       }
       h1 {
-        text-align: center;
-        color: #065f46;
-        margin-bottom: 5px;
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 4vw, 2.85rem);
+        line-height: 1.15;
+        color: #4c3907;
       }
       .subtitle {
-        text-align: center;
-        color: #4b5563;
-        margin-bottom: 25px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.7;
+        margin: 0;
+      }
+      .hero-side {
+        display: grid;
+        gap: 16px;
+      }
+      .quick-card,
+      .section,
+      .output-card {
+        background: #fffefb;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 10px 30px rgba(93, 73, 22, 0.06);
+      }
+      .quick-card {
+        padding: 22px;
+      }
+      .quick-card h2,
+      .section h2,
+      .output-card h2 {
+        margin: 0 0 10px;
+        font-size: 22px;
+        color: #5e4709;
+      }
+      .quick-card p,
+      .section p,
+      .output-card p,
+      .helper {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .quick-list {
+        margin: 14px 0 0;
+        padding-left: 18px;
+        color: var(--text);
+        line-height: 1.8;
+      }
+      .section {
+        padding: 26px;
+        margin-top: 20px;
+      }
+      .section-head {
+        margin-bottom: 20px;
       }
       label {
         font-weight: bold;
         display: block;
-        margin-top: 15px;
+        margin-top: 16px;
+        margin-bottom: 8px;
+        font-size: 17px;
+        color: #46360d;
       }
       input,
       select,
       textarea {
         width: 100%;
-        padding: 12px;
-        margin-top: 6px;
-        border: 1px solid #d1d5db;
-        border-radius: 10px;
-        font-size: 15px;
-        box-sizing: border-box;
+        padding: 16px 18px;
+        border: 1.5px solid #d8c89d;
+        border-radius: 16px;
+        font-size: 17px;
+        color: var(--text);
+        background: #fffdfa;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          transform 0.2s ease;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--line-strong);
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
+        transform: translateY(-1px);
       }
       textarea {
-        min-height: 90px;
+        min-height: 110px;
+        resize: vertical;
       }
       .grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 15px;
+        gap: 18px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+      }
+      .helper {
+        margin-top: 8px;
+        font-size: 14px;
+      }
+      .action-bar {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 28px;
       }
       button {
-        width: 100%;
-        margin-top: 25px;
-        padding: 15px;
+        padding: 16px 22px;
         border: none;
-        border-radius: 12px;
-        background: #047857;
-        color: white;
+        border-radius: 16px;
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--gold-deep) 100%
+        );
+        color: #2f2200;
         font-size: 18px;
         font-weight: bold;
         cursor: pointer;
+        box-shadow: 0 14px 28px rgba(184, 146, 31, 0.24);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          filter 0.2s ease;
+      }
+      .primary-btn {
+        min-width: 260px;
       }
       button:hover {
-        background: #065f46;
+        transform: translateY(-1px);
+        box-shadow: 0 18px 34px rgba(184, 146, 31, 0.28);
+        filter: brightness(1.03);
+      }
+      .secondary-btn {
+        background: #fff8e7;
+        color: #5e4709;
+        border: 1px solid var(--line);
+        box-shadow: none;
       }
       .output {
         margin-top: 25px;
       }
+      .output-card {
+        padding: 26px;
+      }
       #hasilPrompt {
-        min-height: 350px;
-        background: #f3f4f6;
-        border: 2px dashed #10b981;
+        min-height: 360px;
+        background: #fffdf7;
+        border: 2px dashed rgba(212, 175, 55, 0.8);
         white-space: pre-wrap;
         line-height: 1.6;
+        margin-top: 16px;
       }
-      .copy {
-        background: #111827;
+      .status {
+        margin-top: 14px;
+        min-height: 24px;
+        font-size: 15px;
+        color: #7b5b00;
+        font-weight: bold;
+      }
+      .tip-box {
+        margin-top: 18px;
+        padding: 16px 18px;
+        border-radius: 16px;
+        background: var(--surface-soft);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        line-height: 1.7;
+      }
+      .tip-box strong {
+        color: #5e4709;
+      }
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
       }
       @media (max-width: 700px) {
+        body {
+          padding: 14px;
+        }
+        .container,
+        .hero-panel,
+        .section,
+        .quick-card,
+        .output-card {
+          padding: 20px;
+          border-radius: 20px;
+        }
         .grid {
           grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+        .subtitle,
+        input,
+        select,
+        textarea,
+        button {
+          font-size: 16px;
+        }
+        .primary-btn,
+        .secondary-btn {
+          width: 100%;
         }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Prompt Generator Sertifikat Massal</h1>
-      <p class="subtitle">
-        Membuat prompt aplikasi untuk generate puluhan / ratusan sertifikat
-        otomatis
-      </p>
-
-      <div class="grid">
-        <div>
-          <label>Nama Aplikasi</label>
-          <input id="namaAplikasi" value="Bulk Certificate Generator" />
+      <div class="hero">
+        <div class="hero-panel">
+          <div class="hero-badge">Belajar Digital by Diamant</div>
+          <h1>Prompt Generator Sertifikat Massal</h1>
+          <p class="subtitle">
+            Isi form secara santai, lalu sistem akan menyusun prompt yang rapi
+            untuk membuat aplikasi sertifikat otomatis. Tampilan ini dibuat
+            lebih sederhana, nyaman dibaca, dan cocok untuk pengguna pemula.
+          </p>
+          <div class="tip-box">
+            <strong>Cara pakai singkat:</strong> isi kebutuhan dasar dulu, lalu
+            lanjutkan ke fitur tambahan. Setelah itu tekan tombol
+            <strong>Buat Prompt Aplikasi</strong>.
+          </div>
         </div>
 
-        <div>
-          <label>Target Pengguna</label>
-          <select id="target">
-            <option>Trainer / Mentor Online</option>
-            <option>Webinar / Zoominar</option>
-            <option>Sekolah / Kampus</option>
-            <option>Komunitas</option>
-            <option>Event Organizer</option>
-            <option>Perusahaan / HRD</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div>
-          <label>Jenis Sertifikat</label>
-          <select id="jenis">
-            <option>Sertifikat Pelatihan</option>
-            <option>Sertifikat Webinar</option>
-            <option>Sertifikat Kompetensi</option>
-            <option>Sertifikat Penghargaan</option>
-            <option>Sertifikat Kelulusan</option>
-            <option>Sertifikat Membership</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Style Template</label>
-          <select id="style">
-            <option>Luxury Gold Premium</option>
-            <option>Corporate Blue Professional</option>
-            <option>Minimalist Modern Clean</option>
-            <option>Futuristic AI Neon</option>
-            <option>Islamic Elegant Green Gold</option>
-            <option>Startup Gradient Modern</option>
-          </select>
+        <div class="hero-side">
+          <div class="quick-card">
+            <h2>Apa yang akan dibantu?</h2>
+            <p>
+              Halaman ini membantu Anda menulis instruksi aplikasi sertifikat
+              secara lebih jelas, tanpa harus menyusun kalimat dari nol.
+            </p>
+          </div>
+          <div class="quick-card">
+            <h2>Cocok untuk</h2>
+            <ul class="quick-list">
+              <li>Mentor, trainer, dan panitia webinar</li>
+              <li>Sekolah, kampus, komunitas, dan EO</li>
+              <li>Pengguna yang ingin proses cepat dan tidak ribet</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div class="grid">
-        <div>
-          <label>Warna Utama</label>
-          <input id="warna" value="Hijau, putih, emas" />
+      <div class="section">
+        <div class="section-head">
+          <h2>1. Informasi Dasar</h2>
+          <p>Mulai dari nama aplikasi dan siapa pengguna utamanya.</p>
         </div>
 
-        <div>
-          <label>Orientasi Sertifikat</label>
-          <select id="orientasi">
-            <option>Landscape A4</option>
-            <option>Portrait A4</option>
-            <option>16:9 Digital Certificate</option>
-            <option>Square Social Media</option>
-          </select>
+        <div class="grid">
+          <div class="field">
+            <label>Nama Aplikasi</label>
+            <input id="namaAplikasi" value="Bulk Certificate Generator" />
+            <div class="helper">
+              Nama ini akan dipakai di bagian pembuka prompt.
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Target Pengguna</label>
+            <select id="target">
+              <option>Trainer / Mentor Online</option>
+              <option>Webinar / Zoominar</option>
+              <option>Sekolah / Kampus</option>
+              <option>Komunitas</option>
+              <option>Event Organizer</option>
+              <option>Perusahaan / HRD</option>
+            </select>
+            <div class="helper">
+              Pilih kategori yang paling dekat dengan kebutuhan Anda.
+            </div>
+          </div>
         </div>
       </div>
 
-      <label>Fitur Data Massal</label>
-      <textarea id="fiturData">
+      <div class="section">
+        <div class="section-head">
+          <h2>2. Konsep Sertifikat</h2>
+          <p>Pilih jenis sertifikat, gaya visual, dan orientasi output.</p>
+        </div>
+
+        <div class="grid">
+          <div class="field">
+            <label>Jenis Sertifikat</label>
+            <select id="jenis">
+              <option>Sertifikat Pelatihan</option>
+              <option>Sertifikat Webinar</option>
+              <option>Sertifikat Kompetensi</option>
+              <option>Sertifikat Penghargaan</option>
+              <option>Sertifikat Kelulusan</option>
+              <option>Sertifikat Membership</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Style Template</label>
+            <select id="style">
+              <option>Luxury Gold Premium</option>
+              <option>Corporate Blue Professional</option>
+              <option>Minimalist Modern Clean</option>
+              <option>Futuristic AI Neon</option>
+              <option>Islamic Elegant Green Gold</option>
+              <option>Startup Gradient Modern</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Warna Utama</label>
+            <input id="warna" value="Hijau, putih, emas" />
+            <div class="helper">
+              Tulis 2-4 warna utama agar nuansanya lebih jelas.
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Orientasi Sertifikat</label>
+            <select id="orientasi">
+              <option>Landscape A4</option>
+              <option>Portrait A4</option>
+              <option>16:9 Digital Certificate</option>
+              <option>Square Social Media</option>
+            </select>
+            <div class="helper">
+              Landscape A4 biasanya paling aman untuk cetak sertifikat.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>3. Fitur Inti Aplikasi</h2>
+          <p>Jelaskan data massal, hasil export, dan elemen sertifikat.</p>
+        </div>
+
+        <label>Fitur Data Massal</label>
+        <textarea id="fiturData">
 Upload CSV atau Excel berisi nama peserta, nomor sertifikat, nama acara, tanggal, predikat, dan email peserta.</textarea
-      >
+        >
 
-      <label>Fitur Export</label>
-      <textarea id="fiturExport">
+        <label>Fitur Export</label>
+        <textarea id="fiturExport">
 Export sertifikat satuan dan massal ke PDF, PNG, serta ZIP otomatis.</textarea
-      >
+        >
 
-      <label>Elemen Sertifikat</label>
-      <textarea id="elemen">
+        <label>Elemen Sertifikat</label>
+        <textarea id="elemen">
 Nama peserta otomatis, nomor sertifikat otomatis, QR code verifikasi, logo, tanda tangan digital, stempel, tanggal, nama penyelenggara.</textarea
-      >
+        >
+      </div>
 
-      <label>Fitur Tambahan Aplikasi</label>
-      <textarea id="fiturTambahan">
+      <div class="section">
+        <div class="section-head">
+          <h2>4. Fitur Tambahan</h2>
+          <p>
+            Tambahkan hal pendukung yang membuat aplikasi lebih nyaman dipakai.
+          </p>
+        </div>
+
+        <label>Fitur Tambahan Aplikasi</label>
+        <textarea id="fiturTambahan">
 Preview sertifikat sebelum export, pilih template, edit warna, upload logo, upload tanda tangan, auto resize nama panjang, dan tombol copy link verifikasi.</textarea
-      >
+        >
 
-      <label>Teknologi Yang Diinginkan</label>
-      <select id="teknologi">
-        <option>HTML, CSS, JavaScript dalam 1 file tanpa database</option>
-        <option>PHP, MySQL, Bootstrap</option>
-        <option>Laravel dan MySQL</option>
-        <option>Google Sheet dan Apps Script</option>
-      </select>
+        <label>Teknologi Yang Diinginkan</label>
+        <select id="teknologi">
+          <option>HTML, CSS, JavaScript dalam 1 file tanpa database</option>
+          <option>PHP, MySQL, Bootstrap</option>
+          <option>Laravel dan MySQL</option>
+          <option>Google Sheet dan Apps Script</option>
+        </select>
 
-      <button onclick="buatPrompt()">Buat Prompt Aplikasi</button>
+        <div class="helper">
+          Jika masih pemula, opsi HTML, CSS, dan JavaScript biasanya paling
+          mudah untuk dicoba terlebih dahulu.
+        </div>
+
+        <div class="action-bar">
+          <button class="primary-btn" onclick="buatPrompt()">
+            Buat Prompt Aplikasi
+          </button>
+          <button class="secondary-btn" onclick="resetForm()" type="button">
+            Isi Ulang ke Default
+          </button>
+        </div>
+      </div>
 
       <div class="output">
-        <label>Hasil Prompt</label>
-        <textarea id="hasilPrompt" readonly></textarea>
-        <button class="copy" onclick="copyPrompt()">Copy Prompt</button>
+        <div class="output-card">
+          <h2>Hasil Prompt</h2>
+          <p>
+            Setelah prompt muncul, Anda bisa langsung menyalin hasilnya untuk
+            dipakai di AI atau tim developer.
+          </p>
+          <textarea id="hasilPrompt" readonly></textarea>
+          <div class="action-bar">
+            <button class="secondary-btn" onclick="copyPrompt()" type="button">
+              Copy Prompt
+            </button>
+          </div>
+          <div class="status" id="statusCopy"></div>
+        </div>
       </div>
     </div>
 
@@ -284,13 +565,50 @@ Catatan penting:
 `;
 
         document.getElementById('hasilPrompt').value = prompt.trim();
+        document.getElementById('statusCopy').textContent =
+          'Prompt berhasil dibuat. Silakan periksa lalu copy jika sudah sesuai.';
       }
 
-      function copyPrompt() {
+      async function copyPrompt() {
         const hasil = document.getElementById('hasilPrompt');
-        hasil.select();
-        document.execCommand('copy');
-        alert('Prompt berhasil dicopy!');
+        const status = document.getElementById('statusCopy');
+
+        if (!hasil.value.trim()) {
+          status.textContent =
+            'Prompt masih kosong. Tekan "Buat Prompt Aplikasi" terlebih dahulu.';
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(hasil.value);
+          status.textContent = 'Prompt berhasil disalin ke clipboard.';
+        } catch (error) {
+          hasil.select();
+          document.execCommand('copy');
+          status.textContent = 'Prompt berhasil disalin ke clipboard.';
+        }
+      }
+
+      function resetForm() {
+        document.getElementById('namaAplikasi').value =
+          'Bulk Certificate Generator';
+        document.getElementById('target').selectedIndex = 0;
+        document.getElementById('jenis').selectedIndex = 0;
+        document.getElementById('style').selectedIndex = 0;
+        document.getElementById('warna').value = 'Hijau, putih, emas';
+        document.getElementById('orientasi').selectedIndex = 0;
+        document.getElementById('fiturData').value =
+          'Upload CSV atau Excel berisi nama peserta, nomor sertifikat, nama acara, tanggal, predikat, dan email peserta.';
+        document.getElementById('fiturExport').value =
+          'Export sertifikat satuan dan massal ke PDF, PNG, serta ZIP otomatis.';
+        document.getElementById('elemen').value =
+          'Nama peserta otomatis, nomor sertifikat otomatis, QR code verifikasi, logo, tanda tangan digital, stempel, tanggal, nama penyelenggara.';
+        document.getElementById('fiturTambahan').value =
+          'Preview sertifikat sebelum export, pilih template, edit warna, upload logo, upload tanda tangan, auto resize nama panjang, dan tombol copy link verifikasi.';
+        document.getElementById('teknologi').selectedIndex = 0;
+        document.getElementById('hasilPrompt').value = '';
+        document.getElementById('statusCopy').textContent =
+          'Form dikembalikan ke isi awal.';
       }
     </script>
   </body>
