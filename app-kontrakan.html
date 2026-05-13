@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Manajemen Kontrakan & Kost</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        background: #f1f5f9;
+      }
+
+      .tab-active {
+        background: #059669;
+        color: white;
+      }
+
+      .btn {
+        padding: 6px 12px;
+        border-radius: 8px;
+        color: white;
+        font-size: 14px;
+      }
+
+      .btn-blue {
+        background: #2563eb;
+      }
+
+      .btn-red {
+        background: #dc2626;
+      }
+
+      .card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      table {
+        width: 100%;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #e2e8f0;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- =====================================================
+HEADER
+===================================================== -->
+
+    <div class="bg-emerald-700 text-white p-4 shadow-lg">
+      <div class="max-w-7xl mx-auto flex items-center gap-4">
+        <img
+          src="https://e6-roxy.biz.id/uploads/BERANDA20260409-104503-LOGO%20KONTRAKAN.png"
+          class="w-14 h-14 rounded-xl bg-white p-1"
+        />
+
+        <div>
+          <h1 class="text-2xl font-bold">Manajemen Kontrakan & Kost</h1>
+
+          <p class="text-emerald-100">Sistem Pengelolaan Kontrakan dan Kost</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- =====================================================
+MENU
+===================================================== -->
+
+    <div class="bg-white shadow sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto p-3 flex gap-2 overflow-auto">
+        <button
+          onclick="showTab('dashboard')"
+          class="tab-btn tab-active px-4 py-2 rounded-lg"
+        >
+          Dashboard
+        </button>
+
+        <button
+          onclick="showTab('property')"
+          class="tab-btn px-4 py-2 rounded-lg"
+        >
+          Property
+        </button>
+
+        <button
+          onclick="showTab('penyewa')"
+          class="tab-btn px-4 py-2 rounded-lg"
+        >
+          Penyewa
+        </button>
+
+        <button
+          onclick="showTab('pembayaran')"
+          class="tab-btn px-4 py-2 rounded-lg"
+        >
+          Pembayaran
+        </button>
+
+        <button
+          onclick="showTab('pengeluaran')"
+          class="tab-btn px-4 py-2 rounded-lg"
+        >
+          Pengeluaran
+        </button>
+
+        <button
+          onclick="showTab('laporan')"
+          class="tab-btn px-4 py-2 rounded-lg"
+        >
+          Laporan
+        </button>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto p-4">
+      <!-- =====================================================
+DASHBOARD
+===================================================== -->
+
+      <section id="dashboard" class="tab-content">
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div class="card">
+            <div class="text-slate-500">Property Terisi</div>
+            <div id="terisi" class="text-3xl font-bold text-green-600">0</div>
+          </div>
+
+          <div class="card">
+            <div class="text-slate-500">Property Kosong</div>
+            <div id="kosong" class="text-3xl font-bold text-red-600">8</div>
+          </div>
+
+          <div class="card">
+            <div class="text-slate-500">Total Sewa</div>
+            <div id="income" class="text-3xl font-bold text-blue-600">Rp 0</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-xl font-bold mb-4">Status Property</h2>
+
+          <div id="propertyGrid" class="grid md:grid-cols-4 gap-4"></div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+PROPERTY
+===================================================== -->
+
+      <section id="property" class="tab-content hidden">
+        <div class="card">
+          <h2 class="text-xl font-bold mb-4">Daftar Property</h2>
+
+          <div id="propertyList" class="grid md:grid-cols-4 gap-4"></div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+PENYEWA
+===================================================== -->
+
+      <section id="penyewa" class="tab-content hidden">
+        <div class="card mb-6">
+          <h2 class="text-xl font-bold mb-4">Tambah Penyewa</h2>
+
+          <form id="tenant-form">
+            <input type="hidden" id="editingTenantId" />
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label>Property</label>
+
+                <select
+                  id="tenant-property"
+                  class="w-full border rounded-lg p-3"
+                  required
+                ></select>
+              </div>
+
+              <div>
+                <label>Nama</label>
+
+                <input
+                  type="text"
+                  id="tenant-name"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+
+              <div>
+                <label>No Telp</label>
+
+                <input
+                  type="text"
+                  id="tenant-phone"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Harga Sewa</label>
+
+                <input
+                  type="number"
+                  id="tenant-rent"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Tanggal Masuk</label>
+
+                <input
+                  type="date"
+                  id="tenant-start"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg"
+            >
+              Simpan Penyewa
+            </button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="text-xl font-bold mb-4">Daftar Penyewa</h2>
+
+          <div class="overflow-auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Nama</th>
+                  <th>Telp</th>
+                  <th>Sewa</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+
+              <tbody id="tenantTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+PEMBAYARAN
+===================================================== -->
+
+      <section id="pembayaran" class="tab-content hidden">
+        <div class="card mb-6">
+          <h2 class="text-xl font-bold mb-4">Input Pembayaran</h2>
+
+          <form id="payment-form">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label>Penyewa</label>
+
+                <select
+                  id="payment-tenant"
+                  class="w-full border rounded-lg p-3"
+                  required
+                ></select>
+              </div>
+
+              <div>
+                <label>Bulan Sekarang</label>
+
+                <input
+                  type="month"
+                  id="payment-month"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Jumlah Bayar</label>
+
+                <input
+                  type="number"
+                  id="payment-amount"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Tanggal Bayar</label>
+
+                <input
+                  type="date"
+                  id="payment-date"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-4 bg-emerald-600 text-white px-6 py-3 rounded-lg"
+            >
+              Simpan Pembayaran
+            </button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="text-xl font-bold mb-4">Riwayat Pembayaran</h2>
+
+          <div class="overflow-auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Penyewa</th>
+                  <th>Bulan</th>
+                  <th>Jumlah</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+
+              <tbody id="paymentTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+PENGELUARAN
+===================================================== -->
+
+      <section id="pengeluaran" class="tab-content hidden">
+        <div class="card mb-6">
+          <h2 class="text-xl font-bold mb-4">Input Pengeluaran</h2>
+
+          <form id="expense-form">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label>Tanggal</label>
+
+                <input
+                  type="date"
+                  id="expense-date"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Kategori</label>
+
+                <select
+                  id="expense-category"
+                  class="w-full border rounded-lg p-3"
+                  required
+                >
+                  <option value="">Pilih Kategori</option>
+                  <option>Perbaikan</option>
+                  <option>Listrik</option>
+                  <option>Air</option>
+                  <option>Kebersihan</option>
+                  <option>Lainnya</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Keterangan</label>
+
+                <input
+                  type="text"
+                  id="expense-desc"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Jumlah</label>
+
+                <input
+                  type="number"
+                  id="expense-amount"
+                  class="w-full border rounded-lg p-3"
+                  required
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-4 bg-red-600 text-white px-6 py-3 rounded-lg"
+            >
+              Simpan Pengeluaran
+            </button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="text-xl font-bold mb-4">Riwayat Pengeluaran</h2>
+
+          <div class="overflow-auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Kategori</th>
+                  <th>Keterangan</th>
+                  <th>Jumlah</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+
+              <tbody id="expenseTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+LAPORAN
+===================================================== -->
+
+      <section id="laporan" class="tab-content hidden">
+        <div class="card">
+          <h2 class="text-xl font-bold mb-6">Laporan Rugi Laba</h2>
+
+          <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-green-100 rounded-xl p-4">
+              <div>Total Pemasukan</div>
+              <div id="reportIncome" class="text-2xl font-bold text-green-700">
+                Rp 0
+              </div>
+            </div>
+
+            <div class="bg-red-100 rounded-xl p-4">
+              <div>Total Pengeluaran</div>
+              <div id="reportExpense" class="text-2xl font-bold text-red-700">
+                Rp 0
+              </div>
+            </div>
+
+            <div class="bg-blue-100 rounded-xl p-4">
+              <div>Laba Bersih</div>
+              <div id="reportProfit" class="text-2xl font-bold text-blue-700">
+                Rp 0
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="font-bold mb-3">Detail Pemasukan</h3>
+
+              <div id="incomeDetail" class="bg-slate-100 rounded-xl p-4"></div>
+            </div>
+
+            <div>
+              <h3 class="font-bold mb-3">Detail Pengeluaran</h3>
+
+              <div id="expenseDetail" class="bg-slate-100 rounded-xl p-4"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const properties = [
+        'KONTRAKAN E4-1',
+        'KONTRAKAN E4-2',
+        'KOST 2.1',
+        'KOST 2.2',
+        'KOST 2.3',
+        'KOST 2.4',
+        'KOST 2.5',
+        'KOST 2.6',
+      ];
+
+      function showTab(tab) {
+        document
+          .querySelectorAll('.tab-content')
+          .forEach((x) => x.classList.add('hidden'));
+
+        document.getElementById(tab).classList.remove('hidden');
+
+        document
+          .querySelectorAll('.tab-btn')
+          .forEach((x) => x.classList.remove('tab-active'));
+
+        event.target.classList.add('tab-active');
+      }
+
+      function loadPropertyOptions() {
+        const select = document.getElementById('tenant-property');
+
+        const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        const usedProperties = tenants.map((t) => t.property_id);
+
+        select.innerHTML = '<option value="">Pilih Property</option>';
+
+        properties.forEach((p) => {
+          if (!usedProperties.includes(p)) {
+            select.innerHTML += `
+<option value="${p}">
+${p}
+</option>
+`;
+          }
+        });
+      }
+
+      function renderTenants() {
+        const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        const table = document.getElementById('tenantTable');
+
+        table.innerHTML = '';
+
+        if (tenants.length === 0) {
+          table.innerHTML = `
+<tr>
+<td colspan="5" class="text-center p-6">
+Belum ada data penyewa
+</td>
+</tr>
+`;
+
+          return;
+        }
+
+        tenants.forEach((t) => {
+          table.innerHTML += `
+<tr>
+<td>${t.property_id}</td>
+<td>${t.tenant_name}</td>
+<td>${t.tenant_phone}</td>
+<td>Rp ${Number(t.monthly_rent).toLocaleString('id-ID')}</td>
+
+<td>
+
+<div class="flex gap-2">
+
+<button
+onclick="editTenant('${t.id}')"
+class="btn btn-blue">
+Edit
+</button>
+
+<button
+onclick="deleteTenant('${t.id}')"
+class="btn btn-red">
+Hapus
+</button>
+
+</div>
+
+</td>
+
+</tr>
+`;
+        });
+      }
+
+      function editTenant(id) {
+        let tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        let tenant = tenants.find((t) => String(t.id) === String(id));
+
+        if (!tenant) return;
+
+        document.getElementById('editingTenantId').value = tenant.id;
+
+        document.getElementById('tenant-property').value = tenant.property_id;
+
+        document.getElementById('tenant-name').value = tenant.tenant_name;
+
+        document.getElementById('tenant-phone').value = tenant.tenant_phone;
+
+        document.getElementById('tenant-rent').value = tenant.monthly_rent;
+
+        document.getElementById('tenant-start').value = tenant.start_date;
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
+
+      document
+        .getElementById('tenant-form')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          let tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+          let editId = document.getElementById('editingTenantId').value;
+
+          let data = {
+            id: editId || Date.now(),
+
+            property_id: document.getElementById('tenant-property').value,
+
+            tenant_name: document.getElementById('tenant-name').value,
+
+            tenant_phone: document.getElementById('tenant-phone').value,
+
+            monthly_rent: document.getElementById('tenant-rent').value,
+
+            start_date: document.getElementById('tenant-start').value,
+          };
+
+          if (editId) {
+            let index = tenants.findIndex(
+              (t) => String(t.id) === String(editId),
+            );
+
+            if (index !== -1) {
+              tenants[index] = data;
+            }
+          } else {
+            tenants.push(data);
+          }
+
+          localStorage.setItem('tenants', JSON.stringify(tenants));
+
+          this.reset();
+
+          document.getElementById('editingTenantId').value = '';
+
+          renderTenants();
+          renderPropertyList();
+          updateDashboard();
+          updatePropertyStatus();
+          loadPropertyOptions();
+          loadPaymentTenants();
+        });
+
+      function deleteTenant(id) {
+        if (!confirm('Yakin ingin menghapus data?')) return;
+
+        let tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        tenants = tenants.filter((t) => String(t.id) !== String(id));
+
+        localStorage.setItem('tenants', JSON.stringify(tenants));
+
+        renderTenants();
+        renderPropertyList();
+        updateDashboard();
+        updatePropertyStatus();
+        loadPropertyOptions();
+        loadPaymentTenants();
+      }
+
+      function renderPropertyList() {
+        const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        const list = document.getElementById('propertyList');
+
+        list.innerHTML = '';
+
+        properties.forEach((p) => {
+          const tenant = tenants.find((x) => x.property_id === p);
+
+          list.innerHTML += `
+<div class="border rounded-xl p-4 bg-white shadow">
+
+<div class="flex justify-between items-center mb-3">
+
+<div class="font-bold text-lg">
+${p}
+</div>
+
+<div class="
+px-3 py-1 rounded-full text-sm text-white
+${tenant ? 'bg-red-500' : 'bg-green-500'}
+">
+
+${tenant ? 'Terisi' : 'Kosong'}
+
+</div>
+
+</div>
+
+<div class="text-slate-500 text-sm">
+
+${tenant ? 'Penyewa: ' + tenant.tenant_name : 'Belum ada penyewa'}
+
+</div>
+
+</div>
+`;
+        });
+      }
+
+      function updateDashboard() {
+        const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        const payments = JSON.parse(localStorage.getItem('payments')) || [];
+
+        document.getElementById('terisi').innerText = tenants.length;
+
+        document.getElementById('kosong').innerText = 8 - tenants.length;
+
+        /* TOTAL SEWA DIAMBIL DARI PEMBAYARAN */
+
+        let total = 0;
+
+        payments.forEach((p) => {
+          total += Number(p.amount);
+        });
+
+        document.getElementById('income').innerText =
+          'Rp ' + total.toLocaleString('id-ID');
+      }
+
+      function updatePropertyStatus() {
+        const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        const grid = document.getElementById('propertyGrid');
+
+        grid.innerHTML = '';
+
+        properties.forEach((p) => {
+          const tenant = tenants.find((x) => x.property_id === p);
+
+          grid.innerHTML += `
+<div class="
+rounded-xl p-4 text-white
+${tenant ? 'bg-red-500' : 'bg-green-500'}
+">
+
+<div class="font-bold">
+${p}
+</div>
+
+<div class="text-sm mt-2">
+${tenant ? tenant.tenant_name : 'Kosong'}
+</div>
+
+</div>
+`;
+        });
+      }
+
+      function loadPaymentTenants() {
+        const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+        const select = document.getElementById('payment-tenant');
+
+        select.innerHTML = '<option value="">Pilih Penyewa</option>';
+
+        tenants.forEach((t) => {
+          select.innerHTML += `
+<option value="${t.id}">
+${t.tenant_name}
+</option>
+`;
+        });
+      }
+
+      document
+        .getElementById('payment-form')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          let payments = JSON.parse(localStorage.getItem('payments')) || [];
+
+          const tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+
+          const tenantId = document.getElementById('payment-tenant').value;
+
+          const tenant = tenants.find((t) => String(t.id) === String(tenantId));
+
+          payments.push({
+            id: Date.now(),
+
+            tenant_name: tenant?.tenant_name || '',
+
+            month: document.getElementById('payment-month').value,
+
+            amount: document.getElementById('payment-amount').value,
+
+            date: document.getElementById('payment-date').value,
+          });
+
+          localStorage.setItem('payments', JSON.stringify(payments));
+
+          this.reset();
+
+          renderPayments();
+          generateReport();
+          updateDashboard();
+        });
+
+      function renderPayments() {
+        const payments = JSON.parse(localStorage.getItem('payments')) || [];
+
+        const table = document.getElementById('paymentTable');
+
+        table.innerHTML = '';
+
+        if (payments.length === 0) {
+          table.innerHTML = `
+<tr>
+<td colspan="5" class="text-center p-6">
+Belum ada pembayaran
+</td>
+</tr>
+`;
+
+          return;
+        }
+
+        payments.forEach((p) => {
+          table.innerHTML += `
+<tr>
+<td>${p.date}</td>
+<td>${p.tenant_name}</td>
+<td>${p.month}</td>
+<td>
+Rp ${Number(p.amount).toLocaleString('id-ID')}
+</td>
+
+<td>
+
+<button
+onclick="deletePayment('${p.id}')"
+class="btn btn-red">
+Hapus
+</button>
+
+</td>
+
+</tr>
+`;
+        });
+      }
+
+      function deletePayment(id) {
+        let payments = JSON.parse(localStorage.getItem('payments')) || [];
+
+        payments = payments.filter((p) => String(p.id) !== String(id));
+
+        localStorage.setItem('payments', JSON.stringify(payments));
+
+        renderPayments();
+        generateReport();
+        updateDashboard();
+      }
+
+      document
+        .getElementById('expense-form')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+          expenses.push({
+            id: Date.now(),
+
+            date: document.getElementById('expense-date').value,
+
+            category: document.getElementById('expense-category').value,
+
+            description: document.getElementById('expense-desc').value,
+
+            amount: document.getElementById('expense-amount').value,
+          });
+
+          localStorage.setItem('expenses', JSON.stringify(expenses));
+
+          this.reset();
+
+          renderExpenses();
+          generateReport();
+        });
+
+      function renderExpenses() {
+        const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+        const table = document.getElementById('expenseTable');
+
+        table.innerHTML = '';
+
+        if (expenses.length === 0) {
+          table.innerHTML = `
+<tr>
+<td colspan="5" class="text-center p-6">
+Belum ada pengeluaran
+</td>
+</tr>
+`;
+
+          return;
+        }
+
+        expenses.forEach((e) => {
+          table.innerHTML += `
+<tr>
+<td>${e.date}</td>
+<td>${e.category}</td>
+<td>${e.description}</td>
+<td>
+Rp ${Number(e.amount).toLocaleString('id-ID')}
+</td>
+
+<td>
+
+<button
+onclick="deleteExpense('${e.id}')"
+class="btn btn-red">
+Hapus
+</button>
+
+</td>
+
+</tr>
+`;
+        });
+      }
+
+      function deleteExpense(id) {
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+        expenses = expenses.filter((e) => String(e.id) !== String(id));
+
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+
+        renderExpenses();
+        generateReport();
+      }
+
+      function generateReport() {
+        const payments = JSON.parse(localStorage.getItem('payments')) || [];
+
+        const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+        let income = 0;
+        let expense = 0;
+
+        payments.forEach((p) => {
+          income += Number(p.amount);
+        });
+
+        expenses.forEach((e) => {
+          expense += Number(e.amount);
+        });
+
+        const profit = income - expense;
+
+        document.getElementById('reportIncome').innerText =
+          'Rp ' + income.toLocaleString('id-ID');
+
+        document.getElementById('reportExpense').innerText =
+          'Rp ' + expense.toLocaleString('id-ID');
+
+        document.getElementById('reportProfit').innerText =
+          'Rp ' + profit.toLocaleString('id-ID');
+
+        const incomeDetail = document.getElementById('incomeDetail');
+
+        incomeDetail.innerHTML = '';
+
+        payments.forEach((p) => {
+          incomeDetail.innerHTML += `
+<div class="flex justify-between border-b py-2">
+<div>${p.tenant_name}</div>
+<div>
+Rp ${Number(p.amount).toLocaleString('id-ID')}
+</div>
+</div>
+`;
+        });
+
+        const expenseDetail = document.getElementById('expenseDetail');
+
+        expenseDetail.innerHTML = '';
+
+        expenses.forEach((e) => {
+          expenseDetail.innerHTML += `
+<div class="flex justify-between border-b py-2">
+<div>${e.category}</div>
+<div>
+Rp ${Number(e.amount).toLocaleString('id-ID')}
+</div>
+</div>
+`;
+        });
+      }
+
+      loadPropertyOptions();
+      renderTenants();
+      renderPropertyList();
+      updateDashboard();
+      updatePropertyStatus();
+      loadPaymentTenants();
+      renderPayments();
+      renderExpenses();
+      generateReport();
+    </script>
+  </body>
+</html>
