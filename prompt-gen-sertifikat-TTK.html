@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Generator Aplikasi Sertifikat Massal</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #064e3b, #0f766e);
+        margin: 0;
+        padding: 20px;
+        color: #111827;
+      }
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      }
+      h1 {
+        text-align: center;
+        color: #065f46;
+        margin-bottom: 5px;
+      }
+      .subtitle {
+        text-align: center;
+        color: #4b5563;
+        margin-bottom: 25px;
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        font-size: 15px;
+        box-sizing: border-box;
+      }
+      textarea {
+        min-height: 90px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        background: #047857;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #065f46;
+      }
+      .output {
+        margin-top: 25px;
+      }
+      #hasilPrompt {
+        min-height: 350px;
+        background: #f3f4f6;
+        border: 2px dashed #10b981;
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+      .copy {
+        background: #111827;
+      }
+      @media (max-width: 700px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Prompt Generator Sertifikat Massal</h1>
+      <p class="subtitle">
+        Membuat prompt aplikasi untuk generate puluhan / ratusan sertifikat
+        otomatis
+      </p>
+
+      <div class="grid">
+        <div>
+          <label>Nama Aplikasi</label>
+          <input id="namaAplikasi" value="Bulk Certificate Generator" />
+        </div>
+
+        <div>
+          <label>Target Pengguna</label>
+          <select id="target">
+            <option>Trainer / Mentor Online</option>
+            <option>Webinar / Zoominar</option>
+            <option>Sekolah / Kampus</option>
+            <option>Komunitas</option>
+            <option>Event Organizer</option>
+            <option>Perusahaan / HRD</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Jenis Sertifikat</label>
+          <select id="jenis">
+            <option>Sertifikat Pelatihan</option>
+            <option>Sertifikat Webinar</option>
+            <option>Sertifikat Kompetensi</option>
+            <option>Sertifikat Penghargaan</option>
+            <option>Sertifikat Kelulusan</option>
+            <option>Sertifikat Membership</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Style Template</label>
+          <select id="style">
+            <option>Luxury Gold Premium</option>
+            <option>Corporate Blue Professional</option>
+            <option>Minimalist Modern Clean</option>
+            <option>Futuristic AI Neon</option>
+            <option>Islamic Elegant Green Gold</option>
+            <option>Startup Gradient Modern</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Warna Utama</label>
+          <input id="warna" value="Hijau, putih, emas" />
+        </div>
+
+        <div>
+          <label>Orientasi Sertifikat</label>
+          <select id="orientasi">
+            <option>Landscape A4</option>
+            <option>Portrait A4</option>
+            <option>16:9 Digital Certificate</option>
+            <option>Square Social Media</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Fitur Data Massal</label>
+      <textarea id="fiturData">
+Upload CSV atau Excel berisi nama peserta, nomor sertifikat, nama acara, tanggal, predikat, dan email peserta.</textarea
+      >
+
+      <label>Fitur Export</label>
+      <textarea id="fiturExport">
+Export sertifikat satuan dan massal ke PDF, PNG, serta ZIP otomatis.</textarea
+      >
+
+      <label>Elemen Sertifikat</label>
+      <textarea id="elemen">
+Nama peserta otomatis, nomor sertifikat otomatis, QR code verifikasi, logo, tanda tangan digital, stempel, tanggal, nama penyelenggara.</textarea
+      >
+
+      <label>Fitur Tambahan Aplikasi</label>
+      <textarea id="fiturTambahan">
+Preview sertifikat sebelum export, pilih template, edit warna, upload logo, upload tanda tangan, auto resize nama panjang, dan tombol copy link verifikasi.</textarea
+      >
+
+      <label>Teknologi Yang Diinginkan</label>
+      <select id="teknologi">
+        <option>HTML, CSS, JavaScript dalam 1 file tanpa database</option>
+        <option>PHP, MySQL, Bootstrap</option>
+        <option>Laravel dan MySQL</option>
+        <option>Google Sheet dan Apps Script</option>
+      </select>
+
+      <button onclick="buatPrompt()">Buat Prompt Aplikasi</button>
+
+      <div class="output">
+        <label>Hasil Prompt</label>
+        <textarea id="hasilPrompt" readonly></textarea>
+        <button class="copy" onclick="copyPrompt()">Copy Prompt</button>
+      </div>
+    </div>
+
+    <script>
+      function buatPrompt() {
+        const namaAplikasi = document.getElementById('namaAplikasi').value;
+        const target = document.getElementById('target').value;
+        const jenis = document.getElementById('jenis').value;
+        const style = document.getElementById('style').value;
+        const warna = document.getElementById('warna').value;
+        const orientasi = document.getElementById('orientasi').value;
+        const fiturData = document.getElementById('fiturData').value;
+        const fiturExport = document.getElementById('fiturExport').value;
+        const elemen = document.getElementById('elemen').value;
+        const fiturTambahan = document.getElementById('fiturTambahan').value;
+        const teknologi = document.getElementById('teknologi').value;
+
+        const prompt = `
+Buatkan saya aplikasi bernama "${namaAplikasi}".
+
+Aplikasi ini adalah aplikasi pembuatan sertifikat massal otomatis untuk target pengguna:
+${target}
+
+Tujuan aplikasi:
+Membantu pengguna membuat puluhan, ratusan, bahkan ribuan sertifikat secara otomatis dari data peserta, tanpa mengetik satu per satu.
+
+Jenis sertifikat:
+${jenis}
+
+Style desain sertifikat:
+${style}
+
+Nuansa warna:
+${warna}
+
+Orientasi sertifikat:
+${orientasi}
+
+Teknologi yang digunakan:
+${teknologi}
+
+Fitur data massal:
+${fiturData}
+
+Fitur export:
+${fiturExport}
+
+Elemen yang wajib ada di sertifikat:
+${elemen}
+
+Fitur tambahan aplikasi:
+${fiturTambahan}
+
+Detail aplikasi yang harus dibuat:
+1. Halaman utama dengan desain modern, premium, dan mudah digunakan.
+2. Form upload data peserta dalam format CSV atau Excel.
+3. Preview tabel data peserta setelah file diupload.
+4. Template sertifikat dinamis dengan placeholder:
+   - [NAMA_PESERTA]
+   - [NOMOR_SERTIFIKAT]
+   - [NAMA_EVENT]
+   - [TANGGAL]
+   - [PREDIKAT]
+   - [PENYELENGGARA]
+5. Sistem otomatis mengganti placeholder berdasarkan data peserta.
+6. Preview sertifikat sebelum di-download.
+7. Tombol generate sertifikat satu per satu.
+8. Tombol generate semua sertifikat secara massal.
+9. Fitur QR code verifikasi sertifikat.
+10. Fitur upload logo penyelenggara.
+11. Fitur upload tanda tangan digital.
+12. Fitur auto nomor sertifikat.
+13. Fitur export PDF.
+14. Fitur export PNG.
+15. Fitur export ZIP untuk semua sertifikat.
+16. Tampilan responsive dan mobile friendly.
+17. Desain UI seperti aplikasi SaaS premium.
+18. Gunakan card, tombol besar, warna elegan, dan layout bersih.
+19. Sertifikat harus terlihat profesional, resmi, dan layak dicetak.
+20. Berikan kode lengkap yang bisa langsung dijalankan.
+
+Catatan penting:
+- Buat aplikasi yang mudah dipakai orang awam.
+- Jangan terlalu rumit.
+- Semua fitur utama harus ada.
+- Jika menggunakan HTML, CSS, dan JavaScript, buat dalam 1 file lengkap.
+- Jika menggunakan PHP dan MySQL, sertakan struktur database dan semua file penting.
+- Pastikan output aplikasi siap dipakai untuk kebutuhan webinar, pelatihan, komunitas, sekolah, dan event online.
+`;
+
+        document.getElementById('hasilPrompt').value = prompt.trim();
+      }
+
+      function copyPrompt() {
+        const hasil = document.getElementById('hasilPrompt');
+        hasil.select();
+        document.execCommand('copy');
+        alert('Prompt berhasil dicopy!');
+      }
+    </script>
+  </body>
+</html>
