@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rahasia 1 Landing Page Mewakili 1000 Keyword</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background:
+          radial-gradient(circle at top left, #00f5ff33, transparent 30%),
+          radial-gradient(circle at bottom right, #7c3aed44, transparent 35%),
+          #050816;
+        color: #e5f7ff;
+        line-height: 1.7;
+      }
+      a {
+        color: #00f5ff;
+        text-decoration: none;
+      }
+      .container {
+        max-width: 980px;
+        margin: auto;
+        padding: 22px;
+      }
+      .header {
+        border: 1px solid #1f9fff55;
+        background: rgba(5, 12, 30, 0.78);
+        backdrop-filter: blur(12px);
+        border-radius: 24px;
+        padding: 24px;
+        margin: 20px 0;
+        box-shadow: 0 0 35px #00eaff22;
+      }
+      .badge {
+        display: inline-block;
+        padding: 7px 14px;
+        border: 1px solid #00f5ff99;
+        border-radius: 999px;
+        color: #00f5ff;
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+      h1 {
+        font-size: 34px;
+        line-height: 1.15;
+        margin: 18px 0 8px;
+      }
+      h2 {
+        color: #67e8f9;
+        font-size: 26px;
+        margin-top: 0;
+      }
+      h3 {
+        color: #a78bfa;
+      }
+      .page {
+        display: none;
+        border: 1px solid #2563eb66;
+        background: linear-gradient(
+          145deg,
+          rgba(15, 23, 42, 0.93),
+          rgba(2, 6, 23, 0.96)
+        );
+        border-radius: 26px;
+        padding: 28px;
+        box-shadow: 0 0 45px #2563eb22;
+        margin-bottom: 20px;
+      }
+      .page.active {
+        display: block;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        border: 1px solid #38bdf866;
+        background: rgba(15, 23, 42, 0.75);
+        border-radius: 18px;
+        padding: 18px;
+      }
+      .card strong {
+        color: #22d3ee;
+      }
+      .note {
+        background: #02111f;
+        border-left: 5px solid #00f5ff;
+        padding: 16px;
+        border-radius: 14px;
+        margin: 18px 0;
+      }
+      .warn {
+        background: #1a1027;
+        border-left: 5px solid #a78bfa;
+        padding: 16px;
+        border-radius: 14px;
+        margin: 18px 0;
+      }
+      .prompt {
+        background: #031826;
+        border: 1px dashed #00f5ff99;
+        padding: 16px;
+        border-radius: 16px;
+        white-space: pre-wrap;
+        color: #c8fbff;
+        font-family: Consolas, monospace;
+        font-size: 14px;
+      }
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 25px;
+      }
+      button,
+      .btn {
+        border: 0;
+        border-radius: 14px;
+        padding: 13px 18px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #020617;
+        background: linear-gradient(135deg, #00f5ff, #22c55e);
+        box-shadow: 0 0 20px #00f5ff44;
+      }
+      button.secondary {
+        background: #111827;
+        color: #dbeafe;
+        border: 1px solid #38bdf866;
+      }
+      .lockbox {
+        max-width: 520px;
+        margin: 20px auto;
+        padding: 26px;
+        border-radius: 24px;
+        background: linear-gradient(145deg, #020617, #111827);
+        border: 1px solid #00f5ff88;
+        text-align: center;
+        box-shadow: 0 0 45px #00f5ff33;
+      }
+      input {
+        width: 100%;
+        padding: 14px;
+        margin: 8px 0;
+        border-radius: 12px;
+        border: 1px solid #38bdf866;
+        background: #020617;
+        color: #fff;
+      }
+      .progress {
+        height: 9px;
+        background: #111827;
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 18px 0;
+      }
+      .bar {
+        height: 100%;
+        width: 16.6%;
+        background: linear-gradient(90deg, #00f5ff, #22c55e, #a78bfa);
+      }
+      .footer {
+        text-align: center;
+        color: #93c5fd;
+        font-size: 13px;
+        padding: 25px;
+      }
+      ul {
+        padding-left: 22px;
+      }
+      .hero-title span {
+        color: #00f5ff;
+        text-shadow: 0 0 20px #00f5ff88;
+      }
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 27px;
+        }
+        .page {
+          padding: 20px;
+        }
+        .nav {
+          flex-direction: column;
+        }
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <span class="badge">FREE EBOOK SEO · AKSES BERTAHAP</span>
+        <h1 class="hero-title">
+          Rahasia <span>1 Landing Page</span><br />Mewakili 1000 Keyword
+        </h1>
+        <p>
+          Panduan praktis membuat landing page SEO yang mampu menangkap banyak
+          variasi keyword tanpa terlihat spam.
+        </p>
+        <p>
+          <b>Untuk membuka materi lanjutan:</b> follow, komen, lalu DM Instagram
+          <a href="https://www.instagram.com/kandisha_cb" target="_blank"
+            >@kandisha_cb</a
+          >
+        </p>
+        <div class="progress"><div class="bar" id="bar"></div></div>
+      </div>
+      <section class="ebook-cover-section">
+        <div class="ebook-cover-wrap">
+          <img
+            src="https://suksespintar.biz.id/gambarbebas/20260513-103721_1000k.png"
+            alt="Cover Ebook Landingpage 1000 Keyword"
+            class="ebook-cover-img"
+          />
+        </div>
+      </section>
+
+      <style>
+        .ebook-cover-section {
+          padding: 30px 15px;
+          text-align: center;
+        }
+
+        .ebook-cover-wrap {
+          max-width: 420px;
+          margin: 0 auto;
+        }
+
+        .ebook-cover-img {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 22px;
+          box-shadow: 0 0 35px rgba(0, 245, 255, 0.35);
+        }
+      </style>
+      <!-- PAGE 1 -->
+      <section class="page active" id="page1">
+        <h2>Halaman 1 — Fondasi Berpikir</h2>
+        <h3>Landing Page Bukan Artikel Biasa</h3>
+
+        <p>
+          Banyak orang mengira landing page SEO hanya halaman berisi tulisan
+          panjang. Padahal, landing page SEO yang benar adalah halaman yang
+          dirancang untuk menangkap banyak niat pencarian dalam satu topik
+          besar.
+        </p>
+
+        <div class="note">
+          <b>Intinya:</b> 1 landing page tidak harus mewakili 1 keyword saja.
+          Satu halaman bisa mewakili ratusan keyword jika semua keyword masih
+          berada dalam satu maksud pencarian yang sama.
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <strong>Keyword Utama</strong><br />Contoh: jasa kanopi Bekasi
+          </div>
+          <div class="card">
+            <strong>Keyword Turunan</strong><br />Contoh: jasa kanopi baja
+            ringan Bekasi
+          </div>
+          <div class="card">
+            <strong>Keyword Lokal</strong><br />Contoh: jasa kanopi Bekasi Timur
+          </div>
+          <div class="card">
+            <strong>Keyword Intent</strong><br />Contoh: jasa kanopi murah dan
+            terpercaya
+          </div>
+        </div>
+
+        <h3>Kesalahan yang Harus Dihindari</h3>
+        <ul>
+          <li>Menumpuk keyword mentah berulang-ulang.</li>
+          <li>Mencampur keyword dari topik yang tidak nyambung.</li>
+          <li>Membuat halaman panjang tapi tidak punya struktur.</li>
+          <li>Melupakan CTA dan tujuan bisnis.</li>
+        </ul>
+
+        <h3>Prompt Praktik Halaman 1</h3>
+        <div class="prompt">
+          Buatkan penjelasan sederhana tentang konsep landing page SEO yang
+          mampu menargetkan banyak keyword dalam 1 halaman. Gunakan bahasa mudah
+          dipahami oleh pemula, dengan contoh keyword utama, keyword turunan,
+          keyword lokal, dan keyword intent.
+        </div>
+
+        <div class="nav">
+          <button class="secondary" onclick="goPage(1)">Awal</button>
+          <button onclick="goPage(2)">Lanjut Halaman 2</button>
+        </div>
+      </section>
+
+      <!-- PAGE 2 -->
+      <section class="page" id="page2">
+        <h2>Halaman 2 — Teknik Riset Keyword</h2>
+        <h3>Mengubah 1 Keyword Jadi Banyak Variasi</h3>
+
+        <p>
+          Riset keyword untuk landing page SEO bukan hanya mencari kata populer.
+          Yang lebih penting adalah memahami bagaimana calon customer mengetik
+          kebutuhannya di Google.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <strong>1. Variasi Awalan</strong><br />jasa, harga, tempat, tukang,
+            layanan, rekomendasi.
+          </div>
+          <div class="card">
+            <strong>2. Variasi Lokasi</strong><br />kota, kecamatan, area
+            sekitar, wilayah layanan.
+          </div>
+          <div class="card">
+            <strong>3. Variasi Intent</strong><br />murah, terpercaya, cepat,
+            profesional, terdekat.
+          </div>
+          <div class="card">
+            <strong>4. Variasi Produk</strong><br />jenis bahan, jenis layanan,
+            ukuran, model, paket.
+          </div>
+        </div>
+
+        <h3>Contoh Pecahan Keyword</h3>
+        <ul>
+          <li>jasa kanopi Bekasi</li>
+          <li>jasa pasang kanopi Bekasi Timur</li>
+          <li>harga kanopi baja ringan Bekasi</li>
+          <li>tukang kanopi minimalis Bekasi Barat</li>
+          <li>jasa kanopi rumah dekat Bekasi Selatan</li>
+        </ul>
+
+        <div class="warn">
+          <b>Prinsip penting:</b> keyword boleh banyak, tapi harus
+          dikelompokkan. Jangan semua keyword dilempar begitu saja ke dalam
+          artikel.
+        </div>
+
+        <h3>Prompt Praktik Halaman 2</h3>
+        <div class="prompt">
+          Dari keyword utama: "[ISI KEYWORD UTAMA]", buatkan 100 keyword turunan
+          yang terdiri dari: 1. variasi awalan, 2. variasi lokasi, 3. variasi
+          intent, 4. variasi jenis layanan, 5. variasi pertanyaan calon pembeli.
+          Pastikan semua keyword masih satu topik.
+        </div>
+
+        <div class="nav">
+          <button class="secondary" onclick="goPage(1)">Kembali</button>
+          <button onclick="goPage(3)">Lanjut Halaman 3</button>
+        </div>
+      </section>
+
+      <!-- PAGE 3 LOCK -->
+      <section class="page" id="page3">
+        <div class="lockbox" id="loginBox">
+          <h2>🔒 Materi Lanjutan Dikunci</h2>
+          <p>Untuk membuka halaman 3 sampai selesai:</p>
+          <p>
+            1. Follow Instagram <b>@kandisha_cb</b><br />
+            2. Komen di salah satu postingan<br />
+            3. DM Instagram untuk meminta password
+          </p>
+          <p>
+            <a href="https://www.instagram.com/kandisha_cb" target="_blank"
+              >Buka Instagram @kandisha_cb</a
+            >
+          </p>
+
+          <input type="text" id="user" placeholder="Username" />
+          <input type="password" id="pass" placeholder="Password" />
+          <button onclick="login()">Buka Materi</button>
+          <p id="loginMsg"></p>
+        </div>
+
+        <div id="page3Content" style="display: none">
+          <h2>Halaman 3 — Strategi Pemetaan Keyword</h2>
+          <h3>Menyusun Keyword ke Dalam Struktur Halaman</h3>
+
+          <p>
+            Setelah keyword terkumpul, langkah berikutnya adalah memetakan
+            keyword ke struktur halaman. Ini penting agar konten tetap enak
+            dibaca dan tidak terlihat seperti tumpukan keyword.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <strong>H1</strong><br />Untuk keyword utama. Contoh: Jasa Kanopi
+              Bekasi.
+            </div>
+            <div class="card">
+              <strong>H2</strong><br />Untuk kategori besar. Contoh: Jasa Kanopi
+              Rumah dan Usaha.
+            </div>
+            <div class="card">
+              <strong>H3</strong><br />Untuk variasi kecil. Contoh: Kanopi Baja
+              Ringan, Kanopi Minimalis.
+            </div>
+            <div class="card">
+              <strong>FAQ</strong><br />Untuk keyword pertanyaan. Contoh: Berapa
+              harga jasa kanopi?
+            </div>
+          </div>
+
+          <h3>Formula Struktur</h3>
+          <div class="prompt">
+            H1 = Keyword utama H2 = Turunan besar H3 = Variasi layanan Paragraf
+            = Longtail keyword FAQ = Keyword pertanyaan Area layanan = Keyword
+            lokal
+          </div>
+
+          <h3>Prompt Praktik Halaman 3</h3>
+          <div class="prompt">
+            Susun struktur landing page SEO dari keyword utama "[ISI KEYWORD]"
+            dengan pembagian: - H1 - H2 - H3 - paragraf pembuka - blok area
+            layanan - FAQ agar bisa menampung banyak keyword secara natural
+            tanpa spam.
+          </div>
+
+          <div class="nav">
+            <button class="secondary" onclick="goPage(2)">Kembali</button>
+            <button onclick="goPage(4)">Lanjut Halaman 4</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 4 -->
+      <section class="page" id="page4">
+        <h2>Halaman 4 — Teknik Penulisan Natural</h2>
+        <h3>Memasukkan Banyak Keyword Tanpa Terlihat Spam</h3>
+
+        <p>
+          Konten SEO yang bagus bukan konten yang sekadar memasukkan keyword
+          sebanyak-banyaknya. Konten SEO yang bagus harus terasa seperti
+          penjelasan manusia, namun tetap mengandung banyak variasi keyword.
+        </p>
+
+        <h3>Contoh Salah</h3>
+        <div class="warn">
+          Jasa kanopi Bekasi murah jasa kanopi Bekasi terbaik jasa kanopi Bekasi
+          terpercaya jasa kanopi Bekasi Timur harga kanopi Bekasi murah.
+        </div>
+
+        <h3>Contoh Benar</h3>
+        <div class="note">
+          Bagi Anda yang sedang mencari jasa pemasangan kanopi di Bekasi, kami
+          melayani kebutuhan kanopi rumah, kanopi toko, hingga kanopi area
+          usaha. Layanan tersedia untuk wilayah Bekasi Timur, Bekasi Barat,
+          Bekasi Utara, Bekasi Selatan, dan sekitarnya.
+        </div>
+
+        <h3>Teknik Menulis Natural</h3>
+        <ul>
+          <li>Jadikan keyword sebagai bagian dari kalimat.</li>
+          <li>Gabungkan lokasi dalam kalimat area layanan.</li>
+          <li>Gunakan variasi kata agar tidak monoton.</li>
+          <li>Tambahkan contoh masalah calon customer.</li>
+          <li>Masukkan CTA secara halus.</li>
+        </ul>
+
+        <h3>Prompt Praktik Halaman 4</h3>
+        <div class="prompt">
+          Buatkan konten SEO natural untuk keyword utama "[ISI KEYWORD]" dengan
+          target wilayah "[ISI WILAYAH]". Masukkan variasi keyword, lokasi,
+          jenis layanan, masalah calon customer, dan CTA WhatsApp secara halus.
+          Jangan terlihat seperti spam keyword.
+        </div>
+
+        <div class="nav">
+          <button class="secondary" onclick="goPage(3)">Kembali</button>
+          <button onclick="goPage(5)">Lanjut Halaman 5</button>
+        </div>
+      </section>
+
+      <!-- PAGE 5 -->
+      <section class="page" id="page5">
+        <h2>Halaman 5 — Struktur HTML Landing Page SEO</h2>
+        <h3>Template Halaman Siap Ranking dan Closing</h3>
+
+        <p>
+          Landing page SEO yang baik harus punya dua kekuatan: mudah dibaca
+          Google dan mudah menggerakkan calon customer untuk bertindak.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <strong>Meta Title</strong><br />Judul halaman yang tampil di
+            Google.
+          </div>
+          <div class="card">
+            <strong>Meta Description</strong><br />Ringkasan halaman yang
+            menggoda klik.
+          </div>
+          <div class="card">
+            <strong>Hero Section</strong><br />Headline, subheadline, CTA utama.
+          </div>
+          <div class="card">
+            <strong>FAQ</strong><br />Menangkap keyword pertanyaan.
+          </div>
+        </div>
+
+        <h3>Struktur Ideal Landing Page SEO</h3>
+        <div class="prompt">
+          <section class="hero">Headline utama + CTA</section>
+          <section class="problem">Masalah calon customer</section>
+          <section class="solution">Solusi layanan</section>
+          <section class="services">Jenis layanan</section>
+          <section class="area">Area layanan lokal</section>
+          <section class="faq">Pertanyaan umum</section>
+          <section class="cta">WhatsApp closing</section>
+        </div>
+
+        <h3>Prompt Praktik Halaman 5</h3>
+        <div class="prompt">
+          Buatkan HTML landing page SEO lengkap untuk keyword utama "[ISI
+          KEYWORD]" dan wilayah "[ISI WILAYAH]". Wajib ada: - meta title - meta
+          description - hero section - problem - solusi - jenis layanan - area
+          layanan - FAQ - CTA WhatsApp Gunakan bahasa natural dan desain modern.
+        </div>
+
+        <div class="nav">
+          <button class="secondary" onclick="goPage(4)">Kembali</button>
+          <button onclick="goPage(6)">Lanjut Halaman 6</button>
+        </div>
+      </section>
+
+      <!-- PAGE 6 -->
+      <section class="page" id="page6">
+        <h2>Halaman 6 — Publish, GSC, dan Evaluasi</h2>
+        <h3>Dari Landing Page Menjadi Mesin Traffic</h3>
+
+        <p>
+          Landing page SEO belum selesai saat HTML jadi. Setelah halaman
+          dipublish, halaman harus dikenalkan ke Google dan dipantau
+          performanya.
+        </p>
+
+        <h3>Langkah Praktis</h3>
+        <ul>
+          <li>Upload halaman ke hosting.</li>
+          <li>Pastikan URL bisa dibuka normal.</li>
+          <li>Buat atau update sitemap.xml.</li>
+          <li>Daftarkan domain ke Google Search Console.</li>
+          <li>Verifikasi domain melalui DNS, file HTML, atau meta tag.</li>
+          <li>Submit sitemap di GSC.</li>
+          <li>Gunakan URL Inspection.</li>
+          <li>Klik Request Indexing.</li>
+          <li>Pantau impresi, klik, posisi, dan keyword yang muncul.</li>
+        </ul>
+
+        <div class="note">
+          <b>Yang harus dipantau:</b> keyword mana yang mulai muncul, halaman
+          mana yang mendapat impresi, dan bagian konten mana yang perlu ditambah
+          agar ranking naik.
+        </div>
+
+        <h3>Formula Scaling</h3>
+        <div class="prompt">
+          1 niche + 1 template + banyak keyword + banyak lokasi + GSC monitoring
+          = mesin traffic jangka panjang
+        </div>
+
+        <h3>Prompt Praktik Halaman 6</h3>
+        <div class="prompt">
+          Buatkan panduan langkah demi langkah cara mempublish landing page SEO,
+          mendaftarkan website ke Google Search Console, submit sitemap, request
+          indexing, dan mengevaluasi keyword yang mulai muncul.
+        </div>
+
+        <h3>Prompt Induk Sederhana</h3>
+        <div class="prompt">
+          Saya ingin membuat landing page SEO yang mampu menargetkan banyak
+          keyword. Data: - Keyword utama: - Lokasi target: - Jenis
+          layanan/produk: - Target market: - Nomor WhatsApp: Tugas: 1. Buatkan
+          100 keyword turunan. 2. Kelompokkan keyword berdasarkan intent. 3.
+          Susun struktur H1, H2, H3. 4. Buatkan konten SEO natural. 5. Buatkan
+          HTML landing page lengkap. 6. Buatkan FAQ. 7. Buatkan panduan publish
+          dan submit ke Google Search Console. Output harus siap digunakan.
+        </div>
+
+        <div class="nav">
+          <button class="secondary" onclick="goPage(5)">Kembali</button>
+          <button onclick="goPage(1)">Kembali ke Awal</button>
+        </div>
+      </section>
+
+      <div class="footer">
+        Ebook Gratis · Follow Instagram
+        <a href="https://www.instagram.com/kandisha_cb" target="_blank"
+          >@kandisha_cb</a
+        >
+        untuk akses materi lanjutan.
+      </div>
+    </div>
+
+    <script>
+      let unlocked = false;
+
+      function goPage(num) {
+        if (num >= 4 && !unlocked) {
+          num = 3;
+        }
+
+        document
+          .querySelectorAll('.page')
+          .forEach((p) => p.classList.remove('active'));
+        document.getElementById('page' + num).classList.add('active');
+
+        let percent = (num / 6) * 100;
+        document.getElementById('bar').style.width = percent + '%';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function login() {
+        let user = document.getElementById('user').value.trim();
+        let pass = document.getElementById('pass').value.trim();
+        let msg = document.getElementById('loginMsg');
+
+        if (user === 'pcb' && pass === 'seosubuh123') {
+          unlocked = true;
+          document.getElementById('loginBox').style.display = 'none';
+          document.getElementById('page3Content').style.display = 'block';
+          msg.innerHTML = '';
+        } else {
+          msg.innerHTML = 'Username atau password salah.';
+          msg.style.color = '#f87171';
+        }
+      }
+
+      /* Proteksi dasar */
+      document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        let key = e.key.toLowerCase();
+
+        if (e.ctrlKey && key === 'u') {
+          e.preventDefault();
+          return false;
+        }
+
+        if (e.ctrlKey && key === 's') {
+          e.preventDefault();
+          return false;
+        }
+
+        if (
+          e.ctrlKey &&
+          e.shiftKey &&
+          (key === 'i' || key === 'j' || key === 'c')
+        ) {
+          e.preventDefault();
+          return false;
+        }
+
+        if (e.key === 'F12') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      /* Anti select sederhana */
+      document.addEventListener('selectstart', function (e) {
+        e.preventDefault();
+      });
+    </script>
+  </body>
+</html>
