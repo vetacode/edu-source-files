@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Generator Gambar Komik</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #111827;
+        color: #fff;
+      }
+      .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 24px;
+      }
+      .hero {
+        background: linear-gradient(135deg, #f97316, #dc2626, #7c2d12);
+        padding: 32px;
+        border-radius: 24px;
+        margin-bottom: 22px;
+      }
+      .hero h1 {
+        margin: 0;
+        font-size: 34px;
+      }
+      .hero p {
+        max-width: 760px;
+        font-size: 17px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .card {
+        background: #1f2937;
+        padding: 22px;
+        border-radius: 20px;
+        border: 1px solid #374151;
+      }
+      .full {
+        grid-column: 1/-1;
+      }
+      label {
+        display: block;
+        margin-top: 14px;
+        margin-bottom: 6px;
+        color: #fbbf24;
+        font-weight: bold;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #374151;
+        background: #111827;
+        color: #fff;
+        font-size: 15px;
+      }
+      textarea {
+        min-height: 85px;
+        resize: vertical;
+      }
+      button {
+        width: 100%;
+        border: none;
+        border-radius: 14px;
+        padding: 14px;
+        margin-top: 14px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .btn-main {
+        background: #f97316;
+        color: #111827;
+      }
+      .btn-copy {
+        background: #22c55e;
+        color: #052e16;
+      }
+      .btn-reset {
+        background: #ef4444;
+        color: #fff;
+      }
+      .result {
+        white-space: pre-wrap;
+        background: #020617;
+        border: 1px solid #334155;
+        border-radius: 18px;
+        padding: 20px;
+        min-height: 420px;
+        margin-top: 15px;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .info {
+        background: #111827;
+        border-left: 5px solid #f97316;
+        padding: 12px;
+        border-radius: 12px;
+        color: #d1d5db;
+        font-size: 14px;
+      }
+      @media (max-width: 800px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .hero h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero">
+        <h1>Prompt Generator Gambar Komik</h1>
+        <p>
+          Pilih genre komik, form otomatis berubah sesuai genre, lalu hasilnya
+          langsung menjadi prompt gambar komik siap pakai.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>1. Pilih Genre</h2>
+
+          <label>Genre Komik</label>
+          <select id="genre" onchange="applyGenrePreset()">
+            <option value="marketing">Marketing / Bisnis</option>
+            <option value="humor">Humor / Lucu</option>
+            <option value="kolosal">Kolosal / Kerajaan</option>
+            <option value="superhero">Superhero</option>
+            <option value="religi">Religi</option>
+            <option value="horor">Horor</option>
+            <option value="romantis">Romantis</option>
+            <option value="edukasi">Edukasi</option>
+          </select>
+
+          <label>Mode Output Gambar</label>
+          <select id="mode">
+            <option value="1 halaman komik 4 panel">
+              1 Halaman Komik 4 Panel
+            </option>
+            <option value="cover komik sinematik">Cover Komik</option>
+            <option value="1 panel poster komik">1 Panel Poster Komik</option>
+            <option value="6 panel storyboard komik">
+              6 Panel Storyboard Komik
+            </option>
+          </select>
+
+          <label>Rasio Gambar</label>
+          <select id="rasio">
+            <option value="9:16 vertical, cocok untuk Reels, Story, dan TikTok">
+              9:16 Story / Reels
+            </option>
+            <option value="1:1 square, cocok untuk feed Instagram">
+              1:1 Feed
+            </option>
+            <option
+              value="16:9 landscape, cocok untuk YouTube dan banner website"
+            >
+              16:9 Banner
+            </option>
+            <option value="3:4 vertical poster">3:4 Poster</option>
+          </select>
+
+          <div class="info" id="genreInfo"></div>
+        </div>
+
+        <div class="card">
+          <h2>2. Konsep Cerita</h2>
+
+          <label>Judul Komik</label>
+          <input id="judul" />
+
+          <label>Target Pembaca</label>
+          <input id="target" />
+
+          <label>Pesan Utama</label>
+          <textarea id="pesan"></textarea>
+
+          <label>Call To Action / Penutup</label>
+          <input id="cta" />
+        </div>
+
+        <div class="card">
+          <h2>3. Tokoh</h2>
+
+          <label>Tokoh Utama</label>
+          <textarea id="tokoh1"></textarea>
+
+          <label>Tokoh Kedua</label>
+          <textarea id="tokoh2"></textarea>
+
+          <label>Tokoh Tambahan</label>
+          <textarea id="tokoh3"></textarea>
+        </div>
+
+        <div class="card">
+          <h2>4. Adegan & Konflik</h2>
+
+          <label>Setting Lokasi</label>
+          <textarea id="setting"></textarea>
+
+          <label>Masalah Awal</label>
+          <textarea id="masalah"></textarea>
+
+          <label>Konflik / Ketegangan</label>
+          <textarea id="konflik"></textarea>
+
+          <label>Twist / Punchline</label>
+          <textarea id="twist"></textarea>
+
+          <label>Ending Visual</label>
+          <textarea id="ending"></textarea>
+        </div>
+
+        <div class="card">
+          <h2>5. Visual Komik</h2>
+
+          <label>Gaya Visual</label>
+          <textarea id="visual"></textarea>
+
+          <label>Nuansa Warna</label>
+          <input id="warna" />
+
+          <label>Ekspresi Karakter</label>
+          <textarea id="ekspresi"></textarea>
+
+          <label>Atmosfer / Mood</label>
+          <textarea id="mood"></textarea>
+        </div>
+
+        <div class="card">
+          <h2>6. Dialog</h2>
+
+          <label>Dialog Panel 1</label>
+          <input id="dialog1" />
+
+          <label>Dialog Panel 2</label>
+          <input id="dialog2" />
+
+          <label>Dialog Panel 3</label>
+          <input id="dialog3" />
+
+          <label>Dialog Panel 4</label>
+          <input id="dialog4" />
+        </div>
+
+        <div class="card full">
+          <h2>7. Hasil Prompt Gambar</h2>
+
+          <button class="btn-main" onclick="generateImagePrompt()">
+            Generate Prompt Gambar Komik
+          </button>
+          <button class="btn-copy" onclick="copyPrompt()">Copy Prompt</button>
+          <button class="btn-reset" onclick="resetForm()">Reset</button>
+
+          <div id="hasil" class="result">
+            Hasil prompt gambar akan muncul di sini...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const presets = {
+        marketing: {
+          info: 'Genre bisnis cocok untuk komik edukasi, jualan halus, sindiran iklan boros, dan storytelling produk.',
+          judul: 'Pedagang Cerdas Lawan Iklan Boros',
+          target: 'pebisnis online, UMKM, owner toko, advertiser pemula',
+          pesan:
+            'Jangan hanya jualan. Bangun persepsi, kepercayaan, dan pilih market yang tepat.',
+          cta: 'Mulai bangun trust sebelum membakar budget iklan.',
+          tokoh1:
+            'Pria 35 tahun, pemilik UMKM, wajah lelah, memakai kemeja sederhana, membawa laporan iklan.',
+          tokoh2:
+            'Mentor marketing, tenang, bijak, memakai jas gelap, ekspresi percaya diri.',
+          tokoh3: 'Pelanggan yang awalnya cuek lalu mulai tertarik.',
+          setting:
+            'Pasar modern, toko kecil, meja penuh catatan iklan, layar HP menampilkan biaya iklan naik.',
+          masalah: 'Tokoh utama sudah iklan terus tetapi omset tidak naik.',
+          konflik: 'Uang iklan habis, keluarga kecewa, bisnis hampir tutup.',
+          twist:
+            'Masalahnya bukan iklannya, tetapi cara memilih market dan membangun persepsi yang salah.',
+          ending:
+            'Tokoh utama sadar, pelanggan mulai percaya, toko kembali ramai.',
+          visual:
+            'Modern business comic style, clean line art, expressive faces, satirical visual storytelling.',
+          warna: 'oranye, hitam, putih, merah',
+          ekspresi:
+            'Tokoh utama panik dan lelah, mentor tenang, pelanggan penasaran.',
+          mood: 'Lucu, menyindir, edukatif, membangun kesadaran.',
+          d1: 'Iklan jalan terus... tapi omset tetap sepi!',
+          d2: 'Kalau begini terus, toko bisa tutup...',
+          d3: 'Masalahnya bukan iklan. Market dan persepsinya yang salah.',
+          d4: 'Jadi sebelum jualan, bangun kepercayaan dulu!',
+        },
+        humor: {
+          info: 'Genre humor cocok untuk punchline, komik viral, sindiran ringan, dan konten relatable.',
+          judul: 'Salah Fokus Bikin Gagal Closing',
+          target: 'anak muda, pebisnis online, pengguna media sosial',
+          pesan:
+            'Kadang masalah bisnis bukan produknya, tapi cara menyampaikannya yang bikin orang kabur.',
+          cta: 'Jangan serius terus, tapi pesannya harus masuk.',
+          tokoh1: 'Pria polos dengan ekspresi bingung, memakai kaos santai.',
+          tokoh2: 'Teman cerewet, ekspresi lebay, suka menyindir.',
+          tokoh3: 'Pelanggan yang menahan tawa.',
+          setting: 'Warung kopi ramai, meja kecil, HP terbuka, suasana santai.',
+          masalah: 'Tokoh utama bingung kenapa jualannya tidak laku.',
+          konflik:
+            'Dia menjelaskan produk terlalu panjang sampai pelanggan kabur.',
+          twist:
+            'Ternyata pelanggan bukan tidak minat, tapi pusing membaca caption terlalu berat.',
+          ending:
+            'Tokoh utama membuat pesan pendek dan pelanggan langsung tertawa lalu membeli.',
+          visual:
+            'Funny comic strip, exaggerated expressions, colorful, meme-like composition.',
+          warna: 'kuning, biru, putih, oranye',
+          ekspresi: 'Lebay, lucu, kaget, menahan tawa.',
+          mood: 'Ringan, lucu, satir, relatable.',
+          d1: 'Bro, kenapa jualanku gak ada yang beli?',
+          d2: 'Caption kamu aja lebih panjang dari skripsi!',
+          d3: 'Loh... jadi mereka bukan gak minat?',
+          d4: 'Mereka cuma belum kuat baca!',
+        },
+        kolosal: {
+          info: 'Genre kolosal cocok untuk kerajaan, perang besar, konflik epik, dan visual dramatis.',
+          judul: 'Kerajaan Omset Melawan Pasukan Iklan Boros',
+          target: 'pebisnis yang suka cerita besar dan dramatis',
+          pesan:
+            'Menang perang bisnis bukan hanya dengan pasukan besar, tapi strategi yang tepat.',
+          cta: 'Bangun strategi sebelum menyerang pasar.',
+          tokoh1:
+            'Raja muda berwajah lelah, memakai jubah sederhana, memegang peta pasar.',
+          tokoh2:
+            'Panglima bijak memakai armor gelap, membawa gulungan strategi.',
+          tokoh3: 'Pasukan pedagang dan rakyat pasar.',
+          setting:
+            'Kerajaan besar, istana megah, medan perang, bendera bisnis berkibar.',
+          masalah:
+            'Kerajaan menghabiskan emas untuk menyerang pasar tetapi tidak menang.',
+          konflik:
+            'Pasukan iklan boros menyerbu tanpa arah, persediaan emas hampir habis.',
+          twist:
+            'Musuh sebenarnya bukan pasukan lawan, tetapi strategi pasar yang salah.',
+          ending:
+            'Raja mengubah strategi, rakyat percaya, kerajaan omset bangkit.',
+          visual:
+            'Epic fantasy comic, cinematic lighting, dramatic armor, large battlefield, detailed kingdom.',
+          warna: 'emas, merah gelap, hitam, biru malam',
+          ekspresi: 'Tegang, heroik, serius, penuh tekad.',
+          mood: 'Megah, dramatis, epik, penuh strategi.',
+          d1: 'Emas kerajaan habis untuk menyerang pasar!',
+          d2: 'Pasukan kita kuat, tapi arahnya salah, Paduka.',
+          d3: 'Jadi musuh kita bukan pesaing?',
+          d4: 'Benar. Musuhnya adalah strategi yang buta.',
+        },
+        superhero: {
+          info: 'Genre superhero cocok untuk aksi, kekuatan, penyelamatan, dan konflik hero vs villain.',
+          judul: 'Pahlawan Persepsi Melawan Monster Iklan Boros',
+          target: 'pebisnis online dan kreator konten',
+          pesan:
+            'Kekuatan terbesar dalam marketing adalah trust dan positioning.',
+          cta: 'Jadilah pahlawan untuk market yang tepat.',
+          tokoh1:
+            'Superhero lokal dengan kostum sederhana, cape merah, wajah serius.',
+          tokoh2:
+            'Mentor tua bijak seperti pelatih superhero, memakai jas gelap.',
+          tokoh3: 'Monster raksasa bernama Iklan Boros.',
+          setting:
+            'Kota modern, gedung tinggi, billboard digital, langit dramatis.',
+          masalah: 'Monster Iklan Boros menghisap uang para pebisnis.',
+          konflik:
+            'Superhero menyerang dengan budget besar tapi monster makin kuat.',
+          twist:
+            'Monster hanya bisa dikalahkan dengan trust, positioning, dan pesan yang tepat.',
+          ending:
+            'Superhero memancarkan cahaya trust, monster mengecil, kota terselamatkan.',
+          visual:
+            'Superhero comic style, dynamic pose, dramatic perspective, action lines, cinematic lighting.',
+          warna: 'biru, merah, hitam, kuning cahaya',
+          ekspresi: 'Heroik, tegang, penuh energi, percaya diri.',
+          mood: 'Aksi, heroik, penuh semangat.',
+          d1: 'Aku akan kalahkan monster ini dengan budget besar!',
+          d2: 'Semakin kamu bakar uang, dia makin kuat!',
+          d3: 'Gunakan kekuatan trust dan positioning!',
+          d4: 'Sekarang market percaya... monster pun kalah!',
+        },
+        religi: {
+          info: 'Genre religi cocok untuk pesan moral, nasihat lembut, keluarga, dan edukasi nilai hidup.',
+          judul: 'Rezeki Bukan Sekadar Ramai Pembeli',
+          target: 'keluarga muslim, pebisnis muslim, komunitas edukasi',
+          pesan:
+            'Keberkahan usaha dibangun dengan amanah, kejujuran, dan pelayanan.',
+          cta: 'Perbaiki niat, perbaiki layanan, insyaAllah jalan terbuka.',
+          tokoh1:
+            'Pedagang muslim sederhana, wajah letih namun sabar, memakai baju koko.',
+          tokoh2: 'Ustadz atau mentor bijak, lembut, memakai pakaian rapi.',
+          tokoh3: 'Pelanggan keluarga kecil.',
+          setting:
+            'Pasar pagi dekat masjid, toko kecil bersih, cahaya matahari lembut.',
+          masalah: 'Pedagang merasa usahanya sepi meski sudah berusaha.',
+          konflik:
+            'Ia mulai putus asa dan membandingkan diri dengan pedagang lain.',
+          twist:
+            'Mentor mengingatkan bahwa trust, amanah, dan pelayanan adalah bagian dari ikhtiar.',
+          ending: 'Pedagang memperbaiki layanan, pelanggan kembali percaya.',
+          visual:
+            'Warm Islamic comic style, soft lighting, clean composition, respectful character design.',
+          warna: 'hijau, putih, emas lembut',
+          ekspresi: 'Sabar, haru, tenang, penuh harapan.',
+          mood: 'Menyentuh, damai, inspiratif.',
+          d1: 'Aku sudah usaha, tapi toko tetap sepi...',
+          d2: 'Jangan hanya mengejar ramai, jaga amanah dan layanan.',
+          d3: 'Berarti ikhtiar juga harus memperbaiki kepercayaan?',
+          d4: 'Betul. Rezeki datang bersama kepercayaan.',
+        },
+        horor: {
+          info: 'Genre horor cocok untuk suasana gelap, misteri, ketakutan, dan twist mengejutkan.',
+          judul: 'Hantu Budget Iklan',
+          target: 'pebisnis online yang pernah rugi iklan',
+          pesan:
+            'Yang paling menakutkan bukan iklan mahal, tapi keputusan tanpa data.',
+          cta: 'Jangan biarkan budget hilang tanpa jejak.',
+          tokoh1: 'Owner bisnis wajah pucat, memegang laptop, mata lelah.',
+          tokoh2: 'Analis data misterius, tenang, membawa lampu kecil.',
+          tokoh3: 'Bayangan hitam berbentuk laporan iklan.',
+          setting:
+            'Kantor gelap tengah malam, layar laptop menyala, hujan di luar jendela.',
+          masalah: 'Budget iklan hilang setiap malam tanpa hasil closing.',
+          konflik:
+            'Tokoh utama mendengar suara notifikasi biaya iklan terus naik.',
+          twist:
+            'Hantu itu ternyata bukan makhluk, tapi data iklan yang tidak pernah dibaca.',
+          ending: 'Ia membaca data, cahaya muncul, bayangan menghilang.',
+          visual:
+            'Horror comic style, dark shadows, dramatic lighting, eerie atmosphere, cinematic panels.',
+          warna: 'hitam, biru gelap, merah darah, putih pucat',
+          ekspresi: 'Takut, panik, misterius, lega.',
+          mood: 'Gelap, menegangkan, misterius.',
+          d1: 'Setiap malam... budgetku hilang lagi...',
+          d2: 'Dengar... itu suara notifikasi iklanmu.',
+          d3: 'Hantunya bukan di ruangan ini.',
+          d4: 'Hantunya ada di data yang tidak pernah kamu baca.',
+        },
+        romantis: {
+          info: 'Genre romantis cocok untuk hubungan, emosi halus, konflik perasaan, dan ending hangat.',
+          judul: 'Cinta, Trust, dan Toko Online',
+          target: 'anak muda, seller online, pasangan pebisnis',
+          pesan:
+            'Kepercayaan dalam bisnis mirip hubungan, tidak bisa dipaksa dalam sekali lihat.',
+          cta: 'Bangun hubungan dengan market, bukan cuma mengejar transaksi.',
+          tokoh1: 'Seller muda yang gugup, membawa paket produk.',
+          tokoh2: 'Pasangan atau pelanggan yang lembut tapi ragu.',
+          tokoh3: 'Teman yang memberi nasihat lucu.',
+          setting:
+            'Kafe kecil sore hari, cahaya hangat, meja dengan produk handmade.',
+          masalah: 'Seller ingin pelanggan langsung percaya dan membeli.',
+          konflik:
+            'Pelanggan ragu karena belum mengenal brand dan kualitasnya.',
+          twist:
+            'Teman berkata, bahkan cinta saja butuh proses, apalagi trust bisnis.',
+          ending:
+            'Seller mulai membangun cerita, testimoni, dan hubungan dengan pelanggan.',
+          visual:
+            'Romantic soft comic, warm colors, gentle expressions, clean and emotional composition.',
+          warna: 'pink lembut, krem, coklat, putih',
+          ekspresi: 'Gugup, ragu, hangat, tersenyum.',
+          mood: 'Hangat, manis, emosional ringan.',
+          d1: 'Kenapa dia belum percaya sama produkku?',
+          d2: 'Kenal aja baru hari ini, bro...',
+          d3: 'Cinta butuh proses. Trust juga.',
+          d4: 'Mulai sekarang aku bangun hubungan, bukan cuma jualan.',
+        },
+        edukasi: {
+          info: 'Genre edukasi cocok untuk menjelaskan konsep rumit jadi sederhana dan visual.',
+          judul: 'Kenapa Omset Tidak Naik?',
+          target: 'UMKM, pelajar marketing, pemula bisnis online',
+          pesan:
+            'Omset naik bukan hanya karena iklan, tapi karena market, pesan, trust, dan value cocok.',
+          cta: 'Pelajari pola sebelum memperbesar iklan.',
+          tokoh1: 'Pebisnis pemula membawa catatan dan laptop.',
+          tokoh2: 'Guru atau mentor edukatif memakai kacamata.',
+          tokoh3: 'Diagram market, produk, pesan, trust.',
+          setting: 'Ruang kelas kecil, papan tulis, laptop, grafik sederhana.',
+          masalah: 'Tokoh bingung kenapa iklan banyak klik tapi tidak closing.',
+          konflik: 'Ia hampir menyimpulkan bahwa semua iklan itu sia-sia.',
+          twist:
+            'Mentor menunjukkan bahwa klik bukan tujuan akhir, trust dan value yang menentukan.',
+          ending: 'Tokoh memahami alur market dan mulai memperbaiki pesan.',
+          visual:
+            'Educational comic infographic style, clean panels, simple icons, readable text bubbles.',
+          warna: 'biru, putih, kuning, hijau',
+          ekspresi: 'Bingung, penasaran, tercerahkan.',
+          mood: 'Jelas, ringan, edukatif, optimis.',
+          d1: 'Klik banyak, tapi kenapa gak closing?',
+          d2: 'Karena klik belum tentu percaya.',
+          d3: 'Berarti harus perbaiki pesan dan value?',
+          d4: 'Betul. Iklan hanya pintu masuk.',
+        },
+      };
+
+      function setValue(id, value) {
+        document.getElementById(id).value = value;
+      }
+
+      function applyGenrePreset() {
+        const g = document.getElementById('genre').value;
+        const p = presets[g];
+
+        document.getElementById('genreInfo').innerText = p.info;
+
+        setValue('judul', p.judul);
+        setValue('target', p.target);
+        setValue('pesan', p.pesan);
+        setValue('cta', p.cta);
+        setValue('tokoh1', p.tokoh1);
+        setValue('tokoh2', p.tokoh2);
+        setValue('tokoh3', p.tokoh3);
+        setValue('setting', p.setting);
+        setValue('masalah', p.masalah);
+        setValue('konflik', p.konflik);
+        setValue('twist', p.twist);
+        setValue('ending', p.ending);
+        setValue('visual', p.visual);
+        setValue('warna', p.warna);
+        setValue('ekspresi', p.ekspresi);
+        setValue('mood', p.mood);
+        setValue('dialog1', p.d1);
+        setValue('dialog2', p.d2);
+        setValue('dialog3', p.d3);
+        setValue('dialog4', p.d4);
+      }
+
+      function val(id) {
+        return document.getElementById(id).value.trim();
+      }
+
+      function generateImagePrompt() {
+        const prompt = `
+PROMPT GAMBAR KOMIK SIAP PAKAI:
+
+Create ${val('mode')}.
+
+TITLE:
+${val('judul')}
+
+TARGET AUDIENCE:
+${val('target')}
+
+MAIN MESSAGE:
+${val('pesan')}
+
+SCENE SETTING:
+${val('setting')}
+
+CHARACTERS:
+1. Main character: ${val('tokoh1')}
+2. Second character: ${val('tokoh2')}
+3. Supporting character: ${val('tokoh3')}
+
+STORY FLOW:
+Opening problem: ${val('masalah')}
+Conflict: ${val('konflik')}
+Twist or punchline: ${val('twist')}
+Ending visual: ${val('ending')}
+
+COMIC PANEL DETAILS:
+
+Panel 1:
+Show the opening problem clearly.
+Dialogue: "${val('dialog1')}"
+
+Panel 2:
+Show the conflict becoming stronger.
+Dialogue: "${val('dialog2')}"
+
+Panel 3:
+Show the twist, realization, or important lesson.
+Dialogue: "${val('dialog3')}"
+
+Panel 4:
+Show the ending, transformation, or soft CTA.
+Dialogue: "${val('dialog4')}"
+
+VISUAL STYLE:
+${val('visual')}
+
+COLOR PALETTE:
+${val('warna')}
+
+CHARACTER EXPRESSIONS:
+${val('ekspresi')}
+
+MOOD AND ATMOSPHERE:
+${val('mood')}
+
+FINAL CTA / CLOSING MESSAGE:
+${val('cta')}
+
+IMAGE COMPOSITION:
+Make it look like a professional comic page with clear panel borders, readable speech bubbles, consistent character design, dynamic composition, strong facial expressions, clean layout, detailed background, and high visual storytelling quality.
+
+ASPECT RATIO:
+${val('rasio')}
+
+IMPORTANT INSTRUCTIONS:
+- Do not create a concept explanation.
+- Directly create the comic image.
+- Keep characters consistent in every panel.
+- Make text bubbles short, clear, and readable.
+- Make the comic visually attractive for social media.
+- Avoid cluttered text.
+- Use strong storytelling through expression, gesture, and scene composition.
+`;
+
+        document.getElementById('hasil').innerText = prompt.trim();
+      }
+
+      function copyPrompt() {
+        const text = document.getElementById('hasil').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Prompt berhasil dicopy!');
+        });
+      }
+
+      function resetForm() {
+        document
+          .querySelectorAll('input,textarea')
+          .forEach((el) => (el.value = ''));
+        document.getElementById('hasil').innerText =
+          'Hasil prompt gambar akan muncul di sini...';
+        document.getElementById('genreInfo').innerText = '';
+      }
+
+      window.onload = applyGenrePreset;
+    </script>
+  </body>
+</html>
