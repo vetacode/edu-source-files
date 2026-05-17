@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Generator Gambar Komik</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+
+        background: linear-gradient(
+          180deg,
+          #f8fafc 0%,
+          #f1f5f9 35%,
+          #ffffff 100%
+        );
+
+        color: #0f172a;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1400px;
+        margin: auto;
+        padding: 30px;
+      }
+
+      .hero {
+        background: linear-gradient(
+          135deg,
+          #2563eb 0%,
+          #1d4ed8 35%,
+          #1e3a8a 100%
+        );
+
+        padding: 50px;
+        border-radius: 32px;
+        margin-bottom: 28px;
+
+        color: white;
+
+        position: relative;
+        overflow: hidden;
+
+        box-shadow: 0 25px 60px rgba(37, 99, 235, 0.25);
+      }
+
+      .hero::before {
+        content: '';
+
+        position: absolute;
+
+        width: 340px;
+        height: 340px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.06);
+
+        top: -120px;
+        right: -90px;
+      }
+
+      .hero::after {
+        content: '';
+
+        position: absolute;
+
+        width: 240px;
+        height: 240px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.05);
+
+        bottom: -100px;
+        left: -70px;
+      }
+
+      .hero h1 {
+        margin: 0 0 14px;
+
+        font-size: 44px;
+        line-height: 1.1;
+
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero p {
+        max-width: 760px;
+
+        font-size: 17px;
+        line-height: 1.8;
+
+        color: rgba(255, 255, 255, 0.92);
+
+        position: relative;
+        z-index: 2;
+      }
+
+      .grid {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .card {
+        width: 100%;
+
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(248, 250, 252, 0.98)
+        );
+
+        border: 1px solid rgba(148, 163, 184, 0.15);
+
+        padding: 30px;
+
+        border-radius: 28px;
+
+        box-shadow:
+          0 10px 30px rgba(15, 23, 42, 0.05),
+          0 1px 2px rgba(15, 23, 42, 0.04);
+
+        backdrop-filter: blur(10px);
+
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          border-color 0.25s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+
+        border-color: rgba(59, 130, 246, 0.18);
+
+        box-shadow:
+          0 18px 45px rgba(15, 23, 42, 0.08),
+          0 3px 10px rgba(15, 23, 42, 0.04);
+      }
+
+      .card h2 {
+        margin-top: 0;
+        margin-bottom: 22px;
+
+        font-size: 24px;
+        font-weight: 800;
+
+        color: #0f172a;
+
+        letter-spacing: -0.02em;
+      }
+
+      label {
+        display: block;
+
+        margin-top: 18px;
+        margin-bottom: 8px;
+
+        color: #334155;
+
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+
+        padding: 15px 16px;
+
+        border-radius: 16px;
+
+        border: 1px solid #dbeafe;
+
+        background: white;
+
+        color: #0f172a;
+
+        font-size: 15px;
+
+        transition:
+          0.25s ease,
+          box-shadow 0.25s ease;
+
+        outline: none;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #3b82f6;
+
+        box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.12);
+      }
+
+      textarea {
+        min-height: 95px;
+        resize: vertical;
+      }
+
+      button {
+        width: 100%;
+
+        border: none;
+
+        border-radius: 18px;
+
+        padding: 16px;
+
+        margin-top: 16px;
+
+        font-size: 16px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        opacity: 0.97;
+      }
+
+      .btn-main {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+        color: white;
+
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+      }
+
+      .btn-copy {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+
+        color: white;
+      }
+
+      .btn-reset {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+
+        color: white;
+      }
+
+      .result {
+        white-space: pre-wrap;
+
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(248, 250, 252, 0.98)
+        );
+
+        border: 1px solid #dbeafe;
+
+        border-radius: 24px;
+
+        padding: 26px;
+
+        min-height: 420px;
+
+        margin-top: 18px;
+
+        font-size: 15px;
+        line-height: 1.8;
+
+        color: #0f172a;
+      }
+
+      .info {
+        background: linear-gradient(
+          135deg,
+          rgba(239, 246, 255, 0.9),
+          rgba(248, 250, 252, 0.95)
+        );
+
+        border-left: 5px solid #3b82f6;
+
+        padding: 15px;
+
+        border-radius: 16px;
+
+        color: #334155;
+
+        font-size: 14px;
+        line-height: 1.7;
+
+        margin-top: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 18px;
+        }
+
+        .hero {
+          padding: 32px;
+          border-radius: 26px;
+        }
+
+        .hero h1 {
+          font-size: 32px;
+        }
+
+        .card {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="hero">
+        <h1>Prompt Generator Gambar Komik</h1>
+
+        <p>
+          Pilih genre komik, form otomatis berubah sesuai genre, lalu hasilnya
+          langsung menjadi prompt gambar komik siap pakai dengan visual
+          profesional modern.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>1. Pilih Genre</h2>
+
+          <label>Genre Komik</label>
+
+          <select id="genre">
+            <option>Marketing / Bisnis</option>
+            <option>Humor / Lucu</option>
+            <option>Kolosal / Kerajaan</option>
+            <option>Superhero</option>
+            <option>Religi</option>
+            <option>Horor</option>
+            <option>Romantis</option>
+            <option>Edukasi</option>
+          </select>
+
+          <label>Mode Output Gambar</label>
+
+          <select>
+            <option>1 Halaman Komik 4 Panel</option>
+            <option>Cover Komik</option>
+            <option>1 Panel Poster Komik</option>
+            <option>6 Panel Storyboard Komik</option>
+          </select>
+
+          <label>Rasio Gambar</label>
+
+          <select>
+            <option>9:16 Story / Reels</option>
+            <option>1:1 Feed</option>
+            <option>16:9 Banner</option>
+            <option>3:4 Poster</option>
+          </select>
+
+          <div class="info">
+            Genre bisnis cocok untuk komik edukasi, storytelling produk, dan
+            visual marketing modern.
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>2. Konsep Cerita</h2>
+
+          <label>Judul Komik</label>
+          <input type="text" />
+
+          <label>Target Pembaca</label>
+          <input type="text" />
+
+          <label>Pesan Utama</label>
+          <textarea></textarea>
+
+          <label>Call To Action</label>
+          <input type="text" />
+        </div>
+
+        <div class="card">
+          <h2>3. Tokoh</h2>
+
+          <label>Tokoh Utama</label>
+          <textarea></textarea>
+
+          <label>Tokoh Kedua</label>
+          <textarea></textarea>
+
+          <label>Tokoh Tambahan</label>
+          <textarea></textarea>
+        </div>
+
+        <div class="card">
+          <h2>4. Adegan & Konflik</h2>
+
+          <label>Setting Lokasi</label>
+          <textarea></textarea>
+
+          <label>Masalah Awal</label>
+          <textarea></textarea>
+
+          <label>Konflik</label>
+          <textarea></textarea>
+
+          <label>Twist</label>
+          <textarea></textarea>
+
+          <label>Ending</label>
+          <textarea></textarea>
+        </div>
+
+        <div class="card">
+          <h2>5. Visual Komik</h2>
+
+          <label>Gaya Visual</label>
+          <textarea></textarea>
+
+          <label>Nuansa Warna</label>
+          <input type="text" />
+
+          <label>Ekspresi Karakter</label>
+          <textarea></textarea>
+
+          <label>Mood</label>
+          <textarea></textarea>
+        </div>
+
+        <div class="card">
+          <h2>6. Dialog</h2>
+
+          <label>Dialog Panel 1</label>
+          <input type="text" />
+
+          <label>Dialog Panel 2</label>
+          <input type="text" />
+
+          <label>Dialog Panel 3</label>
+          <input type="text" />
+
+          <label>Dialog Panel 4</label>
+          <input type="text" />
+        </div>
+
+        <div class="card">
+          <h2>7. Hasil Prompt</h2>
+
+          <button class="btn-main">Generate Prompt</button>
+
+          <button class="btn-copy">Copy Prompt</button>
+
+          <button class="btn-reset">Reset</button>
+
+          <div class="result">Hasil prompt gambar akan muncul di sini...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const presets = {
+        marketing: {
+          info: 'Genre bisnis cocok untuk komik edukasi, jualan halus, sindiran iklan boros, dan storytelling produk.',
+
+          judul: 'Pedagang Cerdas Lawan Iklan Boros',
+
+          target: 'pebisnis online, UMKM, owner toko, advertiser pemula',
+
+          pesan:
+            'Jangan hanya jualan. Bangun persepsi, kepercayaan, dan pilih market yang tepat.',
+
+          cta: 'Mulai bangun trust sebelum membakar budget iklan.',
+
+          tokoh1:
+            'Pria 35 tahun, pemilik UMKM, wajah lelah, memakai kemeja sederhana, membawa laporan iklan.',
+
+          tokoh2:
+            'Mentor marketing, tenang, bijak, memakai jas gelap, ekspresi percaya diri.',
+
+          tokoh3: 'Pelanggan yang awalnya cuek lalu mulai tertarik.',
+
+          setting:
+            'Pasar modern, toko kecil, meja penuh catatan iklan, layar HP menampilkan biaya iklan naik.',
+
+          masalah: 'Tokoh utama sudah iklan terus tetapi omset tidak naik.',
+
+          konflik: 'Uang iklan habis, keluarga kecewa, bisnis hampir tutup.',
+
+          twist:
+            'Masalahnya bukan iklannya, tetapi cara memilih market dan membangun persepsi yang salah.',
+
+          ending:
+            'Tokoh utama sadar, pelanggan mulai percaya, toko kembali ramai.',
+
+          visual:
+            'Modern business comic style, clean line art, expressive faces, satirical visual storytelling.',
+
+          warna: 'oranye, hitam, putih, merah',
+
+          ekspresi:
+            'Tokoh utama panik dan lelah, mentor tenang, pelanggan penasaran.',
+
+          mood: 'Lucu, menyindir, edukatif, membangun kesadaran.',
+
+          d1: 'Iklan jalan terus... tapi omset tetap sepi!',
+
+          d2: 'Kalau begini terus, toko bisa tutup...',
+
+          d3: 'Masalahnya bukan iklan. Market dan persepsinya yang salah.',
+
+          d4: 'Jadi sebelum jualan, bangun kepercayaan dulu!',
+        },
+
+        humor: {
+          info: 'Genre humor cocok untuk punchline, komik viral, sindiran ringan, dan konten relatable.',
+
+          judul: 'Salah Fokus Bikin Gagal Closing',
+
+          target: 'anak muda, pebisnis online, pengguna media sosial',
+
+          pesan:
+            'Kadang masalah bisnis bukan produknya, tapi cara menyampaikannya yang bikin orang kabur.',
+
+          cta: 'Jangan serius terus, tapi pesannya harus masuk.',
+
+          tokoh1: 'Pria polos dengan ekspresi bingung, memakai kaos santai.',
+
+          tokoh2: 'Teman cerewet, ekspresi lebay, suka menyindir.',
+
+          tokoh3: 'Pelanggan yang menahan tawa.',
+
+          setting: 'Warung kopi ramai, meja kecil, HP terbuka, suasana santai.',
+
+          masalah: 'Tokoh utama bingung kenapa jualannya tidak laku.',
+
+          konflik:
+            'Dia menjelaskan produk terlalu panjang sampai pelanggan kabur.',
+
+          twist:
+            'Ternyata pelanggan bukan tidak minat, tapi pusing membaca caption terlalu berat.',
+
+          ending:
+            'Tokoh utama membuat pesan pendek dan pelanggan langsung tertawa lalu membeli.',
+
+          visual:
+            'Funny comic strip, exaggerated expressions, colorful, meme-like composition.',
+
+          warna: 'kuning, biru, putih, oranye',
+
+          ekspresi: 'Lebay, lucu, kaget, menahan tawa.',
+
+          mood: 'Ringan, lucu, satir, relatable.',
+
+          d1: 'Bro, kenapa jualanku gak ada yang beli?',
+
+          d2: 'Caption kamu aja lebih panjang dari skripsi!',
+
+          d3: 'Loh... jadi mereka bukan gak minat?',
+
+          d4: 'Mereka cuma belum kuat baca!',
+        },
+      };
+
+      function setValue(id, value) {
+        document.getElementById(id).value = value;
+      }
+
+      function applyGenrePreset() {
+        const g = document.getElementById('genre').value;
+
+        const p = presets[g];
+
+        if (!p) return;
+
+        document.getElementById('genreInfo').innerText = p.info;
+
+        setValue('judul', p.judul);
+        setValue('target', p.target);
+        setValue('pesan', p.pesan);
+        setValue('cta', p.cta);
+
+        setValue('tokoh1', p.tokoh1);
+        setValue('tokoh2', p.tokoh2);
+        setValue('tokoh3', p.tokoh3);
+
+        setValue('setting', p.setting);
+        setValue('masalah', p.masalah);
+        setValue('konflik', p.konflik);
+        setValue('twist', p.twist);
+        setValue('ending', p.ending);
+
+        setValue('visual', p.visual);
+        setValue('warna', p.warna);
+        setValue('ekspresi', p.ekspresi);
+        setValue('mood', p.mood);
+
+        setValue('dialog1', p.d1);
+        setValue('dialog2', p.d2);
+        setValue('dialog3', p.d3);
+        setValue('dialog4', p.d4);
+      }
+
+      function val(id) {
+        return document.getElementById(id).value.trim();
+      }
+
+      function generateImagePrompt() {
+        const prompt = `
+PROMPT GAMBAR KOMIK SIAP PAKAI:
+
+Create ${val('mode')}.
+
+TITLE:
+${val('judul')}
+
+TARGET AUDIENCE:
+${val('target')}
+
+MAIN MESSAGE:
+${val('pesan')}
+
+SCENE SETTING:
+${val('setting')}
+
+CHARACTERS:
+1. Main character: ${val('tokoh1')}
+2. Second character: ${val('tokoh2')}
+3. Supporting character: ${val('tokoh3')}
+
+STORY FLOW:
+Opening problem: ${val('masalah')}
+Conflict: ${val('konflik')}
+Twist or punchline: ${val('twist')}
+Ending visual: ${val('ending')}
+
+COMIC PANEL DETAILS:
+
+Panel 1:
+Show the opening problem clearly.
+Dialogue: "${val('dialog1')}"
+
+Panel 2:
+Show the conflict becoming stronger.
+Dialogue: "${val('dialog2')}"
+
+Panel 3:
+Show the twist, realization, or important lesson.
+Dialogue: "${val('dialog3')}"
+
+Panel 4:
+Show the ending, transformation, or soft CTA.
+Dialogue: "${val('dialog4')}"
+
+VISUAL STYLE:
+${val('visual')}
+
+COLOR PALETTE:
+${val('warna')}
+
+CHARACTER EXPRESSIONS:
+${val('ekspresi')}
+
+MOOD AND ATMOSPHERE:
+${val('mood')}
+
+FINAL CTA / CLOSING MESSAGE:
+${val('cta')}
+
+IMAGE COMPOSITION:
+Make it look like a professional comic page with clear panel borders, readable speech bubbles, consistent character design, dynamic composition, strong facial expressions, clean layout, detailed background, and high visual storytelling quality.
+
+ASPECT RATIO:
+${val('rasio')}
+
+IMPORTANT INSTRUCTIONS:
+- Do not create a concept explanation.
+- Directly create the comic image.
+- Keep characters consistent in every panel.
+- Make text bubbles short, clear, and readable.
+- Make the comic visually attractive for social media.
+- Avoid cluttered text.
+- Use strong storytelling through expression, gesture, and scene composition.
+`;
+
+        document.getElementById('hasil').innerText = prompt.trim();
+      }
+
+      function copyPrompt() {
+        const text = document.getElementById('hasil').innerText;
+
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Prompt berhasil dicopy!');
+        });
+      }
+
+      function resetForm() {
+        document
+          .querySelectorAll('input, textarea')
+          .forEach((el) => (el.value = ''));
+
+        document.getElementById('hasil').innerText =
+          'Hasil prompt gambar akan muncul di sini...';
+
+        document.getElementById('genreInfo').innerText = '';
+      }
+
+      window.onload = applyGenrePreset;
+    </script>
+  </body>
+</html>
