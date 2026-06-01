@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Prompting Corporate: HTML JavaScript vs PHP MySQL</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f3f6fb;
+        color: #1f2937;
+        line-height: 1.7;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #0f172a, #1e40af);
+        color: #fff;
+        padding: 40px 24px;
+        border-radius: 22px;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .hero h1 {
+        margin: 0 0 12px;
+        font-size: 36px;
+        line-height: 1.25;
+      }
+
+      .hero p {
+        margin: 0;
+        font-size: 18px;
+        opacity: 0.95;
+      }
+
+      .card {
+        background: #fff;
+        padding: 24px;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        margin-bottom: 22px;
+      }
+
+      h2 {
+        margin-top: 0;
+        color: #0f172a;
+      }
+
+      .note {
+        background: #e0f2fe;
+        border-left: 6px solid #0284c7;
+        padding: 16px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .warning {
+        background: #fef3c7;
+        border-left: 6px solid #f59e0b;
+        padding: 16px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .success {
+        background: #dcfce7;
+        border-left: 6px solid #16a34a;
+        padding: 16px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        background: #fff;
+      }
+
+      th {
+        background: #1e40af;
+        color: #fff;
+        padding: 14px;
+        text-align: left;
+        font-size: 15px;
+      }
+
+      td {
+        border: 1px solid #e5e7eb;
+        padding: 14px;
+        vertical-align: top;
+        font-size: 15px;
+      }
+
+      tr:nth-child(even) {
+        background: #f9fafb;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+
+      .yes {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .limited {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .better {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .code {
+        background: #111827;
+        color: #f9fafb;
+        padding: 18px;
+        border-radius: 14px;
+        overflow-x: auto;
+        font-family: Consolas, monospace;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .box {
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .box h3 {
+        margin-top: 0;
+        color: #1e40af;
+      }
+
+      .footer {
+        background: linear-gradient(135deg, #16a34a, #15803d);
+        color: #fff;
+        padding: 28px;
+        border-radius: 20px;
+        text-align: center;
+      }
+
+      .footer h2 {
+        color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 14px;
+        }
+
+        .hero h1 {
+          font-size: 28px;
+        }
+
+        .hero p {
+          font-size: 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        th,
+        td {
+          font-size: 14px;
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <section class="hero">
+        <h1>Prompting Corporate Bisa Dibuat Dengan Teknologi Apa?</h1>
+        <p>
+          Perbandingan penggunaan HTML + JavaScript dan PHP + MySQL untuk Level
+          1 sampai Level 5.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Gambaran Utama</h2>
+        <p>
+          Prompting Corporate tidak selalu harus dibuat dengan teknologi rumit
+          seperti LangChain, CrewAI, AutoGen, atau sistem AI agent tingkat
+          tinggi. Untuk pasar UMKM, perusahaan lokal, edukasi internal, dan
+          sistem produktivitas sederhana, banyak kebutuhan sudah bisa dibuat
+          memakai
+          <strong>HTML, CSS, JavaScript, PHP, MySQL, dan API AI</strong>.
+        </p>
+
+        <div class="note">
+          <strong>Intinya:</strong> Level 1 sampai Level 3 sangat bisa dibuat
+          dengan HTML + JavaScript saja. Level 4 dan Level 5 masih bisa dibuat,
+          tetapi lebih kuat jika memakai PHP + MySQL karena butuh penyimpanan
+          data, login, histori, dokumen, dan proses backend.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Perbandingan Level Prompting Corporate Berdasarkan Teknologi</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Fokus</th>
+                <th>Bisa Pakai HTML + JavaScript?</th>
+                <th>Bisa Pakai PHP + MySQL?</th>
+                <th>Contoh Aplikasi</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><strong>Level 1</strong></td>
+                <td>Prompt Library</td>
+                <td>
+                  <span class="badge yes">Bisa</span><br />
+                  Cocok untuk membuat daftar prompt, kategori prompt, fitur
+                  pencarian, filter, tombol copy, dan penyimpanan sederhana
+                  memakai localStorage.
+                </td>
+                <td>
+                  <span class="badge better">Lebih Rapi</span><br />
+                  Cocok jika prompt ingin disimpan dalam database, dikelola
+                  admin, diberi kategori, status aktif, dan akses member.
+                </td>
+                <td>
+                  Prompt Library Marketing, HR, Sales, Finance, SEO,
+                  Copywriting, CS, Legal.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Level 2</strong></td>
+                <td>Workflow Prompt</td>
+                <td>
+                  <span class="badge yes">Bisa</span><br />
+                  JavaScript bisa menyusun beberapa prompt menjadi alur kerja
+                  bertahap. Cocok untuk generator sederhana berbasis form.
+                </td>
+                <td>
+                  <span class="badge better">Lebih Kuat</span><br />
+                  PHP bisa menyimpan workflow, histori input, output AI, data
+                  lead, dan laporan proses.
+                </td>
+                <td>
+                  Workflow Generator Marketing, Sales Funnel Generator, Lead
+                  Follow-up Generator, Campaign Generator.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Level 3</strong></td>
+                <td>SOP AI</td>
+                <td>
+                  <span class="badge yes">Bisa</span><br />
+                  Cocok untuk membuat SOP Generator berbasis input form,
+                  template prompt, dan output otomatis dalam format dokumen.
+                </td>
+                <td>
+                  <span class="badge better">Lebih Cocok</span><br />
+                  PHP + MySQL cocok untuk sistem SOP perusahaan dengan login,
+                  divisi, revisi, approval, versi dokumen, dan dashboard admin.
+                </td>
+                <td>
+                  SOP Marketing Generator, SOP HR Generator, SOP Finance
+                  Generator, SOP Operasional Generator.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Level 4</strong></td>
+                <td>Knowledge Base</td>
+                <td>
+                  <span class="badge limited">Bisa Terbatas</span><br />
+                  Cocok untuk knowledge kecil berbasis array JavaScript, JSON
+                  statis, atau localStorage. Tidak ideal untuk dokumen besar.
+                </td>
+                <td>
+                  <span class="badge yes">Sangat Bisa</span><br />
+                  PHP + MySQL lebih aman untuk menyimpan SOP, FAQ, dokumen
+                  perusahaan, kategori, histori pencarian, dan data internal.
+                </td>
+                <td>
+                  Corporate FAQ System, SOP Search Engine, Knowledge Base
+                  Internal, Chat Dokumen Perusahaan.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Level 5</strong></td>
+                <td>AI Agent</td>
+                <td>
+                  <span class="badge limited">Bisa Sebagian</span><br />
+                  Cocok untuk agent sederhana seperti AI Marketing Generator, AI
+                  SEO Generator, atau AI Sales Assistant berbasis prompt
+                  berurutan.
+                </td>
+                <td>
+                  <span class="badge yes">Lebih Cocok</span><br />
+                  PHP bisa mengelola user, role, histori, database, API, antrian
+                  tugas, laporan, dan proses otomatis.
+                </td>
+                <td>
+                  AI SEO Agent, AI Marketing Agent, AI Sales Assistant, AI HR
+                  Assistant, AI Finance Assistant.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Kesimpulan Cepat</h2>
+
+        <div class="grid">
+          <div class="box">
+            <h3>HTML + JavaScript Cocok Untuk</h3>
+            <ul>
+              <li>Prompt Library sederhana</li>
+              <li>Prompt Generator</li>
+              <li>Workflow Generator</li>
+              <li>SOP Generator</li>
+              <li>AI tools satu file</li>
+              <li>Prototype produk AI</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3>PHP + MySQL Cocok Untuk</h3>
+            <ul>
+              <li>Sistem login member</li>
+              <li>Dashboard admin</li>
+              <li>Simpan histori output</li>
+              <li>Manajemen dokumen</li>
+              <li>Knowledge base perusahaan</li>
+              <li>AI agent berbasis database</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Contoh Alur Dengan HTML + JavaScript Saja</h2>
+
+        <div class="code">
+          User isi form produk<br />
+          ↓<br />
+          JavaScript mengambil input<br />
+          ↓<br />
+          JavaScript menyusun prompt<br />
+          ↓<br />
+          Prompt dikirim ke AI API<br />
+          ↓<br />
+          Output tampil di halaman<br />
+          ↓<br />
+          User copy hasilnya
+        </div>
+
+        <div class="warning">
+          <strong>Kelemahan:</strong> jika API key diletakkan langsung di
+          JavaScript, API key bisa terlihat oleh user. Untuk produk serius,
+          sebaiknya API key diproses lewat backend seperti PHP.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Contoh Alur Dengan PHP + MySQL</h2>
+
+        <div class="code">
+          User login<br />
+          ↓<br />
+          User isi form<br />
+          ↓<br />
+          PHP menerima input<br />
+          ↓<br />
+          PHP mengirim prompt ke AI API<br />
+          ↓<br />
+          Hasil AI disimpan ke MySQL<br />
+          ↓<br />
+          Output tampil di dashboard<br />
+          ↓<br />
+          Admin bisa melihat histori dan laporan
+        </div>
+
+        <div class="success">
+          <strong>Kelebihan:</strong> lebih aman, lebih rapi, bisa multi-user,
+          bisa menyimpan histori, dan cocok untuk dijual ke perusahaan.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Roadmap Paling Realistis</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tahap</th>
+                <th>Produk</th>
+                <th>Teknologi Minimal</th>
+                <th>Catatan</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Prompt Library</td>
+                <td>HTML + JavaScript</td>
+                <td>Bisa dibuat cepat sebagai produk awal.</td>
+              </tr>
+
+              <tr>
+                <td>2</td>
+                <td>Workflow Generator</td>
+                <td>HTML + JavaScript</td>
+                <td>Cocok untuk edukasi, demo, dan tools sederhana.</td>
+              </tr>
+
+              <tr>
+                <td>3</td>
+                <td>SOP AI Generator</td>
+                <td>HTML + JavaScript / PHP</td>
+                <td>
+                  Mulai punya nilai corporate karena membantu proses kerja.
+                </td>
+              </tr>
+
+              <tr>
+                <td>4</td>
+                <td>Knowledge Base Internal</td>
+                <td>PHP + MySQL</td>
+                <td>Mulai butuh database dan backend.</td>
+              </tr>
+
+              <tr>
+                <td>5</td>
+                <td>AI Agent Corporate</td>
+                <td>PHP + MySQL + AI API</td>
+                <td>Cocok untuk produk serius berbasis dashboard.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="footer">
+        <h2>Kesimpulan Akhir</h2>
+        <p>
+          Jika tujuannya membuat prototype, edukasi, atau produk digital
+          sederhana, HTML + JavaScript saja sudah cukup untuk Level 1 sampai
+          Level 3.
+        </p>
+        <p>
+          Tetapi jika ingin masuk ke corporate serius, multi-user, database,
+          dokumen, login, histori, dan dashboard, maka PHP + MySQL menjadi
+          pilihan yang jauh lebih kuat.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>
