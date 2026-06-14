@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Generator Landingpage</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f3f6fb;
+        color: #111827;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: auto;
+        padding: 18px;
+      }
+      .hero {
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        color: white;
+        padding: 28px;
+        border-radius: 24px;
+        text-align: center;
+      }
+      .card {
+        background: white;
+        margin-top: 18px;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 14px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 7px;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        font-size: 15px;
+      }
+      textarea {
+        min-height: 100px;
+      }
+      button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 14px;
+        border: 0;
+        border-radius: 14px;
+        background: #2563eb;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .btn-green {
+        background: #16a34a;
+      }
+      .btn-red {
+        background: #dc2626;
+      }
+      .output {
+        white-space: pre-wrap;
+        background: #0f172a;
+        color: #e5e7eb;
+        padding: 18px;
+        border-radius: 18px;
+        line-height: 1.6;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="hero">
+        <h1>Prompt Generator Landingpage</h1>
+        <p>
+          Buat prompt otomatis untuk membuat landingpage berbagai tema dengan
+          HTML, CSS, dan JavaScript dalam 1 file lengkap.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Isi Data Landingpage</h2>
+
+        <label>Nama Produk / Jasa / Program</label>
+        <input id="nama" placeholder="Contoh: Kelas Digital Marketing UMKM" />
+
+        <label>Tema Landingpage</label>
+        <select id="tema">
+          <option>Jualan Produk</option>
+          <option>Jasa Profesional</option>
+          <option>Kelas / Webinar / Zoominar</option>
+          <option>Komunitas</option>
+          <option>Produk Herbal</option>
+          <option>Produk Digital</option>
+          <option>Bisnis Kuliner</option>
+          <option>Properti</option>
+          <option>Travel / Umroh / Wisata</option>
+          <option>Aplikasi SaaS</option>
+          <option>Event / Seminar</option>
+          <option>Personal Branding</option>
+          <option>Donasi / Sosial</option>
+          <option>Marketplace / Katalog Produk</option>
+        </select>
+
+        <label>Target Market</label>
+        <input
+          id="target"
+          placeholder="Contoh: UMKM, ibu rumah tangga, owner bisnis, anak muda"
+        />
+
+        <label>Masalah Utama Target Market</label>
+        <textarea
+          id="masalah"
+          placeholder="Contoh: bingung jualan online, promosi tidak menghasilkan, traffic kecil"
+        ></textarea>
+
+        <label>Solusi yang Ditawarkan</label>
+        <textarea
+          id="solusi"
+          placeholder="Contoh: belajar membuat landingpage, SEO, Meta Ads, dan WhatsApp closing"
+        ></textarea>
+
+        <label>Keunggulan / Benefit</label>
+        <textarea
+          id="benefit"
+          placeholder="Contoh: praktek langsung, mudah dipahami, cocok untuk pemula, bisa pakai HP"
+        ></textarea>
+
+        <label>Gaya Desain</label>
+        <select id="desain">
+          <option>Modern SaaS Premium</option>
+          <option>Model Web Berita</option>
+          <option>Elegan Minimalis</option>
+          <option>Kartun Lucu</option>
+          <option>Natural Herbal</option>
+          <option>Luxury Premium</option>
+          <option>Dark Mode Futuristik</option>
+          <option>Warna Cerah UMKM</option>
+          <option>Nuansa Islami</option>
+          <option>Mobile First</option>
+        </select>
+
+        <label>Gaya Copywriting</label>
+        <select id="copywriting">
+          <option>AIDA</option>
+          <option>PAS</option>
+          <option>Otak Kiri, Otak Kanan, Out of The Box</option>
+          <option>Storytelling</option>
+          <option>Hard Selling</option>
+          <option>Soft Selling</option>
+          <option>Bahasa Emak-Emak</option>
+          <option>Bahasa Direktur / Owner Bisnis</option>
+          <option>Bahasa Santai Anak Muda</option>
+        </select>
+
+        <label>Warna Utama</label>
+        <input
+          id="warna"
+          placeholder="Contoh: biru ungu, hijau natural, merah kuning, hitam emas"
+        />
+
+        <label>Nomor WhatsApp</label>
+        <input id="wa" placeholder="Contoh: 085174092993" />
+
+        <label>CTA Utama</label>
+        <input
+          id="cta"
+          placeholder="Contoh: Konsultasi Sekarang, Tanya Harga, Gabung Kelas"
+        />
+
+        <label>Fitur Tambahan</label>
+        <textarea
+          id="fitur"
+          placeholder="Contoh: FAQ, testimoni, tabel harga, form order WhatsApp, countdown, galeri, JSON-LD"
+        ></textarea>
+
+        <label>Perintah Tambahan</label>
+        <textarea
+          id="tambahan"
+          placeholder="Contoh: buat versi mobile saja, jangan pakai floating, tambahkan target blank"
+        ></textarea>
+
+        <button onclick="buatPrompt()">Buat Prompt</button>
+        <button class="btn-green" onclick="copyPrompt()">Copy Prompt</button>
+        <button class="btn-red" onclick="resetForm()">Reset</button>
+      </section>
+
+      <section class="card">
+        <h2>Hasil Prompt</h2>
+        <div id="output" class="output">Prompt akan muncul di sini...</div>
+      </section>
+    </div>
+
+    <script>
+      function buatPrompt() {
+        const nama = document.getElementById('nama').value;
+        const tema = document.getElementById('tema').value;
+        const target = document.getElementById('target').value;
+        const masalah = document.getElementById('masalah').value;
+        const solusi = document.getElementById('solusi').value;
+        const benefit = document.getElementById('benefit').value;
+        const desain = document.getElementById('desain').value;
+        const copywriting = document.getElementById('copywriting').value;
+        const warna = document.getElementById('warna').value;
+        const wa = document.getElementById('wa').value;
+        const cta = document.getElementById('cta').value;
+        const fitur = document.getElementById('fitur').value;
+        const tambahan = document.getElementById('tambahan').value;
+
+        const prompt = `Buatkan saya landingpage berbasis HTML, CSS, dan JavaScript dalam 1 file lengkap.
+
+Nama landingpage:
+${nama}
+
+Tema landingpage:
+${tema}
+
+Target market:
+${target}
+
+Masalah utama target market:
+${masalah}
+
+Solusi yang ditawarkan:
+${solusi}
+
+Keunggulan / benefit:
+${benefit}
+
+Gaya desain:
+${desain}
+
+Gaya copywriting:
+${copywriting}
+
+Warna utama:
+${warna}
+
+Nomor WhatsApp CTA:
+${wa}
+
+CTA utama:
+${cta}
+
+Fitur tambahan yang wajib dimasukkan:
+${fitur}
+
+Struktur landingpage yang saya inginkan:
+1. Hero section dengan headline kuat.
+2. Subheadline yang menjelaskan masalah dan solusi.
+3. Tombol CTA WhatsApp.
+4. Section masalah target market.
+5. Section solusi.
+6. Section benefit.
+7. Section alasan harus memilih produk/jasa/program ini.
+8. Section cara kerja / alur pemesanan.
+9. Section testimoni dummy.
+10. Section harga atau paket jika relevan.
+11. Section FAQ.
+12. Section CTA akhir.
+13. Footer sederhana.
+
+Ketentuan desain:
+- Tampilan modern.
+- Responsive.
+- Mobile friendly.
+- Nyaman dibuka di HP.
+- Gunakan card modern.
+- Gunakan tombol besar.
+- Gunakan animasi ringan.
+- Gunakan layout rapi.
+- Warna menyesuaikan tema.
+- Tampilan harus terlihat profesional dan siap pakai.
+
+Ketentuan teknis:
+1. Semua kode harus berada dalam 1 file HTML.
+2. Gunakan HTML, CSS, dan JavaScript murni.
+3. Tidak perlu backend.
+4. Tidak perlu database.
+5. Boleh memakai CDN Font Awesome jika dibutuhkan.
+6. Kode harus rapi dan mudah diedit.
+7. Tambahkan komentar kode agar mudah dipelajari.
+8. Tombol CTA harus menuju WhatsApp.
+9. Link WhatsApp gunakan format wa.me.
+10. Jangan gunakan framework berat.
+
+Perintah tambahan:
+${tambahan}`;
+
+        document.getElementById('output').innerText = prompt;
+      }
+
+      function copyPrompt() {
+        const text = document.getElementById('output').innerText;
+        navigator.clipboard.writeText(text);
+        alert('Prompt berhasil dicopy!');
+      }
+
+      function resetForm() {
+        document
+          .querySelectorAll('input, textarea')
+          .forEach((el) => (el.value = ''));
+        document.getElementById('output').innerText =
+          'Prompt akan muncul di sini...';
+      }
+    </script>
+  </body>
+</html>
